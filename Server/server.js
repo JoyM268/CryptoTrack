@@ -18,7 +18,7 @@ app.post("/register", async (req, res) => {
 	try {
 		const user = await User.findOne({ username });
 		if (user) {
-			return res.status(400).json({ Error: "User Already Exists" });
+			res.status(400).json({ Error: "User Already Exists" });
 		}
 
 		const newUser = new User({ username, password });
@@ -32,10 +32,10 @@ app.post("/register", async (req, res) => {
 app.post("/login", (req, res, next) => {
 	passport.authenticate("local", { session: false }, (err, user, info) => {
 		if (err) {
-			return res.status(500).json({ error: "Authentication error" });
+			res.status(500).json({ error: "Authentication error" });
 		}
 		if (!user) {
-			return res.status(400).json({ error: "Invalid credentials" });
+			res.status(400).json({ error: "Invalid credentials" });
 		}
 
 		const payload = { id: user._id, username: user.username };
@@ -86,6 +86,98 @@ app.get(
 			res.json(user.portfolio);
 		} catch (err) {
 			res.json(500).json(err);
+		}
+	}
+);
+
+app.put(
+	"/watchlist/add",
+	passport.authenticate("jwt", { session: false }),
+	async (req, res) => {
+		const userId = req.user._id;
+		const coin = req.body.coin;
+		try {
+			const user = await User.findByIdAndUpdate(
+				userId,
+				{ $addToSet: { watchlist: coin } },
+				{ new: true }
+			);
+
+			if (!user) {
+				res.status(404).json({ Error: "User not Found" });
+			}
+
+			res.status(200).json({ watchlist: user.watchlist });
+		} catch (err) {
+			res.status(500).json(err.message);
+		}
+	}
+);
+
+app.put(
+	"/watchlist/remove",
+	passport.authenticate("jwt", { session: false }),
+	async (req, res) => {
+		const userId = req.user._id;
+		const coin = req.body.coin;
+		try {
+			const user = await User.findByIdAndUpdate(
+				userId,
+				{ $pull: { watchlist: coin } },
+				{ new: true }
+			);
+
+			if (!user) {
+				res.status(404).json({ Error: "User not Found" });
+			}
+
+			res.status(200).json({ watchlist: user.watchlist });
+		} catch (err) {
+			res.status(500).json(err.message);
+		}
+	}
+);
+
+app.put(
+	"/portfolio/update",
+	passport.authenticate("jwt", { session: false }),
+	async (req, res) => {
+		const userId = req.user._id;
+		const { coin, coinData } = req.body;
+
+		try {
+			const user = await User.findById(userId);
+			if (!user) {
+				return res.status(404).json({ error: "User not found" });
+			}
+
+			const portfolio = user.portfolio;
+			const existingCoinData = portfolio.get(coin);
+
+			if (existingCoinData) {
+				const newTotalInvestment =
+					existingCoinData.totalInvestment + coinData.totalInvestment;
+				const newCoins = existingCoinData.coins + coinData.coins;
+
+				if (newTotalInvestment <= 0 || newCoins <= 0) {
+					portfolio.delete(coin);
+				} else {
+					existingCoinData.totalInvestment = newTotalInvestment;
+					existingCoinData.coins = newCoins;
+					portfolio.set(coin, existingCoinData);
+				}
+			} else {
+				if (coinData.totalInvestment > 0 && coinData.coins > 0) {
+					portfolio.set(coin, coinData);
+				}
+			}
+
+			user.markModified("portfolio");
+
+			const updatedUser = await user.save();
+			res.status(200).json(updatedUser.portfolio);
+		} catch (err) {
+			res.status(500).json(err.message);
 		}
 	}
 );
