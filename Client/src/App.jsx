@@ -121,7 +121,11 @@ const AppContent = () => {
 					element={
 						<Watchlist
 							watchlist={watchlist}
+							toggleForm={toggleForm}
 							toggleWatchlist={toggleWatchlist}
+							addCoin={addCoin}
+							form={form}
+							coinData={coinData}
 						/>
 					}
 				/>
