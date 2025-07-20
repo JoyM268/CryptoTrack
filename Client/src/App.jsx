@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { BrowserRouter, Routes, Route, useLocation } from "react-router-dom";
+import { Routes, Route, useLocation } from "react-router-dom";
 import Header from "./components/Header";
 import Menu from "./components/Menu";
 import Home from "./pages/Home";
@@ -9,7 +9,7 @@ import SignUp from "./pages/SignUp";
 import Watchlist from "./pages/Watchlist";
 import { AnimatePresence } from "motion/react";
 
-const AppContent = () => {
+const App = () => {
 	const [menu, setMenu] = useState(false);
 	const loggedIn = true;
 	const [watchlist, setWatchlist] = useState([]);
@@ -133,14 +133,6 @@ const AppContent = () => {
 				<Route path="/signup" element={<SignUp />} />
 			</Routes>
 		</div>
-	);
-};
-
-const App = () => {
-	return (
-		<BrowserRouter>
-			<AppContent />
-		</BrowserRouter>
 	);
 };
 
