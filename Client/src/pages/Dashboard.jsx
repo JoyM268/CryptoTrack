@@ -9,6 +9,7 @@ import {
 	Legend,
 	ResponsiveContainer,
 } from "recharts";
+import Form from "../components/Form";
 import PortfolioTable from "../components/PortfolioTable";
 
 const COLORS = [
@@ -20,12 +21,27 @@ const COLORS = [
 	"#FF1943",
 ];
 
-const Dashboard = ({ watchlist, toggleWatchlist, portfolio }) => {
+const Dashboard = ({
+	watchlist,
+	toggleWatchlist,
+	portfolio,
+	form,
+	addCoin,
+	toggleForm,
+	removeCoin,
+	coinData,
+}) => {
 	const [coins, setCoins] = useState([]);
 	const [loading, setLoading] = useState(true);
 	const [error, setError] = useState(null);
+	const [action, setAction] = useState("");
 	const [pieChart, setPieChart] = useState([]);
 	const portfolioCoins = Object.keys(portfolio);
+
+	const handleToggleForm = (coin, actionType) => {
+		setAction(actionType);
+		toggleForm(coin);
+	};
 
 	useEffect(() => {
 		const searchCoins = async () => {
@@ -85,9 +101,9 @@ const Dashboard = ({ watchlist, toggleWatchlist, portfolio }) => {
 
 	const profit = ((currentValue - totalInvestment) / totalInvestment) * 100;
 
-	return (
+	return !form ? (
 		<div className="bg-slate-100 min-h-screen w-full p-4 sm:p-6 lg:p-8">
-			<div className="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-6">
+			<div className="max-w-9xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-6">
 				<div className="bg-white shadow-lg rounded-xl p-6 flex flex-col items-start gap-3">
 					<h2 className="text-xl font-semibold text-gray-500">
 						Current Value
@@ -174,9 +190,20 @@ const Dashboard = ({ watchlist, toggleWatchlist, portfolio }) => {
 							? ""
 							: "No Coins Added To Portfolio"
 					}
+					toggleForm={handleToggleForm}
 				/>
 			</div>
 		</div>
+	) : (
+		<Form
+			title={
+				action == "add" ? "Add to Portfolio" : "Remove from Portfolio"
+			}
+			buttonText={action == "add" ? "Buy" : "Sell"}
+			coinData={coinData}
+			toggleForm={toggleForm}
+			action={action == "add" ? addCoin : removeCoin}
+		/>
 	);
 };
 

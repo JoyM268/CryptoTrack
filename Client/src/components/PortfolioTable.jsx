@@ -8,6 +8,7 @@ const PortfolioTable = ({
 	watchlist,
 	portfolio,
 	message,
+	toggleForm,
 }) => {
 	return (
 		<table className="w-full min-w-[760px] text-left">
@@ -36,7 +37,7 @@ const PortfolioTable = ({
 				{message && (
 					<tr>
 						<td
-							colSpan="6"
+							colSpan="8"
 							className="text-center p-8 text-gray-500"
 						>
 							{message}
@@ -46,7 +47,7 @@ const PortfolioTable = ({
 				{loading && (
 					<tr>
 						<td
-							colSpan="6"
+							colSpan="8"
 							className="text-center p-8 text-gray-500"
 						>
 							Loading data...
@@ -56,7 +57,7 @@ const PortfolioTable = ({
 				{error && (
 					<tr>
 						<td
-							colSpan="6"
+							colSpan="8"
 							className="text-center p-8 text-red-500"
 						>
 							An Error Occured
@@ -72,6 +73,7 @@ const PortfolioTable = ({
 							coinData={portfolio[coin.id]}
 							isStarred={watchlist.includes(coin.id)}
 							toggleWatchlist={toggleWatchlist}
+							toggleForm={toggleForm}
 						/>
 					))}
 			</tbody>

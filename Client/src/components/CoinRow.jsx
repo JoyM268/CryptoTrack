@@ -1,7 +1,7 @@
 import StarOutlineIcon from "@mui/icons-material/StarOutline";
 import StarIcon from "@mui/icons-material/Star";
 
-const CoinRow = ({ coin, isStarred, toggleWatchlist }) => {
+const CoinRow = ({ coin, isStarred, toggleWatchlist, toggleForm }) => {
 	const color =
 		coin.price_change_percentage_24h < 0
 			? "text-red-600"
@@ -52,7 +52,12 @@ const CoinRow = ({ coin, isStarred, toggleWatchlist }) => {
 					>
 						{isStarred ? <StarIcon /> : <StarOutlineIcon />}
 					</button>
-					<button className="px-3 py-1 bg-blue-600 text-white text-sm font-semibold rounded-md hover:bg-blue-700 transition-all duration-200 cursor-pointer">
+					<button
+						className="px-3 py-1 bg-blue-600 text-white text-sm font-semibold rounded-md hover:bg-blue-700 transition-all duration-200 cursor-pointer"
+						onClick={() => {
+							toggleForm(coin);
+						}}
+					>
 						Add
 					</button>
 				</div>

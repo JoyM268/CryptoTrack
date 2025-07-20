@@ -1,7 +1,8 @@
 import { useEffect, useState } from "react";
 import Table from "../components/Table";
+import Form from "../components/Form";
 
-const Watchlist = ({ watchlist, toggleWatchlist }) => {
+const Watchlist = ({ watchlist, toggleWatchlist, addCoin, form, toggleForm, coinData }) => {
 	const [coins, setCoins] = useState([]);
 	const [loading, setLoading] = useState(true);
 	const [error, setError] = useState(null);
@@ -35,19 +36,30 @@ const Watchlist = ({ watchlist, toggleWatchlist }) => {
 	}, [watchlist]);
 
 	return (
-		<div className="mt-1.5 mx-auto overflow-x-auto [scrollbar-width:none]">
-			<Table
-				loading={loading}
-				error={error}
-				coins={coins}
-				toggleWatchlist={toggleWatchlist}
-				watchlist={watchlist}
-				message={
-					watchlist.length === 0
-						? "No Coin Has Been Added To Watchlist"
-						: ""
-				}
-			/>
+		<div className="mt-3 overflow-x-auto [scrollbar-width:none] mx-6">
+			{!form ? (
+				<Table
+					loading={loading}
+					error={error}
+					coins={coins}
+					toggleWatchlist={toggleWatchlist}
+					watchlist={watchlist}
+					message={
+						watchlist.length === 0
+							? "No Coin Has Been Added To Watchlist"
+							: ""
+					}
+					toggleForm={toggleForm}
+				/>
+			) : (
+				<Form
+					title={"Add to Portfolio"}
+					buttonText={"Add"}
+					coinData={coinData}
+					toggleForm={toggleForm}
+					action={addCoin}
+				/>
+			)}
 		</div>
 	);
 };

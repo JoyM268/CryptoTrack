@@ -13,6 +13,8 @@ const AppContent = () => {
 	const [menu, setMenu] = useState(false);
 	const loggedIn = true;
 	const [watchlist, setWatchlist] = useState([]);
+	const [form, setForm] = useState(false);
+	const [coinData, setCoinData] = useState({});
 	const [portfolio, setPortfolio] = useState({
 		bitcoin: {
 			totalInvestment: 5500,
@@ -24,6 +26,42 @@ const AppContent = () => {
 			coins: 100,
 		},
 	});
+
+	function toggleForm(coin = null) {
+		if (coin) {
+			setCoinData(coin);
+		} else {
+			setCoinData({});
+		}
+		setForm((form) => !form);
+	}
+
+	function addCoin(id, totalInvestment, coins) {
+		setPortfolio((prev) => ({
+			...prev,
+			[id]: {
+				totalInvestment:
+					(prev[id]?.totalInvestment || 0) +
+					parseFloat(totalInvestment),
+				coins: (prev[id]?.coins || 0) + parseFloat(coins),
+			},
+		}));
+		toggleForm();
+	}
+
+	function removeCoin(id, totalInvestment, coins) {
+		setPortfolio((prev) => ({
+			...prev,
+			[id]: {
+				totalInvestment:
+					(prev[id]?.totalInvestment || 0) -
+					parseFloat(totalInvestment),
+				coins: (prev[id]?.coins || 0) - parseFloat(coins),
+			},
+		}));
+		toggleForm();
+	}
+
 	const location = useLocation();
 
 	useEffect(() => {
@@ -56,6 +94,10 @@ const AppContent = () => {
 						<Home
 							watchlist={watchlist}
 							toggleWatchlist={toggleWatchlist}
+							addCoin={addCoin}
+							form={form}
+							toggleForm={toggleForm}
+							coinData={coinData}
 						/>
 					}
 				/>
@@ -66,6 +108,11 @@ const AppContent = () => {
 							watchlist={watchlist}
 							toggleWatchlist={toggleWatchlist}
 							portfolio={portfolio}
+							addCoin={addCoin}
+							form={form}
+							toggleForm={toggleForm}
+							coinData={coinData}
+							removeCoin={removeCoin}
 						/>
 					}
 				/>
