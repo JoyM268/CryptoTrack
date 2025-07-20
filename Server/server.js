@@ -9,6 +9,10 @@ app.use(express.json());
 const passport = require("./auth");
 app.use(passport.initialize());
 
+app.get("/", (req, res) => {
+	res.send("API is running");
+});
+
 app.post("/register", async (req, res) => {
 	const { username, password } = req.body;
 	try {
@@ -31,19 +35,21 @@ app.post("/login", (req, res, next) => {
 			return res.status(500).json({ error: "Authentication error" });
 		}
 		if (!user) {
-			return res.status(400).json({ error: info.message || "Invalid credentials" });
+			return res.status(400).json({ error: "Invalid credentials" });
 		}
 
 		const payload = { id: user._id, username: user.username };
-		const token = jwt.sign(payload, process.env.JWT_SECRET, { expiresIn: "24h" });
+		const token = jwt.sign(payload, process.env.JWT_SECRET, {
+			expiresIn: "24h",
+		});
 
 		res.status(200).json({
 			message: "Login successful",
 			token: token,
 			user: {
 				id: user._id,
-				username: user.username
-			}
+				username: user.username,
+			},
 		});
 	})(req, res, next);
 });
