@@ -2,7 +2,15 @@ import { useEffect, useState } from "react";
 import Table from "../components/Table";
 import Form from "../components/Form";
 
-const Watchlist = ({ watchlist, toggleWatchlist, addCoin, form, toggleForm, coinData }) => {
+const Watchlist = ({
+	watchlist,
+	toggleWatchlist,
+	addCoin,
+	form,
+	toggleForm,
+	coinData,
+	loggedIn,
+}) => {
 	const [coins, setCoins] = useState([]);
 	const [loading, setLoading] = useState(true);
 	const [error, setError] = useState(null);
@@ -50,6 +58,7 @@ const Watchlist = ({ watchlist, toggleWatchlist, addCoin, form, toggleForm, coin
 							: ""
 					}
 					toggleForm={toggleForm}
+					loggedIn={loggedIn}
 				/>
 			) : (
 				<Form

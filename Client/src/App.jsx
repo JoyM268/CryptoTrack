@@ -167,6 +167,7 @@ const AppContent = () => {
 								toggleWatchlist={toggleWatchlist}
 								addCoin={addCoin}
 								form={form}
+								loggedIn={isAuthenticated}
 								coinData={coinData}
 							/>
 						) : (
