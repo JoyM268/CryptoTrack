@@ -4,7 +4,7 @@ const db = require("./db");
 require("dotenv").config();
 const jwt = require("jsonwebtoken");
 const User = require("./models/Users");
-const PORT = process.env.PORT || 3001;
+const PORT = process.env.PORT || 3000;
 const app = express();
 
 app.use(
