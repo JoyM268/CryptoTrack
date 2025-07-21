@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const API_URL = "http://localhost:3003";
+const API_URL = "https://cryptotrack-rhun.onrender.com";
 
 const api = axios.create({
 	baseURL: API_URL,
