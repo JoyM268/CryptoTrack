@@ -9,6 +9,7 @@ const Header = ({ menu, toggleMenu, loggedIn }) => {
 	const handleLogout = () => {
 		logout();
 	};
+
 	return (
 		<div className="bg-white shadow-md h-16 flex justify-between items-center px-4 select-none z-20 sticky top-0">
 			<div className="text-2xl font-bold text-blue-600">CryptoTrack</div>

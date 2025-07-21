@@ -8,6 +8,7 @@ const Table = ({
 	watchlist,
 	message,
 	toggleForm,
+	loggedIn,
 }) => {
 	return (
 		<table className="w-full min-w-[760px] text-left">
@@ -65,6 +66,7 @@ const Table = ({
 							isStarred={watchlist.includes(coin.id)}
 							toggleWatchlist={toggleWatchlist}
 							toggleForm={toggleForm}
+							loggedIn={loggedIn}
 						/>
 					))}
 			</tbody>

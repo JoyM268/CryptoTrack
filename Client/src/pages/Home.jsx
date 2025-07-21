@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import SearchIcon from "@mui/icons-material/Search";
 import Table from "../components/Table";
 import Form from "../components/Form";
+import LoginWarning from "../components/LoginWarning";
 
 const Home = ({
 	watchlist,
@@ -10,6 +11,7 @@ const Home = ({
 	form,
 	toggleForm,
 	coinData,
+	loggedIn,
 }) => {
 	const [coins, setCoins] = useState([]);
 	const [loading, setLoading] = useState(true);
@@ -85,10 +87,11 @@ const Home = ({
 							watchlist={watchlist}
 							message={""}
 							toggleForm={toggleForm}
+							loggedIn={loggedIn}
 						/>
 					</div>
 				</>
-			) : (
+			) : loggedIn ? (
 				<Form
 					title={"Add to Portfolio"}
 					buttonText={"Add"}
@@ -96,6 +99,8 @@ const Home = ({
 					toggleForm={toggleForm}
 					action={addCoin}
 				/>
+			) : (
+				<LoginWarning toggleForm={toggleForm} />
 			)}
 		</div>
 	);

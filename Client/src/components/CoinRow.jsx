@@ -1,7 +1,13 @@
 import StarOutlineIcon from "@mui/icons-material/StarOutline";
 import StarIcon from "@mui/icons-material/Star";
 
-const CoinRow = ({ coin, isStarred, toggleWatchlist, toggleForm }) => {
+const CoinRow = ({
+	coin,
+	isStarred,
+	toggleWatchlist,
+	toggleForm,
+	loggedIn,
+}) => {
 	const color =
 		coin.price_change_percentage_24h < 0
 			? "text-red-600"
@@ -47,7 +53,11 @@ const CoinRow = ({ coin, isStarred, toggleWatchlist, toggleForm }) => {
 								: "text-amber-300"
 						}`}
 						onClick={() => {
-							toggleWatchlist(coin.id);
+							if (loggedIn) {
+								toggleWatchlist(coin.id);
+							} else {
+								toggleForm();
+							}
 						}}
 					>
 						{isStarred ? <StarIcon /> : <StarOutlineIcon />}

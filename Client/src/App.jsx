@@ -1,5 +1,11 @@
 import React, { useState, useEffect } from "react";
-import { BrowserRouter, Routes, Route, useLocation, Navigate } from "react-router-dom";
+import {
+	BrowserRouter,
+	Routes,
+	Route,
+	useLocation,
+	Navigate,
+} from "react-router-dom";
 import Header from "./components/Header";
 import Menu from "./components/Menu";
 import Home from "./pages/Home";
@@ -19,7 +25,6 @@ const AppContent = () => {
 	const [coinData, setCoinData] = useState({});
 	const [portfolio, setPortfolio] = useState({});
 
-	// Load user data when authenticated
 	useEffect(() => {
 		if (isAuthenticated) {
 			loadUserData();
@@ -30,7 +35,7 @@ const AppContent = () => {
 		try {
 			const [portfolioData, watchlistData] = await Promise.all([
 				portfolioAPI.get(),
-				watchlistAPI.get()
+				watchlistAPI.get(),
 			]);
 			setPortfolio(portfolioData);
 			setWatchlist(watchlistData.watchlist);
@@ -52,7 +57,7 @@ const AppContent = () => {
 		try {
 			const coinData = {
 				totalInvestment: parseFloat(totalInvestment),
-				coins: parseFloat(coins)
+				coins: parseFloat(coins),
 			};
 			const updatedPortfolio = await portfolioAPI.update(id, coinData);
 			setPortfolio(updatedPortfolio);
@@ -66,7 +71,7 @@ const AppContent = () => {
 		try {
 			const coinData = {
 				totalInvestment: -parseFloat(totalInvestment),
-				coins: -parseFloat(coins)
+				coins: -parseFloat(coins),
 			};
 			const updatedPortfolio = await portfolioAPI.update(id, coinData);
 			setPortfolio(updatedPortfolio);
@@ -101,12 +106,20 @@ const AppContent = () => {
 	}
 
 	if (loading) {
-		return <div className="min-h-screen bg-gray-50 flex items-center justify-center">Loading...</div>;
+		return (
+			<div className="min-h-screen bg-gray-50 flex items-center justify-center">
+				Loading...
+			</div>
+		);
 	}
 
 	return (
 		<div className="min-h-screen bg-gray-50">
-			<Header menu={menu} toggleMenu={toggleMenu} loggedIn={isAuthenticated} />
+			<Header
+				menu={menu}
+				toggleMenu={toggleMenu}
+				loggedIn={isAuthenticated}
+			/>
 			<AnimatePresence>
 				{menu && <Menu loggedIn={isAuthenticated} />}
 			</AnimatePresence>
@@ -121,6 +134,7 @@ const AppContent = () => {
 							form={form}
 							toggleForm={toggleForm}
 							coinData={coinData}
+							loggedIn={isAuthenticated}
 						/>
 					}
 				/>
@@ -160,13 +174,25 @@ const AppContent = () => {
 						)
 					}
 				/>
-				<Route 
-					path="/login" 
-					element={isAuthenticated ? <Navigate to="/dashboard" /> : <Login />} 
+				<Route
+					path="/login"
+					element={
+						isAuthenticated ? (
+							<Navigate to="/dashboard" />
+						) : (
+							<Login />
+						)
+					}
 				/>
-				<Route 
-					path="/signup" 
-					element={isAuthenticated ? <Navigate to="/dashboard" /> : <SignUp />} 
+				<Route
+					path="/signup"
+					element={
+						isAuthenticated ? (
+							<Navigate to="/dashboard" />
+						) : (
+							<SignUp />
+						)
+					}
 				/>
 			</Routes>
 		</div>
