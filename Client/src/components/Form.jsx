@@ -6,7 +6,7 @@ const Form = ({ title, buttonText, coinData, toggleForm, action }) => {
 	const isSelling = buttonText === "Sell";
 	return (
 		<div className="flex w-screen justify-center items-center">
-			<div className="fixed top-1/5 w-fit shadow-2xl p-8 rounded-xl bg-white">
+			<div className="fixed top-1/5 w-fit shadow-2xl p-8 rounded-xl bg-white mx-6">
 				<div className="flex justify-between gap-36 mb-4">
 					<h1 className="text-xl font-bold">{title}</h1>
 					<div
@@ -42,7 +42,11 @@ const Form = ({ title, buttonText, coinData, toggleForm, action }) => {
 						/>
 					</div>
 					<div className="flex flex-col mb-5">
-						<span>{isSelling ? "Sell Price(USD) *" : "Buy Price(USD) *"}</span>
+						<span>
+							{isSelling
+								? "Sell Price(USD) *"
+								: "Buy Price(USD) *"}
+						</span>
 						<input
 							type="text"
 							value={price}
@@ -57,7 +61,11 @@ const Form = ({ title, buttonText, coinData, toggleForm, action }) => {
 								Amount And Price can only be a Number
 							</span>
 						) : (
-							`${isSelling ? "Total Sale Value" : "Total Investment"}: \$${(amount * price).toFixed(2)}`
+							`${
+								isSelling
+									? "Total Sale Value"
+									: "Total Investment"
+							}: \$${(amount * price).toFixed(2)}`
 						)}
 					</p>
 				</form>

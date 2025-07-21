@@ -99,7 +99,8 @@ const Dashboard = ({
 		return acc;
 	}, 0);
 
-	const profit = ((currentValue - totalInvestment) / totalInvestment) * 100;
+	const profit =
+		((currentValue - totalInvestment) / totalInvestment) * 100 || 0;
 
 	return !form ? (
 		<div className="bg-slate-100 min-h-screen w-full p-4 sm:p-6 lg:p-8">
