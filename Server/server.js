@@ -19,7 +19,7 @@ const passport = require("./auth");
 app.use(passport.initialize());
 
 app.get("/", (req, res) => {
-	res.send("API is running");
+	return res.send("API is running");
 });
 
 app.post("/register", async (req, res) => {
@@ -27,24 +27,26 @@ app.post("/register", async (req, res) => {
 	try {
 		const user = await User.findOne({ username });
 		if (user) {
-			res.status(400).json({ Error: "User Already Exists" });
+			return res.status(400).json({ Error: "User Already Exists" });
 		}
 
 		const newUser = new User({ username, password });
 		const response = await newUser.save();
-		res.status(200).json({ message: "User Registered Successfully" });
+		return res
+			.status(200)
+			.json({ message: "User Registered Successfully" });
 	} catch (err) {
-		res.status(500).json(err);
+		return res.status(500).json(err);
 	}
 });
 
 app.post("/login", (req, res, next) => {
 	passport.authenticate("local", { session: false }, (err, user, info) => {
 		if (err) {
-			res.status(500).json({ error: "Authentication error" });
+			return res.status(500).json({ error: "Authentication error" });
 		}
 		if (!user) {
-			res.status(400).json({ error: "Invalid credentials" });
+			return res.status(400).json({ error: "Invalid credentials" });
 		}
 
 		const payload = { id: user._id, username: user.username };
@@ -71,12 +73,12 @@ app.get(
 			const userId = req.user._id;
 			const user = await User.findById(userId);
 			if (!user) {
-				res.status(404).json({ Error: "User not Found" });
+				return res.status(404).json({ Error: "User not Found" });
 			}
 
-			res.json({ watchlist: user.watchlist });
+			return res.json({ watchlist: user.watchlist });
 		} catch (err) {
-			res.json(500).json(err);
+			return res.json(500).json(err);
 		}
 	}
 );
@@ -89,12 +91,12 @@ app.get(
 			const userId = req.user._id;
 			const user = await User.findById(userId);
 			if (!user) {
-				res.status(404).json({ Error: "User not Found" });
+				return res.status(404).json({ Error: "User not Found" });
 			}
 
-			res.json(user.portfolio);
+			return res.json(user.portfolio);
 		} catch (err) {
-			res.json(500).json(err);
+			return res.json(500).json(err);
 		}
 	}
 );
@@ -113,12 +115,12 @@ app.put(
 			);
 
 			if (!user) {
-				res.status(404).json({ Error: "User not Found" });
+				return res.status(404).json({ Error: "User not Found" });
 			}
 
-			res.status(200).json({ watchlist: user.watchlist });
+			return res.status(200).json({ watchlist: user.watchlist });
 		} catch (err) {
-			res.status(500).json(err.message);
+			return res.status(500).json(err.message);
 		}
 	}
 );
@@ -137,12 +139,12 @@ app.put(
 			);
 
 			if (!user) {
-				res.status(404).json({ Error: "User not Found" });
+				return res.status(404).json({ Error: "User not Found" });
 			}
 
-			res.status(200).json({ watchlist: user.watchlist });
+			return res.status(200).json({ watchlist: user.watchlist });
 		} catch (err) {
-			res.status(500).json(err.message);
+			return res.status(500).json(err.message);
 		}
 	}
 );
@@ -184,9 +186,9 @@ app.put(
 			user.markModified("portfolio");
 
 			const updatedUser = await user.save();
-			res.status(200).json(updatedUser.portfolio);
+			return res.status(200).json(updatedUser.portfolio);
 		} catch (err) {
-			res.status(500).json(err.message);
+			return res.status(500).json(err.message);
 		}
 	}
 );
