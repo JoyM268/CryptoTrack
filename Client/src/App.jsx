@@ -1,11 +1,5 @@
 import React, { useState, useEffect } from "react";
-import {
-	BrowserRouter,
-	Routes,
-	Route,
-	useLocation,
-	Navigate,
-} from "react-router-dom";
+import { Routes, Route, useLocation, Navigate } from "react-router-dom";
 import Header from "./components/Header";
 import Menu from "./components/Menu";
 import Home from "./pages/Home";
@@ -17,7 +11,7 @@ import { AnimatePresence } from "motion/react";
 import { useAuth } from "./context/AuthContext";
 import { portfolioAPI, watchlistAPI } from "./services/api";
 
-const AppContent = () => {
+const App = () => {
 	const [menu, setMenu] = useState(false);
 	const { isAuthenticated, loading } = useAuth();
 	const [watchlist, setWatchlist] = useState([]);
@@ -197,14 +191,6 @@ const AppContent = () => {
 				/>
 			</Routes>
 		</div>
-	);
-};
-
-const App = () => {
-	return (
-		<BrowserRouter>
-			<AppContent />
-		</BrowserRouter>
 	);
 };
 
