@@ -1,10 +1,19 @@
 const express = require("express");
+const cors = require("cors");
 const db = require("./db");
 require("dotenv").config();
 const jwt = require("jsonwebtoken");
 const User = require("./models/Users");
-const PORT = process.env.PORT || 3000;
+const PORT = process.env.PORT || 3001;
 const app = express();
+
+app.use(
+	cors({
+		origin: process.env.CLIENT || "http://localhost:5173/",
+		credentials: true,
+	})
+);
+
 app.use(express.json());
 const passport = require("./auth");
 app.use(passport.initialize());
