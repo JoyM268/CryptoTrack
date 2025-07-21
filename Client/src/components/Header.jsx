@@ -1,8 +1,14 @@
 import { NavLink } from "react-router-dom";
 import MenuIcon from "@mui/icons-material/Menu";
 import CloseIcon from "@mui/icons-material/Close";
+import { useAuth } from "../context/AuthContext";
 
 const Header = ({ menu, toggleMenu, loggedIn }) => {
+	const { logout } = useAuth();
+
+	const handleLogout = () => {
+		logout();
+	};
 	return (
 		<div className="bg-white shadow-md h-16 flex justify-between items-center px-4 select-none z-20 sticky top-0">
 			<div className="text-2xl font-bold text-blue-600">CryptoTrack</div>
@@ -45,13 +51,12 @@ const Header = ({ menu, toggleMenu, loggedIn }) => {
 						>
 							Watchlist
 						</NavLink>
-						<ul
-							className={
-								"rounded-sm px-3 py-2 text-sm font-medium cursor-pointer text-white bg-blue-600 hover:bg-blue-700"
-							}
+						<button
+							onClick={handleLogout}
+							className="rounded-sm px-3 py-2 text-sm font-medium cursor-pointer text-white bg-blue-600 hover:bg-blue-700"
 						>
 							Logout
-						</ul>
+						</button>
 					</>
 				) : (
 					<>

@@ -1,10 +1,35 @@
 import { useState } from "react";
-import { NavLink } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
+import { authAPI } from "../services/api";
 
 const SignUp = () => {
 	const [username, setUsername] = useState("");
 	const [password, setPassword] = useState("");
 	const [confirmPassword, setConfirmPassword] = useState("");
+	const [error, setError] = useState("");
+	const [loading, setLoading] = useState(false);
+	const navigate = useNavigate();
+
+	const handleSubmit = async (e) => {
+		e.preventDefault();
+		setError("");
+		
+		if (password !== confirmPassword) {
+			setError("Passwords do not match");
+			return;
+		}
+		
+		setLoading(true);
+		
+		try {
+			await authAPI.register(username, password);
+			navigate("/login");
+		} catch (err) {
+			setError(err.response?.data?.Error || "Registration failed");
+		} finally {
+			setLoading(false);
+		}
+	};
 	return (
 		<div className="w-screen flex justify-center">
 			<div className="flex flex-col mt-32 justify-center items-center">
@@ -20,7 +45,12 @@ const SignUp = () => {
 						Login using existing account
 					</NavLink>
 				</p>
-				<form className="mt-10 flex flex-col sm:min-w-sm min-w-4/5">
+				{error && (
+					<div className="mt-4 p-3 bg-red-100 border border-red-400 text-red-700 rounded">
+						{error}
+					</div>
+				)}
+				<form onSubmit={handleSubmit} className="mt-10 flex flex-col sm:min-w-sm min-w-4/5">
 					<div className="flex flex-col mb-4">
 						<span className="text-s font-medium text-gray-800">
 							Username
@@ -57,8 +87,12 @@ const SignUp = () => {
 							onChange={(e) => setConfirmPassword(e.target.value)}
 						/>
 					</div>
-					<button className="bg-blue-700 py-2 text-white rounded-3xl hover:bg-blue-600 cursor-pointer mt-2.5">
-						Sign Up
+					<button 
+						type="submit" 
+						disabled={loading}
+						className="bg-blue-700 py-2 text-white rounded-3xl hover:bg-blue-600 cursor-pointer mt-2.5 disabled:opacity-50"
+					>
+						{loading ? "Creating Account..." : "Sign Up"}
 					</button>
 				</form>
 			</div>

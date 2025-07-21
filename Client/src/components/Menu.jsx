@@ -1,7 +1,13 @@
 import { NavLink } from "react-router-dom";
 import { motion } from "motion/react";
+import { useAuth } from "../context/AuthContext";
 
 const Menu = ({ loggedIn }) => {
+	const { logout } = useAuth();
+
+	const handleLogout = () => {
+		logout();
+	};
 	return (
 		<motion.ul
 			initial={{ y: "-100%", opacity: 0.5 }}
@@ -48,9 +54,12 @@ const Menu = ({ loggedIn }) => {
 					>
 						Watchlist
 					</NavLink>
-					<div className="p-2 w-full text-white bg-blue-600 hover:bg-blue-700 font-medium">
+					<button 
+						onClick={handleLogout}
+						className="p-2 w-full text-white bg-blue-600 hover:bg-blue-700 font-medium"
+					>
 						Logout
-					</div>
+					</button>
 				</>
 			) : (
 				<>

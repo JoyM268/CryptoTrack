@@ -1,9 +1,31 @@
 import { useState } from "react";
-import { NavLink } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
+import { useAuth } from "../context/AuthContext";
+import { authAPI } from "../services/api";
 
 const Login = () => {
 	const [username, setUsername] = useState("");
 	const [password, setPassword] = useState("");
+	const [error, setError] = useState("");
+	const [loading, setLoading] = useState(false);
+	const { login } = useAuth();
+	const navigate = useNavigate();
+
+	const handleSubmit = async (e) => {
+		e.preventDefault();
+		setLoading(true);
+		setError("");
+		
+		try {
+			const response = await authAPI.login(username, password);
+			login(response.token, response.user);
+			navigate("/dashboard");
+		} catch (err) {
+			setError(err.response?.data?.error || "Login failed");
+		} finally {
+			setLoading(false);
+		}
+	};
 	return (
 		<div className="w-screen flex justify-center">
 			<div className="flex flex-col mt-32 justify-center items-center">
@@ -19,7 +41,12 @@ const Login = () => {
 						create a new account
 					</NavLink>
 				</p>
-				<form className="mt-10 flex flex-col sm:min-w-sm min-w-4/5">
+				{error && (
+					<div className="mt-4 p-3 bg-red-100 border border-red-400 text-red-700 rounded">
+						{error}
+					</div>
+				)}
+				<form onSubmit={handleSubmit} className="mt-10 flex flex-col sm:min-w-sm min-w-4/5">
 					<div className="flex flex-col mb-4">
 						<span className="text-s font-medium text-gray-800">
 							Username
@@ -44,8 +71,12 @@ const Login = () => {
 							onChange={(e) => setPassword(e.target.value)}
 						/>
 					</div>
-					<button className="bg-blue-700 py-2 text-white rounded-3xl hover:bg-blue-600 cursor-pointer mt-2.5">
-						Login
+					<button 
+						type="submit" 
+						disabled={loading}
+						className="bg-blue-700 py-2 text-white rounded-3xl hover:bg-blue-600 cursor-pointer mt-2.5 disabled:opacity-50"
+					>
+						{loading ? "Logging in..." : "Login"}
 					</button>
 				</form>
 			</div>
