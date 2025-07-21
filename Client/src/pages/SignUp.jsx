@@ -32,7 +32,7 @@ const SignUp = () => {
 	};
 	return (
 		<div className="w-screen flex justify-center">
-			<div className="flex flex-col mt-32 justify-center items-center">
+			<div className="flex flex-col mt-16 sm:mt-20 md:mt-32 justify-center items-center">
 				<h1 className="text-3xl font-extrabold text-center">
 					Create a new account
 				</h1>
