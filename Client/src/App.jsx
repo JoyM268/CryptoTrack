@@ -1,5 +1,11 @@
 import React, { useState, useEffect } from "react";
-import { Routes, Route, useLocation, Navigate } from "react-router-dom";
+import {
+	Routes,
+	Route,
+	useLocation,
+	Navigate,
+	useNavigate,
+} from "react-router-dom";
 import Header from "./components/Header";
 import Menu from "./components/Menu";
 import Home from "./pages/Home";
@@ -18,13 +24,13 @@ const App = () => {
 	const [form, setForm] = useState(false);
 	const [coinData, setCoinData] = useState({});
 	const [portfolio, setPortfolio] = useState({});
+	const navigate = useNavigate();
 
 	const handleLogout = () => {
 		setWatchlist([]);
 		setPortfolio({});
-		coinData({});
-		setForm(false);
 		logout();
+		navigate("/login");
 	};
 
 	useEffect(() => {
