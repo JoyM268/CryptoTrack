@@ -3,13 +3,7 @@ import MenuIcon from "@mui/icons-material/Menu";
 import CloseIcon from "@mui/icons-material/Close";
 import { useAuth } from "../context/AuthContext";
 
-const Header = ({ menu, toggleMenu, loggedIn }) => {
-	const { logout } = useAuth();
-
-	const handleLogout = () => {
-		logout();
-	};
-
+const Header = ({ menu, toggleMenu, loggedIn, handleLogout }) => {
 	return (
 		<div className="bg-white shadow-md h-16 flex justify-between items-center px-4 select-none z-20 sticky top-0">
 			<div className="text-2xl font-bold text-blue-600">CryptoTrack</div>

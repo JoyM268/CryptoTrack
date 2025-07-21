@@ -13,11 +13,19 @@ import { portfolioAPI, watchlistAPI } from "./services/api";
 
 const App = () => {
 	const [menu, setMenu] = useState(false);
-	const { isAuthenticated, loading } = useAuth();
+	const { isAuthenticated, loading, logout } = useAuth();
 	const [watchlist, setWatchlist] = useState([]);
 	const [form, setForm] = useState(false);
 	const [coinData, setCoinData] = useState({});
 	const [portfolio, setPortfolio] = useState({});
+
+	const handleLogout = () => {
+		setWatchlist([]);
+		setPortfolio({});
+		coinData({});
+		setForm(false);
+		logout();
+	};
 
 	useEffect(() => {
 		if (isAuthenticated) {
@@ -113,6 +121,7 @@ const App = () => {
 				menu={menu}
 				toggleMenu={toggleMenu}
 				loggedIn={isAuthenticated}
+				handleLogout={handleLogout}
 			/>
 			<AnimatePresence>
 				{menu && <Menu loggedIn={isAuthenticated} />}
