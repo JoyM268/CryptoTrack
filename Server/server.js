@@ -9,7 +9,7 @@ const app = express();
 
 app.use(
 	cors({
-		origin: process.env.CLIENT || "http://localhost:5173",
+		origin: "https://cryptotrack-ultimez.vercel.app",
 		credentials: true,
 	})
 );
