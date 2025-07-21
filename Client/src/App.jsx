@@ -30,12 +30,15 @@ const App = () => {
 		setWatchlist([]);
 		setPortfolio({});
 		logout();
-		navigate("/login");
+		navigate("/");
 	};
 
 	useEffect(() => {
 		if (isAuthenticated) {
 			loadUserData();
+		} else {
+			setWatchlist([]);
+			setPortfolio({});
 		}
 	}, [isAuthenticated]);
 
