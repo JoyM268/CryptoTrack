@@ -43,36 +43,32 @@ const Watchlist = ({
 		searchCoins();
 	}, [watchlist]);
 
-	return;
-
-	{
-		!form ? (
-			<div className="mt-3 overflow-x-auto [scrollbar-width:none] mx-6">
-				<Table
-					loading={loading}
-					error={error}
-					coins={coins}
-					toggleWatchlist={toggleWatchlist}
-					watchlist={watchlist}
-					message={
-						watchlist.length === 0
-							? "No Coin Has Been Added To Watchlist"
-							: ""
-					}
-					toggleForm={toggleForm}
-					loggedIn={loggedIn}
-				/>
-			</div>
-		) : (
-			<Form
-				title={"Add to Portfolio"}
-				buttonText={"Add"}
-				coinData={coinData}
+	return !form ? (
+		<div className="mt-3 overflow-x-auto [scrollbar-width:none] mx-6">
+			<Table
+				loading={loading}
+				error={error}
+				coins={coins}
+				toggleWatchlist={toggleWatchlist}
+				watchlist={watchlist}
+				message={
+					watchlist.length === 0
+						? "No Coin Has Been Added To Watchlist"
+						: ""
+				}
 				toggleForm={toggleForm}
-				action={addCoin}
+				loggedIn={loggedIn}
 			/>
-		);
-	}
+		</div>
+	) : (
+		<Form
+			title={"Add to Portfolio"}
+			buttonText={"Add"}
+			coinData={coinData}
+			toggleForm={toggleForm}
+			action={addCoin}
+		/>
+	);
 };
 
 export default Watchlist;
