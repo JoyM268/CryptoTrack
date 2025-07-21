@@ -13,14 +13,14 @@ const SignUp = () => {
 	const handleSubmit = async (e) => {
 		e.preventDefault();
 		setError("");
-		
+
 		if (password !== confirmPassword) {
 			setError("Passwords do not match");
 			return;
 		}
-		
+
 		setLoading(true);
-		
+
 		try {
 			await authAPI.register(username, password);
 			navigate("/login");
@@ -45,12 +45,10 @@ const SignUp = () => {
 						Login using existing account
 					</NavLink>
 				</p>
-				{error && (
-					<div className="mt-4 p-3 bg-red-100 border border-red-400 text-red-700 rounded">
-						{error}
-					</div>
-				)}
-				<form onSubmit={handleSubmit} className="mt-10 flex flex-col sm:min-w-sm min-w-4/5">
+				<form
+					onSubmit={handleSubmit}
+					className="mt-10 flex flex-col sm:min-w-sm min-w-4/5"
+				>
 					<div className="flex flex-col mb-4">
 						<span className="text-s font-medium text-gray-800">
 							Username
@@ -87,8 +85,11 @@ const SignUp = () => {
 							onChange={(e) => setConfirmPassword(e.target.value)}
 						/>
 					</div>
-					<button 
-						type="submit" 
+					{error && (
+						<div className=" text-red-700 text-center">{error}</div>
+					)}
+					<button
+						type="submit"
 						disabled={loading}
 						className="bg-blue-700 py-2 text-white rounded-3xl hover:bg-blue-600 cursor-pointer mt-2.5 disabled:opacity-50"
 					>
