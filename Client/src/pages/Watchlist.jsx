@@ -43,9 +43,11 @@ const Watchlist = ({
 		searchCoins();
 	}, [watchlist]);
 
-	return (
-		<div className="mt-3 overflow-x-auto [scrollbar-width:none] mx-6">
-			{!form ? (
+	return;
+
+	{
+		!form ? (
+			<div className="mt-3 overflow-x-auto [scrollbar-width:none] mx-6">
 				<Table
 					loading={loading}
 					error={error}
@@ -60,17 +62,17 @@ const Watchlist = ({
 					toggleForm={toggleForm}
 					loggedIn={loggedIn}
 				/>
-			) : (
-				<Form
-					title={"Add to Portfolio"}
-					buttonText={"Add"}
-					coinData={coinData}
-					toggleForm={toggleForm}
-					action={addCoin}
-				/>
-			)}
-		</div>
-	);
+			</div>
+		) : (
+			<Form
+				title={"Add to Portfolio"}
+				buttonText={"Add"}
+				coinData={coinData}
+				toggleForm={toggleForm}
+				action={addCoin}
+			/>
+		);
+	}
 };
 
 export default Watchlist;
