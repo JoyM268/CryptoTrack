@@ -73,16 +73,16 @@ const PortfolioTable = ({
 	return (
 		<>
 			<div className="bg-white h-16 rounded-t-xl border border-gray-200 flex justify-between py-4 pl-4">
-				<div className="font-semibold text-lg text-gray-800">
+				<div className="font-semibold text-sm sm:text-lg text-gray-800">
 					Portfolio Details
 				</div>
 				<div className="flex items-center gap-4 pr-7">
-					<div className="border border-gray-700 p-2 text-sm cursor-pointer rounded-md font-semibold text-gray-700 bg-gray-50 hover:bg-gray-100 px-4">
+					<div className="border border-gray-700 py-1 sm:py-2 text-xs sm:text-sm cursor-pointer rounded-md font-semibold text-gray-700 bg-gray-50 hover:bg-gray-100 px-1 sm:px-4">
 						<PictureAsPdfIcon />
 						<span className="ml-2">Export To PDF</span>
 					</div>
 					<div
-						className="border border-gray-700 py-2 px-4 text-sm cursor-pointer rounded-md font-semibold text-gray-700 bg-gray-50 hover:bg-gray-100"
+						className="border border-gray-700 py-1 sm:py-2 text-xs sm:text-sm cursor-pointer rounded-md font-semibold text-gray-700 bg-gray-50 hover:bg-gray-100 px-1 sm:px-4"
 						onClick={downloadCSV}
 					>
 						<CodeIcon />
