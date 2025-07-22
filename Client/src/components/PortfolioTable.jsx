@@ -71,8 +71,8 @@ const PortfolioTable = ({
 	};
 
 	return (
-		<>
-			<div className="bg-white h-16 rounded-t-xl border border-gray-200 flex justify-between py-4 pl-4">
+		<div className="relative">
+			<div className="bg-white h-16 rounded-t-xl border border-gray-200 flex justify-between py-4 pl-4 sticky top-0 z-10">
 				<div className="font-semibold text-sm sm:text-lg text-gray-800">
 					Portfolio Details
 				</div>
@@ -90,7 +90,8 @@ const PortfolioTable = ({
 					</div>
 				</div>
 			</div>
-			<table className="w-full min-w-[760px] text-left">
+			<div className="overflow-x-auto">
+				<table className="w-full min-w-[760px] text-left">
 				<thead className="bg-gray-50 border-b-2 border-gray-200">
 					<tr>
 						{[
@@ -157,7 +158,8 @@ const PortfolioTable = ({
 						))}
 				</tbody>
 			</table>
-		</>
+			</div>
+		</div>
 	);
 };
 
