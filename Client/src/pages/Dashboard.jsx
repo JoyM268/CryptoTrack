@@ -11,6 +11,7 @@ import {
 } from "recharts";
 import Form from "../components/Form";
 import PortfolioTable from "../components/PortfolioTable";
+import TopCoins from "../components/TopCoins";
 
 const COLORS = [
 	"#0088FE",
@@ -130,53 +131,66 @@ const Dashboard = ({
 					</p>
 				</div>
 			</div>
-			<div className="bg-white shadow-lg rounded-xl p-6 mt-8">
-				<h2 className="text-xl font-semibold text-gray-500 mb-4">
-					Portfolio Allocation
-				</h2>
-				<div style={{ width: "100%", height: 300 }}>
-					{loading ? (
-						<div className="flex justify-center items-center h-full">
-							<p>Loading Chart...</p>
-						</div>
-					) : error ? (
-						<div className="flex justify-center items-center h-full text-red-500">
-							<p>{error}</p>
-						</div>
-					) : pieChart.length > 0 ? (
-						<ResponsiveContainer>
-							<PieChart>
-								<Pie
-									data={pieChart}
-									cx="50%"
-									cy="50%"
-									labelLine={false}
-									outerRadius={80}
-									fill="#8884d8"
-									dataKey="value"
-									nameKey="name"
-								>
-									{pieChart.map((entry, index) => (
-										<Cell
-											key={`cell-${index}`}
-											fill={COLORS[index % COLORS.length]}
-										/>
-									))}
-								</Pie>
-								<Tooltip
-									formatter={(value) =>
-										`$${value.toFixed(2)}`
-									}
-								/>
-								<Legend />
-							</PieChart>
-						</ResponsiveContainer>
-					) : (
-						<div className="flex justify-center items-center h-full">
-							<p>No coins in portfolio to display.</p>
-						</div>
-					)}
+			<div className="max-w-9xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-6">
+				<div className="bg-white shadow-lg rounded-xl p-6 mt-8">
+					<h2 className="text-xl font-semibold text-gray-500 mb-4">
+						Portfolio Allocation
+					</h2>
+
+					<div className="w-full h-80 overflow-y-auto [scrollbar-width:none]">
+						{loading ? (
+							<div className="flex justify-center items-center h-full">
+								<p>Loading Chart...</p>
+							</div>
+						) : error ? (
+							<div className="flex justify-center items-center h-full text-red-500">
+								<p>{error}</p>
+							</div>
+						) : pieChart.length > 0 ? (
+							<ResponsiveContainer>
+								<PieChart>
+									<Pie
+										data={pieChart}
+										cx="50%"
+										cy="50%"
+										labelLine={false}
+										outerRadius={80}
+										fill="#8884d8"
+										dataKey="value"
+										nameKey="name"
+									>
+										{pieChart.map((entry, index) => (
+											<Cell
+												key={`cell-${index}`}
+												fill={
+													COLORS[
+														index % COLORS.length
+													]
+												}
+											/>
+										))}
+									</Pie>
+									<Tooltip
+										formatter={(value) =>
+											`$${value.toFixed(2)}`
+										}
+									/>
+									<Legend />
+								</PieChart>
+							</ResponsiveContainer>
+						) : (
+							<div className="flex justify-center items-center h-full">
+								<p>No coins in portfolio to display.</p>
+							</div>
+						)}
+					</div>
 				</div>
+				<TopCoins
+					coins={coins}
+					loading={loading}
+					error={error}
+					portfolio={portfolio}
+				/>
 			</div>
 			<div className="mt-10 mx-auto overflow-x-auto [scrollbar-width:none]">
 				<PortfolioTable
