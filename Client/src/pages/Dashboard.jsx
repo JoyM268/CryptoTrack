@@ -12,6 +12,7 @@ import {
 import Form from "../components/Form";
 import PortfolioTable from "../components/PortfolioTable";
 import TopCoins from "../components/TopCoins";
+import CoinGeckoAttribution from "../components/CoinGeckoAttribution";
 
 const COLORS = [
 	"#0088FE",
@@ -220,6 +221,9 @@ const Dashboard = ({
 					currentValue={currentValue}
 					currency={currency}
 				/>
+				<div className="text-center mt-2">
+					<CoinGeckoAttribution />
+				</div>
 			</div>
 		</div>
 	) : (

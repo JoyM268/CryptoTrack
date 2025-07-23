@@ -3,6 +3,7 @@ import SearchIcon from "@mui/icons-material/Search";
 import Table from "../components/Table";
 import Form from "../components/Form";
 import LoginWarning from "../components/LoginWarning";
+import CoinGeckoAttribution from "../components/CoinGeckoAttribution";
 
 const Home = ({
 	watchlist,
@@ -77,6 +78,7 @@ const Home = ({
 								</button>
 							</div>
 						</form>
+						<CoinGeckoAttribution />
 					</div>
 
 					<div className="w-full max-w-6xl mx-auto overflow-x-auto [scrollbar-width:none]">

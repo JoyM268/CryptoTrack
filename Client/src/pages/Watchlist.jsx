@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import Table from "../components/Table";
 import Form from "../components/Form";
+import CoinGeckoAttribution from "../components/CoinGeckoAttribution";
 
 const Watchlist = ({
 	watchlist,
@@ -45,23 +46,28 @@ const Watchlist = ({
 	}, [watchlist]);
 
 	return !form ? (
-		<div className="mt-3 overflow-x-auto [scrollbar-width:none] mx-6">
-			<Table
-				loading={loading}
-				error={error}
-				coins={coins}
-				toggleWatchlist={toggleWatchlist}
-				watchlist={watchlist}
-				message={
-					watchlist.length === 0
-						? "No Coin Has Been Added To Watchlist"
-						: ""
-				}
-				toggleForm={toggleForm}
-				loggedIn={loggedIn}
-				currency={currency}
-			/>
-		</div>
+		<>
+			<div className="mt-3 overflow-x-auto [scrollbar-width:none] mx-6">
+				<Table
+					loading={loading}
+					error={error}
+					coins={coins}
+					toggleWatchlist={toggleWatchlist}
+					watchlist={watchlist}
+					message={
+						watchlist.length === 0
+							? "No Coin Has Been Added To Watchlist"
+							: ""
+					}
+					toggleForm={toggleForm}
+					loggedIn={loggedIn}
+					currency={currency}
+				/>
+			</div>
+			<div className="text-center mt-1">
+				<CoinGeckoAttribution />
+			</div>
+		</>
 	) : (
 		<Form
 			title={"Add to Portfolio"}

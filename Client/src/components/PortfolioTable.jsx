@@ -3,6 +3,7 @@ import PictureAsPdfIcon from "@mui/icons-material/PictureAsPdf";
 import CodeIcon from "@mui/icons-material/Code";
 import jsPDF from "jspdf";
 import autoTable from "jspdf-autotable";
+import CoinGeckoAttribution from "./CoinGeckoAttribution";
 
 const PortfolioTable = ({
 	loading,
@@ -271,7 +272,7 @@ const PortfolioTable = ({
 					</div>
 				</div>
 			</div>
-			<div className="overflow-x-auto">
+			<div className="overflow-x-auto [scrollbar-width:none]">
 				<table className="w-full min-w-[760px] text-left">
 					<thead className="bg-gray-50 border-b-2 border-gray-200">
 						<tr>
