@@ -15,7 +15,17 @@ const PortfolioTable = ({
 	toggleForm,
 	totalInvestment,
 	currentValue,
+	currency,
 }) => {
+	const formatCurrency = (value) => {
+		return new Intl.NumberFormat("en-US", {
+			style: "currency",
+			currency: currency[0],
+			minimumFractionDigits: 0,
+			maximumFractionDigits: 2,
+		}).format(value);
+	};
+
 	const downloadCSV = () => {
 		if (
 			!coins ||
@@ -28,11 +38,11 @@ const PortfolioTable = ({
 
 		const headers = [
 			"Name",
-			"Price(USD)",
-			"Investment(USD)",
+			`Price(${currency[0]})`,
+			`Investment(${currency[0]})`,
 			"Coins Purchased",
-			"Current Value(USD)",
-			"P/L Value(USD)",
+			`Current Value(${currency[0]})`,
+			`P/L Value(${currency[0]})`,
 			"P/L %",
 		];
 
@@ -51,11 +61,11 @@ const PortfolioTable = ({
 
 				return [
 					coinData.name,
-					coinData.current_price,
-					totalInvestment,
+					coinData.current_price * currency[1],
+					totalInvestment * currency[1],
 					portfolioData.coins,
-					currentValue,
-					profitValue,
+					currentValue * currency[1],
+					profitValue * currency[1],
 					profitPercentage,
 				].join(",");
 			})
@@ -86,11 +96,11 @@ const PortfolioTable = ({
 		const doc = new jsPDF();
 		const headers = [
 			"Name",
-			"Price(USD)",
-			"Investment(USD)",
+			`Price(${currency[0]})`,
+			`Investment(${currency[0]})`,
 			"Coins Purchased",
-			"Current Value(USD)",
-			"P/L Value(USD)",
+			`Current Value(${currency[0]})`,
+			`P/L Value(${currency[0]})`,
 			"P/L %",
 		];
 
@@ -110,14 +120,22 @@ const PortfolioTable = ({
 
 		let startY = 35;
 		doc.text(
-			`Total Investment: $${totalInvestment.toFixed(2)}`,
+			`Total Investment: ${formatCurrency(
+				totalInvestment * currency[1]
+			)}`,
 			14,
 			startY
 		);
-		doc.text(`Current Value: $${currentValue.toFixed(2)}`, 100, startY);
+		doc.text(
+			`Current Value: ${formatCurrency(currentValue * currency[1])}`,
+			100,
+			startY
+		);
 		startY += 8;
 		doc.text(
-			`Total Profit/Loss Value: $${profitLossValue.toFixed(2)}`,
+			`Total Profit/Loss Value: ${formatCurrency(
+				profitLossValue * currency[1]
+			)}`,
 			14,
 			startY
 		);
@@ -141,11 +159,11 @@ const PortfolioTable = ({
 
 				return [
 					coinData.name,
-					coinData.current_price,
-					investment,
+					coinData.current_price * currency[1],
+					investment * currency[1],
 					portfolioData.coins,
-					value,
-					profitValue,
+					value * currency[1],
+					profitValue * currency[1],
 					profitPercentage,
 				];
 			})
@@ -186,7 +204,7 @@ const PortfolioTable = ({
 			})
 			.filter(Boolean);
 
-		const tableHeaders = ["Name", "P/L Value(USD)", "P/L %"];
+		const tableHeaders = ["Name", `P/L Value(${currency[0]})`, "P/L %"];
 
 		const gainers = performers
 			.filter((ele) => ele.profit > 0)
@@ -203,7 +221,7 @@ const PortfolioTable = ({
 				head: [tableHeaders],
 				body: gainers.map((g) => [
 					g.name,
-					g.profit.toFixed(2),
+					formatCurrency(g.profit * currency[1]),
 					`${g.profitPercentage.toFixed(2)}%`,
 				]),
 				startY: lastTableBottom + 20,
@@ -219,7 +237,7 @@ const PortfolioTable = ({
 				head: [tableHeaders],
 				body: losers.map((l) => [
 					l.name,
-					l.profit.toFixed(2),
+					formatCurrency(l.profit * currency[1]),
 					`${l.profitPercentage.toFixed(2)}%`,
 				]),
 				startY: lastTableBottom + 20,
@@ -317,6 +335,7 @@ const PortfolioTable = ({
 									isStarred={watchlist.includes(coin.id)}
 									toggleWatchlist={toggleWatchlist}
 									toggleForm={toggleForm}
+									currency={currency}
 								/>
 							))}
 					</tbody>

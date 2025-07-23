@@ -25,6 +25,7 @@ const App = () => {
 	const [coinData, setCoinData] = useState({});
 	const [portfolio, setPortfolio] = useState({});
 	const navigate = useNavigate();
+	const [currency, setCurrency] = useState(["USD", 1]);
 
 	const handleLogout = () => {
 		setWatchlist([]);
@@ -131,6 +132,8 @@ const App = () => {
 				toggleMenu={toggleMenu}
 				loggedIn={isAuthenticated}
 				handleLogout={handleLogout}
+				currency={currency}
+				setCurrency={setCurrency}
 			/>
 			<AnimatePresence>
 				{menu && <Menu loggedIn={isAuthenticated} />}
@@ -147,6 +150,7 @@ const App = () => {
 							toggleForm={toggleForm}
 							coinData={coinData}
 							loggedIn={isAuthenticated}
+							currency={currency}
 						/>
 					}
 				/>
@@ -163,6 +167,7 @@ const App = () => {
 								toggleForm={toggleForm}
 								coinData={coinData}
 								removeCoin={removeCoin}
+								currency={currency}
 							/>
 						) : (
 							<Navigate to="/login" />
@@ -181,6 +186,7 @@ const App = () => {
 								form={form}
 								loggedIn={isAuthenticated}
 								coinData={coinData}
+								currency={currency}
 							/>
 						) : (
 							<Navigate to="/login" />

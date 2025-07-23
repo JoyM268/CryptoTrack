@@ -12,6 +12,7 @@ const Home = ({
 	toggleForm,
 	coinData,
 	loggedIn,
+	currency,
 }) => {
 	const [coins, setCoins] = useState([]);
 	const [loading, setLoading] = useState(true);
@@ -88,6 +89,7 @@ const Home = ({
 							message={""}
 							toggleForm={toggleForm}
 							loggedIn={loggedIn}
+							currency={currency}
 						/>
 					</div>
 				</>

@@ -7,7 +7,17 @@ const CoinRow = ({
 	toggleWatchlist,
 	toggleForm,
 	loggedIn,
+	currency,
 }) => {
+	const formatCurrency = (value) => {
+		return new Intl.NumberFormat("en-US", {
+			style: "currency",
+			currency: currency[0],
+			minimumFractionDigits: 0,
+			maximumFractionDigits: 2,
+		}).format(value);
+	};
+
 	const color =
 		coin.price_change_percentage_24h < 0
 			? "text-red-600"
@@ -36,13 +46,13 @@ const CoinRow = ({
 				</div>
 			</td>
 			<td className="px-6 py-4 font-medium">
-				${coin.current_price.toLocaleString()}
+				{formatCurrency(coin.current_price * currency[1])}
 			</td>
 			<td className={`px-6 py-4 font-medium ${color}`}>
 				{coin.price_change_percentage_24h.toFixed(2)}%
 			</td>
 			<td className="px-6 py-4 font-medium text-gray-800">
-				{`\$${coin.market_cap.toLocaleString()}`}
+				{formatCurrency(coin.market_cap * currency[1])}
 			</td>
 			<td className="px-6 py-4">
 				<div className="flex items-center gap-2">

@@ -1,13 +1,23 @@
 import StarOutlineIcon from "@mui/icons-material/StarOutline";
 import StarIcon from "@mui/icons-material/Star";
 
-const CoinRow = ({
+const PortfolioCoinRow = ({
 	coin,
 	isStarred,
 	coinData,
 	toggleWatchlist,
 	toggleForm,
+	currency,
 }) => {
+	const formatCurrency = (value) => {
+		return new Intl.NumberFormat("en-US", {
+			style: "currency",
+			currency: currency[0],
+			minimumFractionDigits: 0,
+			maximumFractionDigits: 2,
+		}).format(value);
+	};
+
 	const profit =
 		((coin.current_price * coinData.coins - coinData.totalInvestment) /
 			coinData.totalInvestment) *
@@ -38,16 +48,18 @@ const CoinRow = ({
 				</div>
 			</td>
 			<td className="px-6 py-4 font-medium">
-				${coin.current_price.toLocaleString()}
+				{formatCurrency(coin.current_price * currency[1])}
 			</td>
 			<td className="px-6 py-4 font-medium text-gray-800">
-				{`\$${coinData.totalInvestment.toLocaleString()}`}
+				{formatCurrency(coinData.totalInvestment * currency[1])}
 			</td>
 			<td className="px-6 py-4 font-medium text-gray-800">
 				{`${coinData.coins.toLocaleString()}`}
 			</td>
 			<td className={`px-6 py-4 font-medium`}>
-				${(coin.current_price * coinData.coins).toLocaleString()}
+				{formatCurrency(
+					coin.current_price * coinData.coins * currency[1]
+				)}
 			</td>
 
 			<td className={`px-6 py-4 font-medium ${color}`}>
@@ -89,4 +101,4 @@ const CoinRow = ({
 	);
 };
 
-export default CoinRow;
+export default PortfolioCoinRow;

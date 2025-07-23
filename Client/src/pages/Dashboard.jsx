@@ -31,6 +31,7 @@ const Dashboard = ({
 	toggleForm,
 	removeCoin,
 	coinData,
+	currency,
 }) => {
 	const [coins, setCoins] = useState([]);
 	const [loading, setLoading] = useState(true);
@@ -38,6 +39,15 @@ const Dashboard = ({
 	const [action, setAction] = useState("");
 	const [pieChart, setPieChart] = useState([]);
 	const portfolioCoins = Object.keys(portfolio);
+
+	const formatCurrency = (value) => {
+		return new Intl.NumberFormat("en-US", {
+			style: "currency",
+			currency: currency[0],
+			minimumFractionDigits: 0,
+			maximumFractionDigits: 2,
+		}).format(value);
+	};
 
 	const handleToggleForm = (coin, actionType) => {
 		setAction(actionType);
@@ -111,7 +121,7 @@ const Dashboard = ({
 						Current Value
 					</h2>
 					<p className="text-4xl font-bold">
-						${currentValue.toFixed(2)}
+						{formatCurrency(currentValue * currency[1])}
 					</p>
 					<div
 						className={`flex items-center gap-2 font-semibold ${
@@ -127,7 +137,7 @@ const Dashboard = ({
 						Total Investment
 					</h2>
 					<p className="text-4xl font-bold">
-						${totalInvestment.toFixed(2).toString()}
+						{formatCurrency(totalInvestment * currency[1])}
 					</p>
 				</div>
 			</div>
@@ -172,7 +182,7 @@ const Dashboard = ({
 									</Pie>
 									<Tooltip
 										formatter={(value) =>
-											`$${value.toFixed(2)}`
+											formatCurrency(value * currency[1])
 										}
 									/>
 									<Legend />
@@ -208,6 +218,7 @@ const Dashboard = ({
 					toggleForm={handleToggleForm}
 					totalInvestment={totalInvestment}
 					currentValue={currentValue}
+					currency={currency}
 				/>
 			</div>
 		</div>
