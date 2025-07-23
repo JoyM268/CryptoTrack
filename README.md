@@ -2,6 +2,7 @@
 
 Crypto Currency Price Tracker with Portfolio Manager and Watchlist.
 
+
 ## Table of Contents
 
 -   [Description](#description)
@@ -14,9 +15,11 @@ Crypto Currency Price Tracker with Portfolio Manager and Watchlist.
 -   [Attributions](#attributions)
 -   [Contact](#contact)
 
+
 ## Description
 
 CryptoTrack is a web application that allows users to track real-time cryptocurrency prices, manage their portfolio, and maintain a watchlist. Users can register, log in, add/remove coins to their portfolio or watchlist, and export their portfolio data as PDF or CSV reports. The project was developed as part of an internship at Ultimez Technology Pvt Ltd.
+
 
 ## Live Demo
 
@@ -27,6 +30,7 @@ CryptoTrack is a web application that allows users to track real-time cryptocurr
 -   The MongoDB database is hosted on MongoDB Atlas.
 
 You can check out the live demo [here](https://cryptotrack-ultimez.vercel.app/).
+
 
 ## Screenshots
 
@@ -40,6 +44,7 @@ You can check out the live demo [here](https://cryptotrack-ultimez.vercel.app/).
 | ![Exported PDF](./images/pdf.png)    | **Exported PDF:** Downloadable portfolio report in PDF format.                      |
 | ![Exported CSV](./images/csv.png)    | **Exported CSV:** Downloadable portfolio report in CSV format.                      |
 
+
 ## Features
 
 -   User authentication (register, login, logout)
@@ -50,6 +55,7 @@ You can check out the live demo [here](https://cryptotrack-ultimez.vercel.app/).
 -   Export portfolio as PDF or CSV
 -   Currency conversion for portfolio values (via Frankfurter API)
 
+
 ## Tech Stack
 
 -   **Frontend:** HTML, CSS, React, Tailwind CSS
@@ -57,6 +63,7 @@ You can check out the live demo [here](https://cryptotrack-ultimez.vercel.app/).
 -   **APIs:** [CoinGecko](https://www.coingecko.com/en/api) (crypto data), [Frankfurter](https://www.frankfurter.app/) (currency conversion)
 -   **Deployment:** [Vercel](https://vercel.com/) (Frontend), [Render](https://render.com/) (Backend)
 -   **Libraries:** Axios, Recharts, jsPDF, motion, Mongoose, JWT, Passport.js
+
 
 ## Getting Started
 
@@ -114,21 +121,18 @@ You can check out the live demo [here](https://cryptotrack-ultimez.vercel.app/).
 
 4.  **Visit the app:**
     -   Open [http://localhost:5173](http://localhost:5173) in your browser.
-
----
+    
 
 ## Contributing
 
 Contributions are welcome! Please submit a pull request or open an issue for any improvements or bug fixes.
 
----
 
 ## Attributions
 
 -   Cryptocurrency data provided by [CoinGecko API](https://www.coingecko.com/en/api).
 -   Currency conversion powered by [Frankfurter API](https://www.frankfurter.app/).
 
----
 
 ## Contact
 
