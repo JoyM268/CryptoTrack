@@ -9,7 +9,7 @@ const app = express();
 
 app.use(
 	cors({
-		origin: "https://cryptotrack-ultimez.vercel.app",
+		origin: process.env.CLIENT || "https://cryptotrack-ultimez.vercel.app",
 		credentials: true,
 	})
 );
