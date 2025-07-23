@@ -52,7 +52,7 @@ const CoinRow = ({
 				{coin.price_change_percentage_24h.toFixed(2)}%
 			</td>
 			<td className="px-6 py-4 font-medium text-gray-800">
-				{formatCurrency(coin.market_cap * currency[1])}
+				{formatCurrency((coin.market_cap * currency[1]).toFixed(2))}
 			</td>
 			<td className="px-6 py-4">
 				<div className="flex items-center gap-2">

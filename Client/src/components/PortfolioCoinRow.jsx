@@ -51,14 +51,18 @@ const PortfolioCoinRow = ({
 				{formatCurrency(coin.current_price * currency[1])}
 			</td>
 			<td className="px-6 py-4 font-medium text-gray-800">
-				{formatCurrency(coinData.totalInvestment * currency[1])}
+				{formatCurrency(
+					(coinData.totalInvestment * currency[1]).toFixed(2)
+				)}
 			</td>
 			<td className="px-6 py-4 font-medium text-gray-800">
 				{`${coinData.coins.toLocaleString()}`}
 			</td>
 			<td className={`px-6 py-4 font-medium`}>
 				{formatCurrency(
-					coin.current_price * coinData.coins * currency[1]
+					(coin.current_price * coinData.coins * currency[1]).toFixed(
+						2
+					)
 				)}
 			</td>
 
