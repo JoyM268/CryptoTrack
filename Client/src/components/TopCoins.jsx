@@ -34,10 +34,12 @@ const TopCoins = ({ coins, loading, error, portfolio }) => {
 			})
 			.filter(Boolean);
 
-		performers = [...portfolioWithProfit].sort(
-			(a, b) => b.profit - a.profit
-		);
-		losers = [...portfolioWithProfit].sort((a, b) => a.profit - b.profit);
+		performers = [...portfolioWithProfit]
+			.filter((ele) => ele.profit > 0)
+			.sort((a, b) => b.profit - a.profit);
+		losers = [...portfolioWithProfit]
+			.filter((ele) => ele.profit < 0)
+			.sort((a, b) => a.profit - b.profit);
 	}
 
 	return (

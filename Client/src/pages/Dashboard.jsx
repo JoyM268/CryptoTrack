@@ -206,6 +206,8 @@ const Dashboard = ({
 							: "No Coins Added To Portfolio"
 					}
 					toggleForm={handleToggleForm}
+					totalInvestment={totalInvestment}
+					currentValue={currentValue}
 				/>
 			</div>
 		</div>

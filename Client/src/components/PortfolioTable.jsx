@@ -1,6 +1,8 @@
 import PortfolioCoinRow from "./PortfolioCoinRow";
 import PictureAsPdfIcon from "@mui/icons-material/PictureAsPdf";
 import CodeIcon from "@mui/icons-material/Code";
+import jsPDF from "jspdf";
+import autoTable from "jspdf-autotable";
 
 const PortfolioTable = ({
 	loading,
@@ -11,6 +13,8 @@ const PortfolioTable = ({
 	portfolio,
 	message,
 	toggleForm,
+	totalInvestment,
+	currentValue,
 }) => {
 	const downloadCSV = () => {
 		if (
@@ -25,11 +29,11 @@ const PortfolioTable = ({
 		const headers = [
 			"Name",
 			"Price(USD)",
-			"Total Investment(USD)",
+			"Investment(USD)",
 			"Coins Purchased",
 			"Current Value(USD)",
-			"Profit/Loss Value(USD)",
-			"Profit/Loss Percentage",
+			"P/L Value(USD)",
+			"P/L %",
 		];
 
 		const rows = Object.keys(portfolio)
@@ -64,10 +68,166 @@ const PortfolioTable = ({
 		const url = URL.createObjectURL(blob);
 		const link = document.createElement("a");
 		link.setAttribute("href", url);
-		link.setAttribute("download", "portfolio.csv");
+		link.setAttribute("download", "portfolio_report.csv");
 		document.body.appendChild(link);
 		link.click();
 		document.body.removeChild(link);
+	};
+
+	const downloadPDF = () => {
+		if (
+			!coins ||
+			!portfolio ||
+			coins.length === 0 ||
+			Object.keys(portfolio).length === 0
+		)
+			return;
+
+		const doc = new jsPDF();
+		const headers = [
+			"Name",
+			"Price(USD)",
+			"Investment(USD)",
+			"Coins Purchased",
+			"Current Value(USD)",
+			"P/L Value(USD)",
+			"P/L %",
+		];
+
+		const profitLossValue = currentValue - totalInvestment;
+		const profitLossPercentage = (profitLossValue / totalInvestment) * 100;
+
+		doc.setFontSize(20);
+		doc.setFont(undefined, "bold");
+		doc.text(
+			"Portfolio Details",
+			doc.internal.pageSize.getWidth() / 2,
+			20,
+			{ align: "center" }
+		);
+		doc.setFont(undefined, "normal");
+		doc.setFontSize(12);
+
+		let startY = 35;
+		doc.text(
+			`Total Investment: $${totalInvestment.toFixed(2)}`,
+			14,
+			startY
+		);
+		doc.text(`Current Value: $${currentValue.toFixed(2)}`, 100, startY);
+		startY += 8;
+		doc.text(
+			`Total Profit/Loss Value: $${profitLossValue.toFixed(2)}`,
+			14,
+			startY
+		);
+		doc.text(
+			`Total Profit/Loss Percentage: ${profitLossPercentage.toFixed(2)}%`,
+			100,
+			startY
+		);
+
+		const rows = Object.keys(portfolio)
+			.map((coinId) => {
+				const coinData = coins.find((c) => c.id === coinId);
+				const portfolioData = portfolio[coinId];
+
+				if (!coinData || !portfolioData) return null;
+
+				const value = coinData.current_price * portfolioData.coins;
+				const investment = portfolioData.totalInvestment;
+				const profitValue = value - investment;
+				const profitPercentage = (profitValue / investment) * 100;
+
+				return [
+					coinData.name,
+					coinData.current_price,
+					investment,
+					portfolioData.coins,
+					value,
+					profitValue,
+					profitPercentage,
+				];
+			})
+			.filter(Boolean);
+
+		autoTable(doc, {
+			head: [headers],
+			body: rows.map((row) => {
+				return row.map((cell) => {
+					if (typeof cell === "number") {
+						return cell.toFixed(2);
+					}
+					return cell;
+				});
+			}),
+			startY: startY + 10,
+			theme: "grid",
+		});
+
+		let lastTableBottom = doc.lastAutoTable.finalY;
+
+		const performers = Object.keys(portfolio)
+			.map((coinId) => {
+				const coinData = coins.find((c) => c.id === coinId);
+				const portfolioData = portfolio[coinId];
+				if (!coinData || !portfolioData) return null;
+
+				const value = coinData.current_price * portfolioData.coins;
+				const investment = portfolioData.totalInvestment;
+				const profitValue = value - investment;
+				const profitPercentage = (profitValue / investment) * 100 || 0;
+
+				return {
+					name: coinData.name,
+					profit: profitValue,
+					profitPercentage: profitPercentage,
+				};
+			})
+			.filter(Boolean);
+
+		const tableHeaders = ["Name", "P/L Value(USD)", "P/L %"];
+
+		const gainers = performers
+			.filter((ele) => ele.profit > 0)
+			.sort((a, b) => b.profit - a.profit);
+
+		const losers = performers
+			.filter((ele) => ele.profit < 0)
+			.sort((a, b) => a.profit - b.profit);
+
+		if (gainers.length > 0) {
+			doc.setFontSize(16);
+			doc.text("Top Gainers", 14, lastTableBottom + 15);
+			autoTable(doc, {
+				head: [tableHeaders],
+				body: gainers.map((g) => [
+					g.name,
+					g.profit.toFixed(2),
+					`${g.profitPercentage.toFixed(2)}%`,
+				]),
+				startY: lastTableBottom + 20,
+				theme: "grid",
+			});
+			lastTableBottom = doc.lastAutoTable.finalY;
+		}
+
+		if (losers.length > 0) {
+			doc.setFontSize(16);
+			doc.text("Top Losers", 14, lastTableBottom + 15);
+			autoTable(doc, {
+				head: [tableHeaders],
+				body: losers.map((l) => [
+					l.name,
+					l.profit.toFixed(2),
+					`${l.profitPercentage.toFixed(2)}%`,
+				]),
+				startY: lastTableBottom + 20,
+				theme: "grid",
+			});
+		}
+
+		doc.save("portfolio_report.pdf");
 	};
 
 	return (
@@ -77,7 +237,10 @@ const PortfolioTable = ({
 					Portfolio Details
 				</div>
 				<div className="flex items-center gap-4 pr-7">
-					<div className="border border-gray-700 py-1 sm:py-2 text-xs sm:text-sm cursor-pointer rounded-md font-semibold text-gray-700 bg-gray-50 hover:bg-gray-100 px-1 sm:px-4">
+					<div
+						className="border border-gray-700 py-1 sm:py-2 text-xs sm:text-sm cursor-pointer rounded-md font-semibold text-gray-700 bg-gray-50 hover:bg-gray-100 px-1 sm:px-4"
+						onClick={downloadPDF}
+					>
 						<PictureAsPdfIcon />
 						<span className="ml-2">Export To PDF</span>
 					</div>
@@ -92,72 +255,72 @@ const PortfolioTable = ({
 			</div>
 			<div className="overflow-x-auto">
 				<table className="w-full min-w-[760px] text-left">
-				<thead className="bg-gray-50 border-b-2 border-gray-200">
-					<tr>
-						{[
-							"Rank",
-							"Name",
-							"Price",
-							"Total Investment",
-							"Coins Purchased",
-							"Current Value",
-							"Profit/Loss",
-							"",
-						].map((header) => (
-							<th
-								key={header}
-								className="px-6 py-3 text-left text-xs font-semibold text-gray-500 tracking-wider uppercase"
-							>
-								{header}
-							</th>
-						))}
-					</tr>
-				</thead>
-				<tbody>
-					{message && (
+					<thead className="bg-gray-50 border-b-2 border-gray-200">
 						<tr>
-							<td
-								colSpan="8"
-								className="text-center p-8 text-gray-500"
-							>
-								{message}
-							</td>
+							{[
+								"Rank",
+								"Name",
+								"Price",
+								"Total Investment",
+								"Coins Purchased",
+								"Current Value",
+								"Profit/Loss",
+								"",
+							].map((header) => (
+								<th
+									key={header}
+									className="px-6 py-3 text-left text-xs font-semibold text-gray-500 tracking-wider uppercase"
+								>
+									{header}
+								</th>
+							))}
 						</tr>
-					)}
-					{loading && (
-						<tr>
-							<td
-								colSpan="8"
-								className="text-center p-8 text-gray-500"
-							>
-								Loading data...
-							</td>
-						</tr>
-					)}
-					{error && (
-						<tr>
-							<td
-								colSpan="8"
-								className="text-center p-8 text-red-500"
-							>
-								An Error Occured
-							</td>
-						</tr>
-					)}
-					{!loading &&
-						!error &&
-						coins.map((coin) => (
-							<PortfolioCoinRow
-								key={coin.id}
-								coin={coin}
-								coinData={portfolio[coin.id]}
-								isStarred={watchlist.includes(coin.id)}
-								toggleWatchlist={toggleWatchlist}
-								toggleForm={toggleForm}
-							/>
-						))}
-				</tbody>
-			</table>
+					</thead>
+					<tbody>
+						{message && (
+							<tr>
+								<td
+									colSpan="8"
+									className="text-center p-8 text-gray-500"
+								>
+									{message}
+								</td>
+							</tr>
+						)}
+						{loading && (
+							<tr>
+								<td
+									colSpan="8"
+									className="text-center p-8 text-gray-500"
+								>
+									Loading data...
+								</td>
+							</tr>
+						)}
+						{error && (
+							<tr>
+								<td
+									colSpan="8"
+									className="text-center p-8 text-red-500"
+								>
+									An Error Occured
+								</td>
+							</tr>
+						)}
+						{!loading &&
+							!error &&
+							coins.map((coin) => (
+								<PortfolioCoinRow
+									key={coin.id}
+									coin={coin}
+									coinData={portfolio[coin.id]}
+									isStarred={watchlist.includes(coin.id)}
+									toggleWatchlist={toggleWatchlist}
+									toggleForm={toggleForm}
+								/>
+							))}
+					</tbody>
+				</table>
 			</div>
 		</div>
 	);
