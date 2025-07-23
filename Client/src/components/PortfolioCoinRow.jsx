@@ -14,7 +14,7 @@ const PortfolioCoinRow = ({
 			style: "currency",
 			currency: currency[0],
 			minimumFractionDigits: 0,
-			maximumFractionDigits: 2,
+			maximumFractionDigits: 6,
 		}).format(value);
 	};
 
