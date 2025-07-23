@@ -4,6 +4,8 @@ import CodeIcon from "@mui/icons-material/Code";
 import jsPDF from "jspdf";
 import autoTable from "jspdf-autotable";
 import CoinGeckoAttribution from "./CoinGeckoAttribution";
+import { NotoSans } from "./NotoSans-Regular.js";
+import { NotoSansBold } from "./NotoSans-Bold.js";
 
 const PortfolioTable = ({
 	loading,
@@ -95,6 +97,12 @@ const PortfolioTable = ({
 			return;
 
 		const doc = new jsPDF();
+		doc.addFileToVFS("NotoSans-Regular.ttf", NotoSans);
+		doc.addFont("NotoSans-Regular.ttf", "NotoSans", "normal");
+		doc.addFileToVFS("NotoSans-Bold.ttf", NotoSansBold);
+		doc.addFont("NotoSans-Bold.ttf", "NotoSans", "bold");
+		doc.setFont("NotoSans", "normal");
+
 		const headers = [
 			"Name",
 			`Price(${currency[0]})`,
@@ -109,14 +117,15 @@ const PortfolioTable = ({
 		const profitLossPercentage = (profitLossValue / totalInvestment) * 100;
 
 		doc.setFontSize(20);
-		doc.setFont(undefined, "bold");
+		doc.setFont("NotoSans", "bold");
 		doc.text(
 			"Portfolio Details",
 			doc.internal.pageSize.getWidth() / 2,
 			20,
 			{ align: "center" }
 		);
-		doc.setFont(undefined, "normal");
+
+		doc.setFont("NotoSans", "normal");
 		doc.setFontSize(12);
 
 		let startY = 35;
@@ -127,9 +136,10 @@ const PortfolioTable = ({
 			14,
 			startY
 		);
+		startY += 8;
 		doc.text(
 			`Current Value: ${formatCurrency(currentValue * currency[1])}`,
-			100,
+			14,
 			startY
 		);
 		startY += 8;
@@ -140,9 +150,10 @@ const PortfolioTable = ({
 			14,
 			startY
 		);
+		startY += 8;
 		doc.text(
 			`Total Profit/Loss Percentage: ${profitLossPercentage.toFixed(2)}%`,
-			100,
+			14,
 			startY
 		);
 
@@ -170,6 +181,7 @@ const PortfolioTable = ({
 			})
 			.filter(Boolean);
 
+		// 4. Specify the font in autoTable styles to ensure it's used within the table.
 		autoTable(doc, {
 			head: [headers],
 			body: rows.map((row) => {
@@ -182,6 +194,8 @@ const PortfolioTable = ({
 			}),
 			startY: startY + 10,
 			theme: "grid",
+			styles: { font: "NotoSans", fontStyle: "normal" },
+			headStyles: { fontStyle: "bold" },
 		});
 
 		let lastTableBottom = doc.lastAutoTable.finalY;
@@ -217,6 +231,7 @@ const PortfolioTable = ({
 
 		if (gainers.length > 0) {
 			doc.setFontSize(16);
+			doc.setFont("NotoSans", "bold");
 			doc.text("Top Gainers", 14, lastTableBottom + 15);
 			autoTable(doc, {
 				head: [tableHeaders],
@@ -227,22 +242,27 @@ const PortfolioTable = ({
 				]),
 				startY: lastTableBottom + 20,
 				theme: "grid",
+				styles: { font: "NotoSans", fontStyle: "normal" },
+				headStyles: { fontStyle: "bold" },
 			});
 			lastTableBottom = doc.lastAutoTable.finalY;
 		}
 
 		if (losers.length > 0) {
 			doc.setFontSize(16);
+			doc.setFont("NotoSans", "bold");
 			doc.text("Top Losers", 14, lastTableBottom + 15);
 			autoTable(doc, {
 				head: [tableHeaders],
 				body: losers.map((l) => [
 					l.name,
-					formatCurrency(l.profit * currency[1]),
+					formatCurrency(l.profit * currency[1]), // This will now render correctly.
 					`${l.profitPercentage.toFixed(2)}%`,
 				]),
 				startY: lastTableBottom + 20,
 				theme: "grid",
+				styles: { font: "NotoSans", fontStyle: "normal" },
+				headStyles: { fontStyle: "bold" },
 			});
 		}
 
