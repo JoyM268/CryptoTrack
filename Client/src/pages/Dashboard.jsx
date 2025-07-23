@@ -122,11 +122,11 @@ const Dashboard = ({
 	return !form ? (
 		<div className="bg-slate-100 min-h-screen w-full p-4 sm:p-6 lg:p-8">
 			<div className="max-w-9xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-6">
-				<div className="bg-white shadow-lg rounded-xl p-6 flex flex-col items-start gap-3">
-					<h2 className="text-xl font-semibold text-gray-500">
+				<div className="bg-white shadow-lg rounded-xl p-6 flex flex-col items-start gap-1 sm:gap-3">
+					<h2 className="text-md sm:text-xl font-semibold text-gray-500">
 						Current Value
 					</h2>
-					<p className="text-4xl font-bold">
+					<p className="text-2xl sm:text-4xl font-bold wrap-anywhere">
 						{formatCurrency(currentValue * currency[1])}
 					</p>
 					<div
@@ -139,10 +139,10 @@ const Dashboard = ({
 					</div>
 				</div>
 				<div className="bg-white shadow-lg rounded-xl p-6 flex flex-col items-start gap-3">
-					<h2 className="text-xl font-semibold text-gray-500">
+					<h2 className="text-md sm:text-xl font-semibold text-gray-500">
 						Total Investment
 					</h2>
-					<p className="text-4xl font-bold">
+					<p className="text-2xl sm:text-4xl font-bold wrap-anywhere">
 						{formatCurrency(totalInvestment * currency[1])}
 					</p>
 				</div>
