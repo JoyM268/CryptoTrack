@@ -4,7 +4,7 @@ import Coin from "./Coin";
 const TopCoins = ({ coins, loading, error, portfolio }) => {
 	const [option, setOption] = useState("gainers");
 
-	let performers = [];
+	let gainers = [];
 	let losers = [];
 
 	if (
@@ -34,7 +34,7 @@ const TopCoins = ({ coins, loading, error, portfolio }) => {
 			})
 			.filter(Boolean);
 
-		performers = [...portfolioWithProfit]
+		gainers = [...portfolioWithProfit]
 			.filter((ele) => ele.profit > 0)
 			.sort((a, b) => b.profit - a.profit);
 		losers = [...portfolioWithProfit]
@@ -81,7 +81,7 @@ const TopCoins = ({ coins, loading, error, portfolio }) => {
 				{!loading && !error && (
 					<>
 						{option === "gainers" &&
-							performers.map((coin) => (
+							gainers.map((coin) => (
 								<Coin
 									key={coin.id}
 									coin={coin}
@@ -98,7 +98,12 @@ const TopCoins = ({ coins, loading, error, portfolio }) => {
 								/>
 							))}
 
-						{performers.length === 0 && (
+						{gainers.length === 0 && option === "gainers" && (
+							<div className="text-center p-4 text-gray-500">
+								No coins to display.
+							</div>
+						)}
+						{losers.length === 0 && option === "losers" && (
 							<div className="text-center p-4 text-gray-500">
 								No coins to display.
 							</div>
