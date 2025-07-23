@@ -100,15 +100,21 @@ const Header = ({
 					</>
 				)}
 			</ul>
-			<div
-				className="sm:hidden hover:bg-blue-100 p-3 flex justify-center items-center rounded-3xl cursor-pointer"
-				onClick={toggleMenu}
-			>
-				{menu ? (
-					<CloseIcon sx={{ color: "black" }} fontSize="small" />
-				) : (
-					<MenuIcon sx={{ color: "black" }} fontSize="small" />
-				)}
+			<div className="flex gap-3 sm:hidden items-center ml-4">
+				<CurrencySelector
+					currency={currency}
+					setCurrency={setCurrency}
+				/>
+				<div
+					className="sm:hidden hover:bg-blue-100 p-3 flex justify-center items-center rounded-3xl cursor-pointer"
+					onClick={toggleMenu}
+				>
+					{menu ? (
+						<CloseIcon sx={{ color: "black" }} fontSize="small" />
+					) : (
+						<MenuIcon sx={{ color: "black" }} fontSize="small" />
+					)}
+				</div>
 			</div>
 		</div>
 	);
