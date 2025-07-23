@@ -85,15 +85,15 @@ const PortfolioCoinRow = ({
 							toggleForm(coin, "add");
 						}}
 					>
-						Buy
+						Add
 					</button>
 					<button
 						className="px-3 py-1 bg-red-600 text-white text-sm font-semibold rounded-md hover:bg-red-700 transition-all duration-200 cursor-pointer"
 						onClick={() => {
-							toggleForm(coin, "sell");
+							toggleForm(coin, "remove");
 						}}
 					>
-						Sell
+						Remove
 					</button>
 				</div>
 			</td>

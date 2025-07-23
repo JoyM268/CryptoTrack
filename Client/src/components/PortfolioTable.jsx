@@ -251,7 +251,7 @@ const PortfolioTable = ({
 	return (
 		<div className="relative">
 			<div className="bg-white h-16 rounded-t-xl border border-gray-200 flex justify-between py-4 pl-4 sticky top-0 z-10">
-				<div className="font-semibold text-sm sm:text-lg text-gray-800">
+				<div className="font-semibold text-md sm:text-lg text-gray-800">
 					Portfolio Details
 				</div>
 				<div className="flex items-center gap-4 pr-7">
