@@ -111,10 +111,12 @@ You can check out the live demo [here](https://cryptotrack-ultimez.vercel.app/).
     ```
 
     -   Create a `.env` file in the `Client` directory:
+      
         ```
         VITE_API_URL="http://localhost:3000"
         ```
     -   Start the frontend:
+      
         ```sh
         npm run dev
         ```
