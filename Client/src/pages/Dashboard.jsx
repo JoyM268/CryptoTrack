@@ -15,14 +15,19 @@ import TopCoins from "../components/TopCoins";
 import CoinGeckoAttribution from "../components/CoinGeckoAttribution";
 
 const COLORS = [
-	"#0088FE",
-	"#00C49F",
-	"#FFBB28",
-	"#FF8042",
-	"#AF19FF",
-	"#FF1943",
+	"#0088FE", // Bright Blue
+	"#00C49F", // Teal Green
+	"#FFBB28", // Amber
+	"#FF8042", // Orange
+	"#AF19FF", // Purple
+	"#FF4560", // Red
+	"#775DD0", // Indigo
+	"#3F51B5", // Dark Blue
+	"#0AB39C", // Dark Cyan
+	"#FABD22", // Yellow
+	"#F06543", // Salmon
+	"#D4526E", // Rose
 ];
-
 const Dashboard = ({
 	watchlist,
 	toggleWatchlist,
@@ -165,10 +170,11 @@ const Dashboard = ({
 										cx="50%"
 										cy="50%"
 										labelLine={false}
-										outerRadius={80}
+										outerRadius={100}
 										fill="#8884d8"
 										dataKey="value"
 										nameKey="name"
+										activeShape={false}
 									>
 										{pieChart.map((entry, index) => (
 											<Cell
