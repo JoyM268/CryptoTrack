@@ -20,13 +20,11 @@ CryptoTrack is a web application that allows users to track real-time cryptocurr
 
 ## Live Demo
 
--   The Frontend is deployed on Vercel:
-    https://cryptotrack-ultimez.vercel.app/
--   The Backend is deployed on Render:
-    https://cryptotrack-rhun.onrender.com
--   The MongoDB database is hosted on MongoDB Atlas.
+The application is deployed and publicly accessible:
+-   **Frontend (Vercel):** [`https://cryptotrack-ultimez.vercel.app/`](https://cryptotrack-ultimez.vercel.app/)
+-   **Backend (Render):** [`https://cryptotrack-rhun.onrender.com`](https://cryptotrack-rhun.onrender.com)
 
-You can check out the live demo [here](https://cryptotrack-ultimez.vercel.app/).
+*Note: The backend is hosted on a free Render instance, so the initial server response might be slow as the instance "wakes up" from a sleep state.*
 
 ## Features
 
