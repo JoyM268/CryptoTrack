@@ -4,34 +4,56 @@ Crypto Currency Price Tracker with Portfolio Manager and Watchlist.
 
 
 ## Table of Contents
-
 -   [Description](#description)
 -   [Live Demo](#live-demo)
--   [Screenshots](#screenshots)
 -   [Features](#features)
 -   [Tech Stack](#tech-stack)
+-   [Screenshots](#screenshots)
 -   [Getting Started](#getting-started)
--   [Contributing](#contributing)
 -   [Attributions](#attributions)
 -   [Contact](#contact)
 
 
 ## Description
 
-CryptoTrack is a web application that allows users to track real-time cryptocurrency prices, manage their portfolio, and maintain a watchlist. Users can register, log in, add/remove coins to their portfolio or watchlist, and export their portfolio data as PDF or CSV reports. The project was developed as part of an internship at Ultimez Technology Pvt Ltd.
+CryptoTrack is a web application that allows users to track real-time cryptocurrency prices, manage their portfolio, and maintain a watchlist. Users can register, log in, add/remove coins to their portfolio or watchlist, and export their portfolio data as PDF or CSV reports. This project was developed as part of an internship at Ultimez Technology Pvt Ltd.
 
 
 ## Live Demo
 
--   The Frontend is deployed on Vercel.
+-   The Frontend is deployed on Vercel:
     https://cryptotrack-ultimez.vercel.app/
--   The Backend is deployed on Render.
+-   The Backend is deployed on Render:
     https://cryptotrack-rhun.onrender.com
 -   The MongoDB database is hosted on MongoDB Atlas.
 
 You can check out the live demo [here](https://cryptotrack-ultimez.vercel.app/).
 
+## Features
 
+-   User authentication (register, login, logout)
+-   Real-time cryptocurrency prices (via CoinGecko API)
+-   Search cryptocurrency
+-   Add/remove coins to portfolio and watchlist
+-   Portfolio performance analytics (profit/loss, allocation chart)
+-   Export your portfolio report in both PDF and CSV formats.
+-   View portfolio values in different fiat currencies (via Frankfurter API)
+
+
+## Tech Stack
+The project is built with the MERN stack and other modern technologies:
+-   **Frontend:** React, Tailwind CSS
+-   **Backend:** Node.js, Express.js
+-   **Database:** MongoDB (with Mongoose)
+-   **Authentication:** JWT, Passport.js
+-   **APIs:** CoinGecko (crypto data), Frankfurter (currency conversion)
+-   **Key Libraries:**
+    -   `axios`: For making API requests.
+    -   `recharts`: For creating pie chart.
+    -   `framer-motion`: For UI animations.
+    -   `jspdf` & `jspdf-autotable`: For generating PDF reports.
+
+ 
 ## Screenshots
 
 | Screenshot                           | Description                                                                         |
@@ -45,89 +67,81 @@ You can check out the live demo [here](https://cryptotrack-ultimez.vercel.app/).
 | ![Exported CSV](./images/csv.png)    | **Exported CSV:** Downloadable portfolio report in CSV format.                      |
 
 
-## Features
-
--   User authentication (register, login, logout)
--   Real-time cryptocurrency prices (via CoinGecko API)
--   Search cryptocurrency
--   Add/remove coins to portfolio and watchlist
--   Portfolio performance analytics (profit/loss, allocation chart)
--   Export portfolio as PDF or CSV
--   Currency conversion for portfolio values (via Frankfurter API)
-
-
-## Tech Stack
-
--   **Frontend:** HTML, CSS, React, Tailwind CSS
--   **Backend:** Node.js, Express, MongoDB
--   **APIs:** [CoinGecko](https://www.coingecko.com/en/api) (crypto data), [Frankfurter](https://www.frankfurter.app/) (currency conversion)
--   **Deployment:** [Vercel](https://vercel.com/) (Frontend), [Render](https://render.com/) (Backend)
--   **Libraries:** Axios, Recharts, jsPDF, motion, Mongoose, JWT, Passport.js
-
-
 ## Getting Started
 
-1.  **Clone the repository:**
+Follow these instructions to set up and run the project locally on your machine.
 
-    ```sh
-    git clone https://github.com/JoyM268/CryptoTrack.git
-    cd CryptoTrack
-    ```
+### Prerequisites
 
-2.  **Setup the Backend:**
+-   Node.js (v18 or later recommended)
+-   Git
+-   MongoDB Community Server
 
-    ```sh
-    cd Server
-    npm install
-    ```
+### 1. Clone the Repository
 
-    -   **Setup MongoDB:**
+```bash
+git clone https://github.com/JoyM268/CryptoTrack.git
+cd CryptoTrack
+```
 
-            - You can [download MongoDB Community Server](https://www.mongodb.com/try/download/community) and install it locally.
-            - Add the MongoDB `bin` folder to your system's environment `PATH`.
-            - Install [mongosh](https://www.mongodb.com/try/download/shell) (MongoDB Shell) if not already installed.
-            - Start the MongoDB server by running `mongosh` in your terminal.
-            - Alternatively, you can use [MongoDB Atlas](https://www.mongodb.com/atlas/database) for a free
+### 2. Backend Setup
 
-        <br>
+Navigate to the server directory and install dependencies.
 
-    -   Create a `.env` file in the `Server` directory:
-        ```
-        MONGODB_URI="mongodb://127.0.0.1:27017/cryptotrack"
-        PORT=3000
-        CLIENT="http://localhost:5173"
-        JWT_SECRET="your_jwt_secret"
-        ```
-    -   Start the backend server:
-        ```sh
-        node server.js
-        ```
+```bash
+cd Server
+npm install
+```
 
-3.  **Setup the Frontend:**
+#### Setup Local MongoDB
 
-    ```sh
-    cd ../Client
-    npm install
-    ```
+1.  Download and install [MongoDB Community Server](https://www.mongodb.com/try/download/community) if you haven't already.
+2.  Start the MongoDB service on your machine. On most systems, you can run `mongod` in a terminal.
+3.  The backend will connect to the default local URI.
 
-    -   Create a `.env` file in the `Client` directory:
-      
-        ```
-        VITE_API_URL="http://localhost:3000"
-        ```
-    -   Start the frontend:
-      
-        ```sh
-        npm run dev
-        ```
+#### Environment Variables
 
-4.  **Visit the app:**
-    -   Open [http://localhost:5173](http://localhost:5173) in your browser.
-    
+Create a `.env` file in the `Server` directory and add the following variables.
 
-## Contributing
+```env
+MONGODB_URI="mongodb://127.0.0.1:27017/cryptotrack"
+PORT=3000
+CLIENT="http://localhost:5173"
+JWT_SECRET="YOUR_JWT_SECRET"
+```
 
-Contributions are welcome! Please submit a pull request or open an issue for any improvements or bug fixes.
+#### Run the Backend Server
+
+```bash
+npm start
+```
+
+
+### 3. Frontend Setup
+
+In a new terminal, navigate to the client directory and install dependencies.
+
+```bash
+# From the root CryptoTrack directory
+cd Client
+npm install
+```
+
+#### Environment Variables
+
+Create a `.env` file in the `Client` directory and add the following:
+
+```env
+VITE_API_URL="http://localhost:3000"
+```
+
+#### Run the Frontend
+
+```bash
+npm run dev
+```
+
+The application should now be running at **http://localhost:5173**.
 
 
 ## Attributions
