@@ -118,7 +118,7 @@ const App = () => {
 			if (!watchlist.includes(coinId)) {
 				const response = await watchlistAPI.add(coinId);
 				setWatchlist(response.watchlist);
-				toast.success(`${coinName || 'Coin'} was added to watchlist`, {
+				toast.success(`${coinName || "Coin"} was added to watchlist`, {
 					position: "top-right",
 					autoClose: 3000,
 					hideProgressBar: false,
@@ -129,7 +129,7 @@ const App = () => {
 			} else {
 				const response = await watchlistAPI.remove(coinId);
 				setWatchlist(response.watchlist);
-				toast.info(`${coinName || 'Coin'} was removed from watchlist`, {
+				toast.info(`${coinName || "Coin"} was removed from watchlist`, {
 					position: "top-right",
 					autoClose: 3000,
 					hideProgressBar: false,
