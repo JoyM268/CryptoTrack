@@ -1,6 +1,6 @@
 # CryptoTrack
 
-Crypto Currency Price Tracker with Portfolio Manager and Watchlist.
+A web application to track real-time cryptocurrency prices, manage a personal portfolio, and maintain a watchlist of favorite coins.
 
 
 ## Table of Contents
