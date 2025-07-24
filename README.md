@@ -10,7 +10,7 @@ A web application to track real-time cryptocurrency prices, manage a personal po
 -   [Tech Stack](#tech-stack)
 -   [Screenshots](#screenshots)
 -   [Getting Started](#getting-started)
--   [API Endpoints](#api-endpoints)
+-   [Server API Endpoints](#server-api-endpoints)
 -   [Attributions](#attributions)
 -   [Contact](#contact)
 
@@ -140,7 +140,7 @@ npm run dev
 
 The application should now be running at **http://localhost:5173**.
 
-## API Endpoints
+## Server API Endpoints
 
 ### Authentication
 
@@ -152,15 +152,15 @@ The application should now be running at **http://localhost:5173**.
 _Requires authentication_
 
 -   `GET /watchlist` - Get all cryptocurrencies in your watchlist.
--   `POST /watchlist/add` - Add a cryptocurrency to your watchlist.
--   `POST /watchlist/remove` - Remove a cryptocurrency from your watchlist.
+-   `PUT /watchlist/add` - Add a cryptocurrency to your watchlist.
+-   `PUT /watchlist/remove` - Remove a cryptocurrency from your watchlist.
 
 ### Portfolio
 
 _Requires authentication_
 
 -   `GET /portfolio` - Get your cryptocurrency portfolio with investment amounts and coin quantities.
--   `POST /portfolio/update` - Update your portfolio by adding or removing cryptocurrency investments.
+-   `PUT /portfolio/update` - Update your portfolio by adding or removing cryptocurrency investments.
 
 ## Attributions
 
