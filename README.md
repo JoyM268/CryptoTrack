@@ -50,6 +50,7 @@ The project is built with the MERN stack and other modern technologies:
     -   `recharts`: For creating pie chart.
     -   `framer-motion`: For UI animations.
     -   `jspdf` & `jspdf-autotable`: For generating PDF reports.
+    -   `React-toastify`: For alerts.
 
 ## Screenshots
 
