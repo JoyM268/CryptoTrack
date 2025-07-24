@@ -181,7 +181,6 @@ const PortfolioTable = ({
 			})
 			.filter(Boolean);
 
-		// 4. Specify the font in autoTable styles to ensure it's used within the table.
 		autoTable(doc, {
 			head: [headers],
 			body: rows.map((row) => {
@@ -256,7 +255,7 @@ const PortfolioTable = ({
 				head: [tableHeaders],
 				body: losers.map((l) => [
 					l.name,
-					formatCurrency(l.profit * currency[1]), // This will now render correctly.
+					formatCurrency(l.profit * currency[1]),
 					`${l.profitPercentage.toFixed(2)}%`,
 				]),
 				startY: lastTableBottom + 20,

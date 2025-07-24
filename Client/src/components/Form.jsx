@@ -1,9 +1,17 @@
 import CloseIcon from "@mui/icons-material/Close";
 import { useState } from "react";
-const Form = ({ title, buttonText, coinData, toggleForm, action }) => {
+const Form = ({
+	title,
+	buttonText,
+	coinData,
+	toggleForm,
+	action,
+	portfolio,
+}) => {
 	const [amount, setAmount] = useState(0);
 	const [price, setPrice] = useState(coinData.current_price);
 	const isSelling = buttonText === "Sell";
+	const [warning, setWarning] = useState(null);
 	return (
 		<div className="flex w-screen justify-center items-center">
 			<div className="fixed top-1/5 w-fit shadow-2xl p-8 rounded-xl bg-white mx-6">
@@ -36,7 +44,12 @@ const Form = ({ title, buttonText, coinData, toggleForm, action }) => {
 						<input
 							type="text"
 							value={amount}
-							onChange={(e) => setAmount(e.target.value)}
+							onChange={(e) => {
+								if (warning) {
+									setWarning(null);
+								}
+								setAmount(e.target.value);
+							}}
 							className="border px-2 py-2.5 rounded-md"
 							placeholder="Amount"
 						/>
@@ -50,7 +63,12 @@ const Form = ({ title, buttonText, coinData, toggleForm, action }) => {
 						<input
 							type="text"
 							value={price}
-							onChange={(e) => setPrice(e.target.value)}
+							onChange={(e) => {
+								if (warning) {
+									setWarning(null);
+								}
+								setPrice(e.target.value);
+							}}
 							className="border px-2 py-2.5 rounded-md"
 							placeholder="Price"
 						/>
@@ -60,18 +78,40 @@ const Form = ({ title, buttonText, coinData, toggleForm, action }) => {
 							<span className="text-red-500 text-center">
 								Amount And Price can only be a Number
 							</span>
-						) : (
+						) : !warning ? (
 							`${
 								isSelling
 									? "Total Sale Value"
 									: "Total Investment"
 							}: \$${(amount * price).toFixed(2)}`
+						) : (
+							<span className="text-red-500 text-center">
+								{warning}
+							</span>
 						)}
 					</p>
 				</form>
 				<button
 					className="bg-blue-600 w-full text-white py-3 rounded-md hover:bg-blue-700 cursor-pointer"
 					onClick={() => {
+						const coins = portfolio[coinData.id]?.coins || 0;
+						const totalInvestment =
+							portfolio[coinData.id]?.totalInvestment || 0;
+
+						if (isSelling && amount > coins) {
+							setWarning(
+								`Amount exceeds your owned ${coinData.name}.`
+							);
+							return;
+						}
+
+						if (isSelling && amount * price > totalInvestment) {
+							setWarning(
+								`Sale Value exceeds your owned Balance.`
+							);
+							return;
+						}
+
 						action(coinData.id, amount * price, amount);
 					}}
 				>

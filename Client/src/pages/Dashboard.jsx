@@ -241,6 +241,7 @@ const Dashboard = ({
 			coinData={coinData}
 			toggleForm={toggleForm}
 			action={action == "add" ? addCoin : removeCoin}
+			portfolio={portfolio}
 		/>
 	);
 };
