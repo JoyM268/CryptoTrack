@@ -84,6 +84,14 @@ const App = () => {
 			const updatedPortfolio = await portfolioAPI.update(id, coinData);
 			setPortfolio(updatedPortfolio);
 			toggleForm();
+			toast.success("Portfolio updated successfully.", {
+				position: "top-right",
+				autoClose: 3000,
+				hideProgressBar: false,
+				closeOnClick: true,
+				pauseOnHover: false,
+				draggable: true,
+			});
 		} catch (error) {
 			console.error("Failed to add coin:", error);
 		}
@@ -98,6 +106,14 @@ const App = () => {
 			const updatedPortfolio = await portfolioAPI.update(id, coinData);
 			setPortfolio(updatedPortfolio);
 			toggleForm();
+			toast.success("Portfolio updated successfully.", {
+				position: "top-right",
+				autoClose: 3000,
+				hideProgressBar: false,
+				closeOnClick: true,
+				pauseOnHover: false,
+				draggable: true,
+			});
 		} catch (error) {
 			console.error("Failed to remove coin:", error);
 		}
