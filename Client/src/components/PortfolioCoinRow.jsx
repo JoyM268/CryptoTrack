@@ -78,7 +78,7 @@ const PortfolioCoinRow = ({
 								: "text-amber-300"
 						}`}
 						onClick={() => {
-							toggleWatchlist(coin.id);
+							toggleWatchlist(coin.id, coin.name);
 						}}
 					>
 						{isStarred ? <StarIcon /> : <StarOutlineIcon />}

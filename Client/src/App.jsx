@@ -16,6 +16,8 @@ import Watchlist from "./pages/Watchlist";
 import { AnimatePresence } from "motion/react";
 import { useAuth } from "./context/AuthContext";
 import { portfolioAPI, watchlistAPI } from "./services/api";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const App = () => {
 	const [menu, setMenu] = useState(false);
@@ -31,6 +33,14 @@ const App = () => {
 		setWatchlist([]);
 		setPortfolio({});
 		logout();
+		toast.success("Logged out successfully", {
+			position: "top-right",
+			autoClose: 3000,
+			hideProgressBar: false,
+			closeOnClick: true,
+			pauseOnHover: false,
+			draggable: true,
+		});
 		navigate("/");
 	};
 
@@ -103,17 +113,41 @@ const App = () => {
 		setMenu((menu) => !menu);
 	}
 
-	async function toggleWatchlist(coinId) {
+	async function toggleWatchlist(coinId, coinName = null) {
 		try {
 			if (!watchlist.includes(coinId)) {
 				const response = await watchlistAPI.add(coinId);
 				setWatchlist(response.watchlist);
+				toast.success(`${coinName || 'Coin'} was added to watchlist`, {
+					position: "top-right",
+					autoClose: 3000,
+					hideProgressBar: false,
+					closeOnClick: true,
+					pauseOnHover: false,
+					draggable: true,
+				});
 			} else {
 				const response = await watchlistAPI.remove(coinId);
 				setWatchlist(response.watchlist);
+				toast.info(`${coinName || 'Coin'} was removed from watchlist`, {
+					position: "top-right",
+					autoClose: 3000,
+					hideProgressBar: false,
+					closeOnClick: true,
+					pauseOnHover: false,
+					draggable: true,
+				});
 			}
 		} catch (error) {
 			console.error("Failed to update watchlist:", error);
+			toast.error("Failed to update watchlist. Please try again.", {
+				position: "top-right",
+				autoClose: 3000,
+				hideProgressBar: false,
+				closeOnClick: true,
+				pauseOnHover: true,
+				draggable: true,
+			});
 		}
 	}
 
@@ -226,6 +260,16 @@ const App = () => {
 					}
 				/>
 			</Routes>
+			<ToastContainer
+				position="top-right"
+				autoClose={3000}
+				hideProgressBar={false}
+				newestOnTop={false}
+				closeOnClick
+				rtl={false}
+				draggable
+				theme="light"
+			/>
 		</div>
 	);
 };

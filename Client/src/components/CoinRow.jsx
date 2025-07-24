@@ -64,7 +64,7 @@ const CoinRow = ({
 						}`}
 						onClick={() => {
 							if (loggedIn) {
-								toggleWatchlist(coin.id);
+								toggleWatchlist(coin.id, coin.name);
 							} else {
 								toggleForm();
 							}
