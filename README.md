@@ -2,22 +2,21 @@
 
 A web application to track real-time cryptocurrency prices, manage a personal portfolio, and maintain a watchlist of favorite coins.
 
-
 ## Table of Contents
+
 -   [Description](#description)
 -   [Live Demo](#live-demo)
 -   [Features](#features)
 -   [Tech Stack](#tech-stack)
 -   [Screenshots](#screenshots)
 -   [Getting Started](#getting-started)
+-   [API Endpoints](#api-endpoints)
 -   [Attributions](#attributions)
 -   [Contact](#contact)
-
 
 ## Description
 
 CryptoTrack is a web application that allows users to track real-time cryptocurrency prices, manage their portfolio, and maintain a watchlist. Users can register, log in, add/remove coins to their portfolio or watchlist, and export their portfolio data as PDF or CSV reports. This project was developed as part of an internship at Ultimez Technology Pvt Ltd.
-
 
 ## Live Demo
 
@@ -39,9 +38,10 @@ You can check out the live demo [here](https://cryptotrack-ultimez.vercel.app/).
 -   Export your portfolio report in both PDF and CSV formats.
 -   View portfolio values in different fiat currencies (via Frankfurter API)
 
-
 ## Tech Stack
+
 The project is built with the MERN stack and other modern technologies:
+
 -   **Frontend:** React, Tailwind CSS
 -   **Backend:** Node.js, Express.js
 -   **Database:** MongoDB (with Mongoose)
@@ -53,7 +53,6 @@ The project is built with the MERN stack and other modern technologies:
     -   `framer-motion`: For UI animations.
     -   `jspdf` & `jspdf-autotable`: For generating PDF reports.
 
- 
 ## Screenshots
 
 | Screenshot                           | Description                                                                         |
@@ -65,7 +64,6 @@ The project is built with the MERN stack and other modern technologies:
 | ![Watchlist](./images/watchlist.png) | **Watchlist:** Manage your favorite coins.                                          |
 | ![Exported PDF](./images/pdf.png)    | **Exported PDF:** Downloadable portfolio report in PDF format.                      |
 | ![Exported CSV](./images/csv.png)    | **Exported CSV:** Downloadable portfolio report in CSV format.                      |
-
 
 ## Getting Started
 
@@ -116,7 +114,6 @@ JWT_SECRET="YOUR_JWT_SECRET"
 npm start
 ```
 
-
 ### 3. Frontend Setup
 
 In a new terminal, navigate to the client directory and install dependencies.
@@ -143,12 +140,32 @@ npm run dev
 
 The application should now be running at **http://localhost:5173**.
 
+## API Endpoints
+
+### Authentication
+
+-   `POST /register` - Create a new user account with username and password.
+-   `POST /login` - Log in with username and password to receive an authentication token.
+
+### Watchlist
+
+_Requires authentication_
+
+-   `GET /watchlist` - Get all cryptocurrencies in your watchlist.
+-   `POST /watchlist/add` - Add a cryptocurrency to your watchlist.
+-   `POST /watchlist/remove` - Remove a cryptocurrency from your watchlist.
+
+### Portfolio
+
+_Requires authentication_
+
+-   `GET /portfolio` - Get your cryptocurrency portfolio with investment amounts and coin quantities.
+-   `POST /portfolio/update` - Update your portfolio by adding or removing cryptocurrency investments.
 
 ## Attributions
 
 -   Cryptocurrency data provided by [CoinGecko API](https://www.coingecko.com/en/api).
 -   Currency conversion powered by [Frankfurter API](https://www.frankfurter.app/).
-
 
 ## Contact
 
