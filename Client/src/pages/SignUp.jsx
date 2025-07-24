@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { NavLink, useNavigate } from "react-router-dom";
 import { authAPI } from "../services/api";
+import { toast } from "react-toastify";
 
 const SignUp = () => {
 	const [username, setUsername] = useState("");
@@ -23,6 +24,17 @@ const SignUp = () => {
 
 		try {
 			await authAPI.register(username, password);
+			toast.success(
+				"User registered successfully, Please login to continue.",
+				{
+					position: "top-right",
+					autoClose: 3000,
+					hideProgressBar: false,
+					closeOnClick: true,
+					pauseOnHover: false,
+					draggable: true,
+				}
+			);
 			navigate("/login");
 		} catch (err) {
 			setError(err.response?.data?.Error || "Registration failed");

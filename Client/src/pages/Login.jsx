@@ -2,6 +2,7 @@ import { useState } from "react";
 import { NavLink, useNavigate } from "react-router-dom";
 import { useAuth } from "../context/AuthContext";
 import { authAPI } from "../services/api";
+import { toast } from "react-toastify";
 
 const Login = () => {
 	const [username, setUsername] = useState("");
@@ -19,6 +20,14 @@ const Login = () => {
 		try {
 			const response = await authAPI.login(username, password);
 			login(response.token, response.user);
+			toast.success("Login successful, Welcome back!", {
+				position: "top-right",
+				autoClose: 3000,
+				hideProgressBar: false,
+				closeOnClick: true,
+				pauseOnHover: false,
+				draggable: true,
+			});
 			navigate("/dashboard");
 		} catch (err) {
 			setError(err.response?.data?.error || "Login failed");
