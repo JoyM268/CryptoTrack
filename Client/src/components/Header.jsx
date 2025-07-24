@@ -14,7 +14,9 @@ const Header = ({
 }) => {
 	return (
 		<div className="bg-white shadow-md h-16 flex justify-between items-center px-4 select-none z-20 sticky top-0">
-			<div className="text-2xl font-bold text-blue-700">CryptoTrack</div>
+			<NavLink to="/" className="text-2xl font-bold text-blue-700">
+				CryptoTrack
+			</NavLink>
 			<ul className="hidden sm:flex items-center gap-4">
 				<NavLink
 					to="/"
