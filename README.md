@@ -31,7 +31,7 @@ The application is deployed and publicly accessible:
 -   Real-time cryptocurrency prices (via CoinGecko API)
 -   Search cryptocurrency
 -   Add/remove coins to portfolio and watchlist
--   Portfolio performance analytics (profit/loss, allocation chart)
+-   Portfolio performance analytics (profit/loss, allocation chart, top gainers, top losers)
 -   Export your portfolio report in both PDF and CSV formats.
 -   View portfolio values in different fiat currencies (via Frankfurter API)
 
