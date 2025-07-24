@@ -237,7 +237,7 @@ const Dashboard = ({
 			title={
 				action == "add" ? "Add to Portfolio" : "Remove from Portfolio"
 			}
-			buttonText={action == "add" ? "Buy" : "Sell"}
+			buttonText={action == "add" ? "Add" : "Remove"}
 			coinData={coinData}
 			toggleForm={toggleForm}
 			action={action == "add" ? addCoin : removeCoin}
