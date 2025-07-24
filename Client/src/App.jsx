@@ -125,6 +125,15 @@ const App = () => {
 		);
 	}
 
+	const formatCurrency = (value) => {
+		return new Intl.NumberFormat("en-US", {
+			style: "currency",
+			currency: currency[0],
+			minimumFractionDigits: 0,
+			maximumFractionDigits: 2,
+		}).format(value);
+	};
+
 	return (
 		<div className="min-h-screen bg-gray-50">
 			<Header
@@ -151,6 +160,7 @@ const App = () => {
 							coinData={coinData}
 							loggedIn={isAuthenticated}
 							currency={currency}
+							formatCurrency={formatCurrency}
 						/>
 					}
 				/>
@@ -168,6 +178,7 @@ const App = () => {
 								coinData={coinData}
 								removeCoin={removeCoin}
 								currency={currency}
+								formatCurrency={formatCurrency}
 							/>
 						) : (
 							<Navigate to="/login" />
@@ -187,6 +198,7 @@ const App = () => {
 								loggedIn={isAuthenticated}
 								coinData={coinData}
 								currency={currency}
+								formatCurrency={formatCurrency}
 							/>
 						) : (
 							<Navigate to="/login" />

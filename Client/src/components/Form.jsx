@@ -7,9 +7,11 @@ const Form = ({
 	toggleForm,
 	action,
 	portfolio,
+	currency,
+	formatCurrency,
 }) => {
 	const [amount, setAmount] = useState(0);
-	const [price, setPrice] = useState(coinData.current_price);
+	const [price, setPrice] = useState(coinData.current_price * currency[1]);
 	const isSelling = buttonText === "Sell";
 	const [warning, setWarning] = useState(null);
 	return (
@@ -34,7 +36,10 @@ const Form = ({
 						<h2 className="font-medium">{coinData.name}</h2>
 						<p className="uppercase text-xs">{coinData.symbol}</p>
 						<p className="text-xs">
-							Price: ${coinData.current_price?.toLocaleString()}
+							Price:{" "}
+							{formatCurrency(
+								coinData.current_price * currency[1]
+							)}
 						</p>
 					</div>
 				</div>
@@ -57,8 +62,8 @@ const Form = ({
 					<div className="flex flex-col mb-5">
 						<span>
 							{isSelling
-								? "Sell Price(USD) *"
-								: "Buy Price(USD) *"}
+								? `Sell Price(${currency[0]}) *`
+								: `Buy Price(${currency[0]}) *`}
 						</span>
 						<input
 							type="text"
@@ -83,7 +88,7 @@ const Form = ({
 								isSelling
 									? "Total Sale Value"
 									: "Total Investment"
-							}: \$${(amount * price).toFixed(2)}`
+							}: ${formatCurrency(amount * price)}`
 						) : (
 							<span className="text-red-500 text-center">
 								{warning}
@@ -94,25 +99,36 @@ const Form = ({
 				<button
 					className="bg-blue-600 w-full text-white py-3 rounded-md hover:bg-blue-700 cursor-pointer"
 					onClick={() => {
-						const coins = portfolio[coinData.id]?.coins || 0;
-						const totalInvestment =
-							portfolio[coinData.id]?.totalInvestment || 0;
+						if (isSelling) {
+							const coins = portfolio[coinData?.id]?.coins || 0;
+							const totalInvestment =
+								portfolio[coinData?.id]?.totalInvestment || 0;
 
-						if (isSelling && amount > coins) {
-							setWarning(
-								`Amount exceeds your owned ${coinData.name}.`
-							);
-							return;
+							if (amount > coins) {
+								setWarning(
+									`Amount exceeds your owned ${coinData.name}.`
+								);
+								return;
+							}
+
+							if (
+								amount * price >
+								coinData.current_price *
+									totalInvestment *
+									currency[1]
+							) {
+								setWarning(
+									`Sale Value exceeds your owned Balance.`
+								);
+								return;
+							}
 						}
 
-						if (isSelling && amount * price > totalInvestment) {
-							setWarning(
-								`Sale Value exceeds your owned Balance.`
-							);
-							return;
-						}
-
-						action(coinData.id, amount * price, amount);
+						action(
+							coinData.id,
+							(amount * price) / currency[1],
+							amount
+						);
 					}}
 				>
 					{buttonText}

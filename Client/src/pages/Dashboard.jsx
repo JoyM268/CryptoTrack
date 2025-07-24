@@ -38,6 +38,7 @@ const Dashboard = ({
 	removeCoin,
 	coinData,
 	currency,
+	formatCurrency,
 }) => {
 	const [coins, setCoins] = useState([]);
 	const [loading, setLoading] = useState(true);
@@ -45,15 +46,6 @@ const Dashboard = ({
 	const [action, setAction] = useState("");
 	const [pieChart, setPieChart] = useState([]);
 	const portfolioCoins = Object.keys(portfolio);
-
-	const formatCurrency = (value) => {
-		return new Intl.NumberFormat("en-US", {
-			style: "currency",
-			currency: currency[0],
-			minimumFractionDigits: 0,
-			maximumFractionDigits: 2,
-		}).format(value);
-	};
 
 	const handleToggleForm = (coin, actionType) => {
 		setAction(actionType);
@@ -242,6 +234,8 @@ const Dashboard = ({
 			toggleForm={toggleForm}
 			action={action == "add" ? addCoin : removeCoin}
 			portfolio={portfolio}
+			currency={currency}
+			formatCurrency={formatCurrency}
 		/>
 	);
 };
