@@ -247,7 +247,7 @@ const Dashboard = ({
 										new Intl.NumberFormat("en-US", {
 											notation: "compact",
 											compactDisplay: "short",
-										}).format(value)
+										}).format(value * currency[1])
 									}
 								/>
 								<Tooltip
