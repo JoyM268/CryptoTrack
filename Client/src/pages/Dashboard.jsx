@@ -208,7 +208,7 @@ const Dashboard = ({
 			</div>
 			<div className="bg-white shadow-lg rounded-xl p-6 mt-8">
 				<h2 className="text-xl font-semibold text-gray-500 mb-4">
-					Investment vs. Current Value
+					Investment vs Current Value
 				</h2>
 				<div className="w-full h-96 overflow-x-auto">
 					{loading ? (
