@@ -46,7 +46,7 @@ The project is built with the MERN stack and other modern technologies:
 -   **APIs:** CoinGecko (crypto data), Frankfurter (currency conversion)
 -   **Key Libraries:**
     -   `axios`: For making API requests.
-    -   `recharts`: For creating pie chart.
+    -   `recharts`: For creating pie chart and bar chart.
     -   `framer-motion`: For UI animations.
     -   `jspdf` & `jspdf-autotable`: For generating PDF reports.
     -   `React-toastify`: For alerts.
@@ -58,7 +58,7 @@ The project is built with the MERN stack and other modern technologies:
 | ![Home Page](./images/home.png)      | **Home Page:** Search and view top cryptocurrencies, add to watchlist or portfolio. |
 | ![Login Page](./images/login.png)    | **Login Page:** Login for registered users.                                         |
 | ![Sign Up Page](./images/signup.png) | **Sign Up Page:** Register a new account.                                           |
-| ![Dashboard](./images/dashboard.png) | **Dashboard:** View portfolio summary, allocation chart, and top gainers/losers.    |
+| ![Dashboard](./images/dashboard.png) | **Dashboard:** View portfolio summary, allocation charts, and top gainers/losers.    |
 | ![Watchlist](./images/watchlist.png) | **Watchlist:** Manage your favorite coins.                                          |
 | ![Exported PDF](./images/pdf.png)    | **Exported PDF:** Downloadable portfolio report in PDF format.                      |
 | ![Exported CSV](./images/csv.png)    | **Exported CSV:** Downloadable portfolio report in CSV format.                      |
