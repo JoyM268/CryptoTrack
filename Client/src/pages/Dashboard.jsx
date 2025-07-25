@@ -256,9 +256,7 @@ const Dashboard = ({
 									}}
 									formatter={(value, name) => [
 										formatCurrency(value * currency[1]),
-										name === "value"
-											? "Current Value"
-											: "Total Investment",
+										name,
 									]}
 								/>
 								<Legend />
