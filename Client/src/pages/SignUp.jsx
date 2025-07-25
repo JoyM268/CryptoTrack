@@ -20,6 +20,11 @@ const SignUp = () => {
 			return;
 		}
 
+		if (password.length < 8) {
+			setError("Password length should be atleast 8");
+			return;
+		}
+
 		setLoading(true);
 
 		try {
