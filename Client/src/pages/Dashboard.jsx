@@ -8,6 +8,11 @@ import {
 	Tooltip,
 	Legend,
 	ResponsiveContainer,
+	BarChart,
+	Bar,
+	XAxis,
+	YAxis,
+	CartesianGrid,
 } from "recharts";
 import Form from "../components/Form";
 import PortfolioTable from "../components/PortfolioTable";
@@ -15,19 +20,20 @@ import TopCoins from "../components/TopCoins";
 import CoinGeckoAttribution from "../components/CoinGeckoAttribution";
 
 const COLORS = [
-	"#0088FE", // Bright Blue
-	"#00C49F", // Teal Green
-	"#FFBB28", // Amber
-	"#FF8042", // Orange
-	"#AF19FF", // Purple
-	"#FF4560", // Red
-	"#775DD0", // Indigo
-	"#3F51B5", // Dark Blue
-	"#0AB39C", // Dark Cyan
-	"#FABD22", // Yellow
-	"#F06543", // Salmon
-	"#D4526E", // Rose
+	"#0088FE",
+	"#00C49F",
+	"#FFBB28",
+	"#FF8042",
+	"#AF19FF",
+	"#FF4560",
+	"#775DD0",
+	"#3F51B5",
+	"#0AB39C",
+	"#FABD22",
+	"#F06543",
+	"#D4526E",
 ];
+
 const Dashboard = ({
 	watchlist,
 	toggleWatchlist,
@@ -44,7 +50,7 @@ const Dashboard = ({
 	const [loading, setLoading] = useState(true);
 	const [error, setError] = useState(null);
 	const [action, setAction] = useState("");
-	const [pieChart, setPieChart] = useState([]);
+	const [chart, setChart] = useState([]);
 	const portfolioCoins = Object.keys(portfolio);
 
 	const handleToggleForm = (coin, actionType) => {
@@ -83,16 +89,17 @@ const Dashboard = ({
 
 	useEffect(() => {
 		if (coins.length > 0 && portfolioCoins.length > 0) {
-			const dataForPieChart = coins.map((coin) => {
+			const dataForChart = coins.map((coin) => {
 				const portfolioCoin = portfolio[coin.id];
 				return {
 					name: coin.name,
 					value: portfolioCoin.coins * coin.current_price,
+					total: portfolioCoin.totalInvestment,
 				};
 			});
-			setPieChart(dataForPieChart);
+			setChart(dataForChart);
 		} else {
-			setPieChart([]);
+			setChart([]);
 		}
 	}, [coins, portfolio]);
 
@@ -144,8 +151,7 @@ const Dashboard = ({
 					<h2 className="text-xl font-semibold text-gray-500 mb-4">
 						Portfolio Allocation
 					</h2>
-
-					<div className="w-full h-80 overflow-y-auto [scrollbar-width:none]">
+					<div className="w-full h-80">
 						{loading ? (
 							<div className="flex justify-center items-center h-full">
 								<p>Loading Chart...</p>
@@ -154,11 +160,11 @@ const Dashboard = ({
 							<div className="flex justify-center items-center h-full text-red-500">
 								<p>{error}</p>
 							</div>
-						) : pieChart.length > 0 ? (
+						) : chart.length > 0 ? (
 							<ResponsiveContainer>
 								<PieChart>
 									<Pie
-										data={pieChart}
+										data={chart}
 										cx="50%"
 										cy="50%"
 										labelLine={false}
@@ -166,9 +172,8 @@ const Dashboard = ({
 										fill="#8884d8"
 										dataKey="value"
 										nameKey="name"
-										activeShape={false}
 									>
-										{pieChart.map((entry, index) => (
+										{chart.map((entry, index) => (
 											<Cell
 												key={`cell-${index}`}
 												fill={
@@ -200,6 +205,83 @@ const Dashboard = ({
 					error={error}
 					portfolio={portfolio}
 				/>
+			</div>
+			<div className="bg-white shadow-lg rounded-xl p-6 mt-8">
+				<h2 className="text-xl font-semibold text-gray-500 mb-4">
+					Investment vs. Current Value
+				</h2>
+				<div className="w-full h-96 overflow-x-auto">
+					{loading ? (
+						<div className="flex justify-center items-center h-full">
+							<p>Loading Chart...</p>
+						</div>
+					) : error ? (
+						<div className="flex justify-center items-center h-full text-red-500">
+							<p>{error}</p>
+						</div>
+					) : chart.length > 0 ? (
+						<ResponsiveContainer
+							width="100%"
+							minWidth={500}
+							height="100%"
+						>
+							<BarChart
+								data={chart}
+								margin={{
+									top: 5,
+									right: 30,
+									left: 20,
+									bottom: 40,
+								}}
+							>
+								<CartesianGrid strokeDasharray="3 3" />
+								<XAxis
+									dataKey="name"
+									angle={-45}
+									textAnchor="end"
+									interval={0}
+									height={50}
+								/>
+								<YAxis
+									tickFormatter={(value) =>
+										new Intl.NumberFormat("en-US", {
+											notation: "compact",
+											compactDisplay: "short",
+										}).format(value)
+									}
+								/>
+								<Tooltip
+									cursor={{
+										fill: "rgba(204, 204, 204, 0.2)",
+									}}
+									formatter={(value, name) => [
+										formatCurrency(value * currency[1]),
+										name === "value"
+											? "Current Value"
+											: "Total Investment",
+									]}
+								/>
+								<Legend />
+								<Bar
+									dataKey="total"
+									name="Total Investment"
+									fill="#AF19FF"
+									barSize={20}
+								/>
+								<Bar
+									dataKey="value"
+									name="Current Value"
+									fill="#00C49F"
+									barSize={20}
+								/>
+							</BarChart>
+						</ResponsiveContainer>
+					) : (
+						<div className="flex justify-center items-center h-full">
+							<p>No data to display in chart.</p>
+						</div>
+					)}
+				</div>
 			</div>
 			<div className="mt-10 mx-auto overflow-x-auto [scrollbar-width:none]">
 				<PortfolioTable
