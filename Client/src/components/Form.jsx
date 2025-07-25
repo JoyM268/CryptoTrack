@@ -53,7 +53,11 @@ const Form = ({
 								if (warning) {
 									setWarning(null);
 								}
-								setAmount(e.target.value);
+								const inputValue = e.target.value;
+								const regex = /^[0-9.]*$/;
+								if (regex.test(inputValue)) {
+									setAmount(inputValue);
+								}
 							}}
 							className="border px-2 py-2.5 rounded-md"
 							placeholder="Amount"
@@ -72,7 +76,11 @@ const Form = ({
 								if (warning) {
 									setWarning(null);
 								}
-								setPrice(e.target.value);
+								const inputValue = e.target.value;
+								const regex = /^[0-9.]*$/;
+								if (regex.test(inputValue)) {
+									setPrice(inputValue);
+								}
 							}}
 							className="border px-2 py-2.5 rounded-md"
 							placeholder="Price"
