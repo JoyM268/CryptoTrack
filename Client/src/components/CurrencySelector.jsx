@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { useCurrency } from "../context/currencyContext";
+import { useCurrency } from "../context/CurrencyContext";
 
 const CurrencySelector = () => {
 	const { currency, setCurrency } = useCurrency();

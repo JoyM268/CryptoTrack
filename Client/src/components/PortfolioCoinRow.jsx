@@ -1,6 +1,6 @@
 import StarOutlineIcon from "@mui/icons-material/StarOutline";
 import StarIcon from "@mui/icons-material/Star";
-import { useCurrency } from "../context/currencyContext";
+import { useCurrency } from "../context/CurrencyContext";
 
 const PortfolioCoinRow = ({
 	coin,

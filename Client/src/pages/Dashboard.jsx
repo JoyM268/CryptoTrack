@@ -18,7 +18,7 @@ import Form from "../components/Form";
 import PortfolioTable from "../components/PortfolioTable";
 import TopCoins from "../components/TopCoins";
 import CoinGeckoAttribution from "../components/CoinGeckoAttribution";
-import { useCurrency } from "../context/currencyContext";
+import { useCurrency } from "../context/CurrencyContext";
 
 const COLORS = [
 	"#0088FE",

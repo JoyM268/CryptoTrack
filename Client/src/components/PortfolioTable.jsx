@@ -6,7 +6,7 @@ import autoTable from "jspdf-autotable";
 import CoinGeckoAttribution from "./CoinGeckoAttribution";
 import { NotoSans } from "./NotoSans-Regular.js";
 import { NotoSansBold } from "./NotoSans-Bold.js";
-import { useCurrency } from "../context/currencyContext.jsx";
+import { useCurrency } from "../context/CurrencyContext";
 
 const PortfolioTable = ({
 	loading,

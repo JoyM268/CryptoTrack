@@ -1,6 +1,6 @@
 import CloseIcon from "@mui/icons-material/Close";
 import { useState } from "react";
-import { useCurrency } from "../context/currencyContext";
+import { useCurrency } from "../context/CurrencyContext";
 const Form = ({
 	title,
 	buttonText,
