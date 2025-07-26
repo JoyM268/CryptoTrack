@@ -4,7 +4,7 @@ import Table from "../components/Table";
 import Form from "../components/Form";
 import LoginWarning from "../components/LoginWarning";
 import CoinGeckoAttribution from "../components/CoinGeckoAttribution";
-import { useCurrency } from "../context/currencyContext";
+import { useAuth } from "../context/AuthContext";
 
 const Home = ({
 	watchlist,
@@ -13,13 +13,12 @@ const Home = ({
 	form,
 	toggleForm,
 	coinData,
-	loggedIn,
 }) => {
+	const { isAuthenticated } = useAuth();
 	const [coins, setCoins] = useState([]);
 	const [loading, setLoading] = useState(true);
 	const [error, setError] = useState(null);
 	const [search, setSearch] = useState("");
-	const { currency, formatCurrency } = useCurrency();
 
 	useEffect(() => {
 		const topCoins = async () => {
@@ -91,11 +90,10 @@ const Home = ({
 							watchlist={watchlist}
 							message={""}
 							toggleForm={toggleForm}
-							loggedIn={loggedIn}
 						/>
 					</div>
 				</>
-			) : loggedIn ? (
+			) : isAuthenticated ? (
 				<Form
 					title={"Add to Portfolio"}
 					buttonText={"Add"}

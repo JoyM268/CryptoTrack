@@ -1,13 +1,10 @@
 import StarOutlineIcon from "@mui/icons-material/StarOutline";
 import StarIcon from "@mui/icons-material/Star";
 import { useCurrency } from "../context/currencyContext";
-const CoinRow = ({
-	coin,
-	isStarred,
-	toggleWatchlist,
-	toggleForm,
-	loggedIn,
-}) => {
+import { useAuth } from "../context/AuthContext";
+
+const CoinRow = ({ coin, isStarred, toggleWatchlist, toggleForm }) => {
+	const { isAuthenticated } = useAuth();
 	const { currency, formatCurrency } = useCurrency();
 
 	const color =
@@ -55,7 +52,7 @@ const CoinRow = ({
 								: "text-amber-300"
 						}`}
 						onClick={() => {
-							if (loggedIn) {
+							if (isAuthenticated) {
 								toggleWatchlist(coin.id, coin.name);
 							} else {
 								toggleForm();

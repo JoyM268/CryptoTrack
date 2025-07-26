@@ -2,8 +2,11 @@ import { NavLink } from "react-router-dom";
 import MenuIcon from "@mui/icons-material/Menu";
 import CloseIcon from "@mui/icons-material/Close";
 import CurrencySelector from "./CurrencySelector";
+import { useAuth } from "../context/AuthContext";
 
-const Header = ({ menu, toggleMenu, loggedIn, handleLogout }) => {
+const Header = ({ menu, toggleMenu, handleLogout }) => {
+	const { isAuthenticated } = useAuth();
+
 	return (
 		<div className="bg-white shadow-md h-16 flex justify-between items-center px-4 select-none z-20 sticky top-0">
 			<NavLink to="/" className="text-2xl font-bold text-blue-700">
@@ -22,7 +25,7 @@ const Header = ({ menu, toggleMenu, loggedIn, handleLogout }) => {
 				>
 					Home
 				</NavLink>
-				{loggedIn ? (
+				{isAuthenticated ? (
 					<>
 						<NavLink
 							to="dashboard"

@@ -181,12 +181,11 @@ const App = () => {
 				<Header
 					menu={menu}
 					toggleMenu={toggleMenu}
-					loggedIn={isAuthenticated}
 					handleLogout={handleLogout}
 				/>
 
 				<AnimatePresence>
-					{menu && <Menu loggedIn={isAuthenticated} />}
+					{menu && <Menu handleLogout={handleLogout} />}
 				</AnimatePresence>
 				<Routes>
 					<Route
@@ -199,7 +198,6 @@ const App = () => {
 								form={form}
 								toggleForm={toggleForm}
 								coinData={coinData}
-								loggedIn={isAuthenticated}
 							/>
 						}
 					/>
@@ -232,7 +230,6 @@ const App = () => {
 									toggleWatchlist={toggleWatchlist}
 									addCoin={addCoin}
 									form={form}
-									loggedIn={isAuthenticated}
 									coinData={coinData}
 								/>
 							) : (

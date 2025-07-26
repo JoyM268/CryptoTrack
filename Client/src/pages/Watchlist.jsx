@@ -10,7 +10,6 @@ const Watchlist = ({
 	form,
 	toggleForm,
 	coinData,
-	loggedIn,
 }) => {
 	const [coins, setCoins] = useState([]);
 	const [loading, setLoading] = useState(true);
@@ -60,7 +59,6 @@ const Watchlist = ({
 							: ""
 					}
 					toggleForm={toggleForm}
-					loggedIn={loggedIn}
 				/>
 			</div>
 			<div className="text-center mt-1">
