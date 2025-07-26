@@ -6,6 +6,7 @@ import autoTable from "jspdf-autotable";
 import CoinGeckoAttribution from "./CoinGeckoAttribution";
 import { NotoSans } from "./NotoSans-Regular.js";
 import { NotoSansBold } from "./NotoSans-Bold.js";
+import { useCurrency } from "../context/currencyContext.jsx";
 
 const PortfolioTable = ({
 	loading,
@@ -18,16 +19,8 @@ const PortfolioTable = ({
 	toggleForm,
 	totalInvestment,
 	currentValue,
-	currency,
 }) => {
-	const formatCurrency = (value) => {
-		return new Intl.NumberFormat("en-US", {
-			style: "currency",
-			currency: currency[0],
-			minimumFractionDigits: 0,
-			maximumFractionDigits: 6,
-		}).format(value);
-	};
+	const { currency, formatCurrency } = useCurrency();
 
 	const downloadCSV = () => {
 		if (
@@ -131,21 +124,23 @@ const PortfolioTable = ({
 		let startY = 35;
 		doc.text(
 			`Total Investment: ${formatCurrency(
-				totalInvestment * currency[1]
+				totalInvestment * currency[1],
+				6
 			)}`,
 			14,
 			startY
 		);
 		startY += 8;
 		doc.text(
-			`Current Value: ${formatCurrency(currentValue * currency[1])}`,
+			`Current Value: ${formatCurrency(currentValue * currency[1], 6)}`,
 			14,
 			startY
 		);
 		startY += 8;
 		doc.text(
 			`Total Profit/Loss Value: ${formatCurrency(
-				profitLossValue * currency[1]
+				profitLossValue * currency[1],
+				6
 			)}`,
 			14,
 			startY
@@ -236,7 +231,7 @@ const PortfolioTable = ({
 				head: [tableHeaders],
 				body: gainers.map((g) => [
 					g.name,
-					formatCurrency(g.profit * currency[1]),
+					formatCurrency(g.profit * currency[1], 6),
 					`${g.profitPercentage.toFixed(2)}%`,
 				]),
 				startY: lastTableBottom + 20,
@@ -255,7 +250,7 @@ const PortfolioTable = ({
 				head: [tableHeaders],
 				body: losers.map((l) => [
 					l.name,
-					formatCurrency(l.profit * currency[1]),
+					formatCurrency(l.profit * currency[1], 6),
 					`${l.profitPercentage.toFixed(2)}%`,
 				]),
 				startY: lastTableBottom + 20,
@@ -355,7 +350,6 @@ const PortfolioTable = ({
 									isStarred={watchlist.includes(coin.id)}
 									toggleWatchlist={toggleWatchlist}
 									toggleForm={toggleForm}
-									currency={currency}
 								/>
 							))}
 					</tbody>

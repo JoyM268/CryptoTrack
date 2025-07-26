@@ -11,12 +11,11 @@ const Watchlist = ({
 	toggleForm,
 	coinData,
 	loggedIn,
-	currency,
-	formatCurrency,
 }) => {
 	const [coins, setCoins] = useState([]);
 	const [loading, setLoading] = useState(true);
 	const [error, setError] = useState(null);
+
 	useEffect(() => {
 		const searchCoins = async (query) => {
 			setLoading(true);
@@ -62,7 +61,6 @@ const Watchlist = ({
 					}
 					toggleForm={toggleForm}
 					loggedIn={loggedIn}
-					currency={currency}
 				/>
 			</div>
 			<div className="text-center mt-1">
@@ -76,8 +74,6 @@ const Watchlist = ({
 			coinData={coinData}
 			toggleForm={toggleForm}
 			action={addCoin}
-			currency={currency}
-			formatCurrency={formatCurrency}
 		/>
 	);
 };

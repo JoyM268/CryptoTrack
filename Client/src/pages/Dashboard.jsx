@@ -18,6 +18,7 @@ import Form from "../components/Form";
 import PortfolioTable from "../components/PortfolioTable";
 import TopCoins from "../components/TopCoins";
 import CoinGeckoAttribution from "../components/CoinGeckoAttribution";
+import { useCurrency } from "../context/currencyContext";
 
 const COLORS = [
 	"#0088FE",
@@ -43,8 +44,6 @@ const Dashboard = ({
 	toggleForm,
 	removeCoin,
 	coinData,
-	currency,
-	formatCurrency,
 }) => {
 	const [coins, setCoins] = useState([]);
 	const [loading, setLoading] = useState(true);
@@ -52,6 +51,7 @@ const Dashboard = ({
 	const [action, setAction] = useState("");
 	const [chart, setChart] = useState([]);
 	const portfolioCoins = Object.keys(portfolio);
+	const { currency, formatCurrency } = useCurrency();
 
 	const handleToggleForm = (coin, actionType) => {
 		setAction(actionType);
@@ -297,7 +297,6 @@ const Dashboard = ({
 					toggleForm={handleToggleForm}
 					totalInvestment={totalInvestment}
 					currentValue={currentValue}
-					currency={currency}
 				/>
 				<div className="text-center mt-2">
 					<CoinGeckoAttribution />
@@ -314,8 +313,6 @@ const Dashboard = ({
 			toggleForm={toggleForm}
 			action={action == "add" ? addCoin : removeCoin}
 			portfolio={portfolio}
-			currency={currency}
-			formatCurrency={formatCurrency}
 		/>
 	);
 };

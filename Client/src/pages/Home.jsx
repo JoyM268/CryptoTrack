@@ -4,6 +4,7 @@ import Table from "../components/Table";
 import Form from "../components/Form";
 import LoginWarning from "../components/LoginWarning";
 import CoinGeckoAttribution from "../components/CoinGeckoAttribution";
+import { useCurrency } from "../context/currencyContext";
 
 const Home = ({
 	watchlist,
@@ -13,13 +14,12 @@ const Home = ({
 	toggleForm,
 	coinData,
 	loggedIn,
-	currency,
-	formatCurrency,
 }) => {
 	const [coins, setCoins] = useState([]);
 	const [loading, setLoading] = useState(true);
 	const [error, setError] = useState(null);
 	const [search, setSearch] = useState("");
+	const { currency, formatCurrency } = useCurrency();
 
 	useEffect(() => {
 		const topCoins = async () => {
@@ -92,7 +92,6 @@ const Home = ({
 							message={""}
 							toggleForm={toggleForm}
 							loggedIn={loggedIn}
-							currency={currency}
 						/>
 					</div>
 				</>
@@ -103,8 +102,6 @@ const Home = ({
 					coinData={coinData}
 					toggleForm={toggleForm}
 					action={addCoin}
-					currency={currency}
-					formatCurrency={formatCurrency}
 				/>
 			) : (
 				<LoginWarning toggleForm={toggleForm} />

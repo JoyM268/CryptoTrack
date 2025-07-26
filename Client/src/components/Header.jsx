@@ -1,17 +1,9 @@
 import { NavLink } from "react-router-dom";
 import MenuIcon from "@mui/icons-material/Menu";
 import CloseIcon from "@mui/icons-material/Close";
-import { useAuth } from "../context/AuthContext";
 import CurrencySelector from "./CurrencySelector";
 
-const Header = ({
-	menu,
-	toggleMenu,
-	loggedIn,
-	handleLogout,
-	currency,
-	setCurrency,
-}) => {
+const Header = ({ menu, toggleMenu, loggedIn, handleLogout }) => {
 	return (
 		<div className="bg-white shadow-md h-16 flex justify-between items-center px-4 select-none z-20 sticky top-0">
 			<NavLink to="/" className="text-2xl font-bold text-blue-700">
@@ -57,10 +49,7 @@ const Header = ({
 							Watchlist
 						</NavLink>
 
-						<CurrencySelector
-							currency={currency}
-							setCurrency={setCurrency}
-						/>
+						<CurrencySelector />
 
 						<button
 							onClick={handleLogout}
@@ -83,10 +72,7 @@ const Header = ({
 						>
 							Login
 						</NavLink>
-						<CurrencySelector
-							currency={currency}
-							setCurrency={setCurrency}
-						/>
+						<CurrencySelector />
 						<NavLink
 							to="signup"
 							className={({ isActive }) =>
@@ -103,10 +89,7 @@ const Header = ({
 				)}
 			</ul>
 			<div className="flex gap-3 sm:hidden items-center ml-4">
-				<CurrencySelector
-					currency={currency}
-					setCurrency={setCurrency}
-				/>
+				<CurrencySelector />
 				<div
 					className="sm:hidden hover:bg-blue-100 p-3 flex justify-center items-center rounded-3xl cursor-pointer"
 					onClick={toggleMenu}

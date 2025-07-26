@@ -18,6 +18,7 @@ import { useAuth } from "./context/AuthContext";
 import { portfolioAPI, watchlistAPI } from "./services/api";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import { CurrencyProvider } from "./context/currencyContext";
 
 const App = () => {
 	const [menu, setMenu] = useState(false);
@@ -27,7 +28,6 @@ const App = () => {
 	const [coinData, setCoinData] = useState({});
 	const [portfolio, setPortfolio] = useState({});
 	const navigate = useNavigate();
-	const [currency, setCurrency] = useState(["USD", 1]);
 
 	const handleLogout = () => {
 		setWatchlist([]);
@@ -175,117 +175,103 @@ const App = () => {
 		);
 	}
 
-	const formatCurrency = (value) => {
-		return new Intl.NumberFormat("en-US", {
-			style: "currency",
-			currency: currency[0],
-			minimumFractionDigits: 0,
-			maximumFractionDigits: 2,
-		}).format(value);
-	};
-
 	return (
 		<div className="min-h-screen bg-gray-50">
-			<Header
-				menu={menu}
-				toggleMenu={toggleMenu}
-				loggedIn={isAuthenticated}
-				handleLogout={handleLogout}
-				currency={currency}
-				setCurrency={setCurrency}
-			/>
-			<AnimatePresence>
-				{menu && <Menu loggedIn={isAuthenticated} />}
-			</AnimatePresence>
-			<Routes>
-				<Route
-					path="/"
-					element={
-						<Home
-							watchlist={watchlist}
-							toggleWatchlist={toggleWatchlist}
-							addCoin={addCoin}
-							form={form}
-							toggleForm={toggleForm}
-							coinData={coinData}
-							loggedIn={isAuthenticated}
-							currency={currency}
-							formatCurrency={formatCurrency}
-						/>
-					}
+			<CurrencyProvider>
+				<Header
+					menu={menu}
+					toggleMenu={toggleMenu}
+					loggedIn={isAuthenticated}
+					handleLogout={handleLogout}
 				/>
-				<Route
-					path="/dashboard"
-					element={
-						isAuthenticated ? (
-							<Dashboard
+
+				<AnimatePresence>
+					{menu && <Menu loggedIn={isAuthenticated} />}
+				</AnimatePresence>
+				<Routes>
+					<Route
+						path="/"
+						element={
+							<Home
 								watchlist={watchlist}
 								toggleWatchlist={toggleWatchlist}
-								portfolio={portfolio}
 								addCoin={addCoin}
 								form={form}
 								toggleForm={toggleForm}
 								coinData={coinData}
-								removeCoin={removeCoin}
-								currency={currency}
-								formatCurrency={formatCurrency}
-							/>
-						) : (
-							<Navigate to="/login" />
-						)
-					}
-				/>
-				<Route
-					path="/watchlist"
-					element={
-						isAuthenticated ? (
-							<Watchlist
-								watchlist={watchlist}
-								toggleForm={toggleForm}
-								toggleWatchlist={toggleWatchlist}
-								addCoin={addCoin}
-								form={form}
 								loggedIn={isAuthenticated}
-								coinData={coinData}
-								currency={currency}
-								formatCurrency={formatCurrency}
 							/>
-						) : (
-							<Navigate to="/login" />
-						)
-					}
+						}
+					/>
+					<Route
+						path="/dashboard"
+						element={
+							isAuthenticated ? (
+								<Dashboard
+									watchlist={watchlist}
+									toggleWatchlist={toggleWatchlist}
+									portfolio={portfolio}
+									addCoin={addCoin}
+									form={form}
+									toggleForm={toggleForm}
+									coinData={coinData}
+									removeCoin={removeCoin}
+								/>
+							) : (
+								<Navigate to="/login" />
+							)
+						}
+					/>
+					<Route
+						path="/watchlist"
+						element={
+							isAuthenticated ? (
+								<Watchlist
+									watchlist={watchlist}
+									toggleForm={toggleForm}
+									toggleWatchlist={toggleWatchlist}
+									addCoin={addCoin}
+									form={form}
+									loggedIn={isAuthenticated}
+									coinData={coinData}
+								/>
+							) : (
+								<Navigate to="/login" />
+							)
+						}
+					/>
+					<Route
+						path="/login"
+						element={
+							isAuthenticated ? (
+								<Navigate to="/dashboard" />
+							) : (
+								<Login />
+							)
+						}
+					/>
+					<Route
+						path="/signup"
+						element={
+							isAuthenticated ? (
+								<Navigate to="/dashboard" />
+							) : (
+								<SignUp />
+							)
+						}
+					/>
+				</Routes>
+				<ToastContainer
+					position="top-right"
+					autoClose={3000}
+					hideProgressBar={false}
+					newestOnTop={false}
+					closeOnClick
+					rtl={false}
+					draggable
+					theme="light"
 				/>
-				<Route
-					path="/login"
-					element={
-						isAuthenticated ? (
-							<Navigate to="/dashboard" />
-						) : (
-							<Login />
-						)
-					}
-				/>
-				<Route
-					path="/signup"
-					element={
-						isAuthenticated ? (
-							<Navigate to="/dashboard" />
-						) : (
-							<SignUp />
-						)
-					}
-				/>
-			</Routes>
-			<ToastContainer
-				position="top-right"
-				autoClose={3000}
-				hideProgressBar={false}
-				newestOnTop={false}
-				closeOnClick
-				rtl={false}
-				draggable
-				theme="light"
-			/>
+			</CurrencyProvider>
 		</div>
 	);
 };

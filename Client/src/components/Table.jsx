@@ -9,7 +9,6 @@ const Table = ({
 	message,
 	toggleForm,
 	loggedIn,
-	currency,
 }) => {
 	return (
 		<table className="w-full min-w-[760px] text-left">
@@ -68,7 +67,6 @@ const Table = ({
 							toggleWatchlist={toggleWatchlist}
 							toggleForm={toggleForm}
 							loggedIn={loggedIn}
-							currency={currency}
 						/>
 					))}
 			</tbody>

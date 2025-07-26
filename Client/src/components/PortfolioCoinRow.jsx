@@ -1,5 +1,6 @@
 import StarOutlineIcon from "@mui/icons-material/StarOutline";
 import StarIcon from "@mui/icons-material/Star";
+import { useCurrency } from "../context/currencyContext";
 
 const PortfolioCoinRow = ({
 	coin,
@@ -7,16 +8,8 @@ const PortfolioCoinRow = ({
 	coinData,
 	toggleWatchlist,
 	toggleForm,
-	currency,
 }) => {
-	const formatCurrency = (value) => {
-		return new Intl.NumberFormat("en-US", {
-			style: "currency",
-			currency: currency[0],
-			minimumFractionDigits: 0,
-			maximumFractionDigits: 6,
-		}).format(value);
-	};
+	const { currency, formatCurrency } = useCurrency();
 
 	const profit =
 		((coin.current_price * coinData.coins - coinData.totalInvestment) /
@@ -48,11 +41,12 @@ const PortfolioCoinRow = ({
 				</div>
 			</td>
 			<td className="px-6 py-4 font-medium">
-				{formatCurrency(coin.current_price * currency[1])}
+				{formatCurrency(coin.current_price * currency[1], 6)}
 			</td>
 			<td className="px-6 py-4 font-medium text-gray-800">
 				{formatCurrency(
-					(coinData.totalInvestment * currency[1]).toFixed(2)
+					(coinData.totalInvestment * currency[1]).toFixed(2),
+					6
 				)}
 			</td>
 			<td className="px-6 py-4 font-medium text-gray-800">
@@ -62,7 +56,8 @@ const PortfolioCoinRow = ({
 				{formatCurrency(
 					(coin.current_price * coinData.coins * currency[1]).toFixed(
 						2
-					)
+					),
+					6
 				)}
 			</td>
 

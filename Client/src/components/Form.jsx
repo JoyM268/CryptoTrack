@@ -1,5 +1,6 @@
 import CloseIcon from "@mui/icons-material/Close";
 import { useState } from "react";
+import { useCurrency } from "../context/currencyContext";
 const Form = ({
 	title,
 	buttonText,
@@ -7,13 +8,15 @@ const Form = ({
 	toggleForm,
 	action,
 	portfolio,
-	currency,
-	formatCurrency,
 }) => {
+	const { formatCurrency, currency } = useCurrency();
 	const [amount, setAmount] = useState(0);
-	const [price, setPrice] = useState(coinData.current_price * currency[1]);
+	const [price, setPrice] = useState(
+		Math.ceil(coinData.current_price * currency[1] * 100) / 100
+	);
 	const isSelling = buttonText === "Sell";
 	const [warning, setWarning] = useState(null);
+
 	return (
 		<div className="flex w-screen justify-center items-center">
 			<div className="fixed top-1/5 w-fit shadow-2xl p-8 rounded-xl bg-white mx-6">
