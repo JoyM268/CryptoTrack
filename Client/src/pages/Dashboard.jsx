@@ -65,6 +65,7 @@ const Dashboard = ({
 
 			if (portfolioCoins.length === 0) {
 				setCoins([]);
+				setChart([]);
 				setLoading(false);
 				return;
 			}
@@ -91,12 +92,13 @@ const Dashboard = ({
 		if (coins.length > 0 && portfolioCoins.length > 0) {
 			const dataForChart = coins.map((coin) => {
 				const portfolioCoin = portfolio[coin.id];
+				if (!portfolioCoin) return null;
 				return {
 					name: coin.name,
 					value: portfolioCoin.coins * coin.current_price,
 					total: portfolioCoin.totalInvestment,
 				};
-			});
+			}).filter(Boolean);
 			setChart(dataForChart);
 		} else {
 			setChart([]);
