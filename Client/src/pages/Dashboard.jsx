@@ -90,15 +90,17 @@ const Dashboard = ({
 
 	useEffect(() => {
 		if (coins.length > 0 && portfolioCoins.length > 0) {
-			const dataForChart = coins.map((coin) => {
-				const portfolioCoin = portfolio[coin.id];
-				if (!portfolioCoin) return null;
-				return {
-					name: coin.name,
-					value: portfolioCoin.coins * coin.current_price,
-					total: portfolioCoin.totalInvestment,
-				};
-			}).filter(Boolean);
+			const dataForChart = coins
+				.map((coin) => {
+					const portfolioCoin = portfolio[coin.id];
+					if (!portfolioCoin) return null;
+					return {
+						name: coin.name,
+						value: portfolioCoin.coins * coin.current_price,
+						total: portfolioCoin.totalInvestment,
+					};
+				})
+				.filter(Boolean);
 			setChart(dataForChart);
 		} else {
 			setChart([]);
@@ -111,7 +113,7 @@ const Dashboard = ({
 
 	const currentValue = Object.keys(portfolio).reduce((acc, coinId) => {
 		const coinData = coins.find((c) => c.id === coinId);
-		if (coinData) {
+		if (coinData && portfolio[coinId]) {
 			return acc + portfolio[coinId].coins * coinData.current_price;
 		}
 		return acc;
