@@ -90,7 +90,7 @@ const Form = ({
 						/>
 					</div>
 					<p className="text-wrap text-center">
-						{Number.isNaN(Number(amount) * Number(price)) || !amount || !price ? (
+						{Number.isNaN(Number(amount) * Number(price)) ? (
 							<span className="text-red-500 text-center">
 								Amount And Price can only be a Number
 							</span>
@@ -99,7 +99,9 @@ const Form = ({
 								isSelling
 									? "Total Sale Value"
 									: "Total Investment"
-							}: ${formatCurrency(Number(amount) * Number(price))}`
+							}: ${formatCurrency(
+								Number(amount) * Number(price)
+							)}`
 						) : (
 							<span className="text-red-500 text-center">
 								{warning}
@@ -110,6 +112,20 @@ const Form = ({
 				<button
 					className="bg-blue-600 w-full text-white py-3 rounded-md hover:bg-blue-700 cursor-pointer"
 					onClick={() => {
+						if (!amount || amount == 0) {
+							setWarning(`Amount cannot be empty or zero.`);
+							return;
+						}
+
+						if (!price || price == 0) {
+							setWarning(
+								`${
+									isSelling ? `Sell price` : `Buy price`
+								} cannot be empty or zero.`
+							);
+							return;
+						}
+
 						if (isSelling) {
 							const coins = portfolio[coinData?.id]?.coins || 0;
 
