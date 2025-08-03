@@ -14,7 +14,7 @@ const Form = ({
 	const [price, setPrice] = useState(
 		(coinData.current_price * currency[1]).toFixed(2)
 	);
-	const isSelling = buttonText === "Sell";
+	const isSelling = buttonText === "Remove";
 	const [warning, setWarning] = useState(null);
 
 	return (
@@ -103,7 +103,7 @@ const Form = ({
 								Number(amount) * Number(price)
 							)}`
 						) : (
-							<span className="text-red-500 text-center">
+							<span className="text-red-500 text-center text-wrap break-words">
 								{warning}
 							</span>
 						)}
@@ -131,7 +131,12 @@ const Form = ({
 
 							if (Number(amount) > coins) {
 								setWarning(
-									`Amount exceeds your owned ${coinData.name}. You have ${coins} coins.`
+									<>
+										Amount exceeds your owned{" "}
+										{coinData.name}.
+										<br />
+										You have {coins} coins.
+									</>
 								);
 								return;
 							}
