@@ -12,7 +12,7 @@ const Form = ({
 	const { formatCurrency, currency } = useCurrency();
 	const [amount, setAmount] = useState(0);
 	const [price, setPrice] = useState(
-		Math.ceil(coinData.current_price * currency[1] * 100) / 100
+		(coinData.current_price * currency[1]).toFixed(2)
 	);
 	const isSelling = buttonText === "Sell";
 	const [warning, setWarning] = useState(null);
@@ -90,7 +90,7 @@ const Form = ({
 						/>
 					</div>
 					<p className="text-wrap text-center">
-						{Number.isNaN(amount * price) ? (
+						{Number.isNaN(Number(amount) * Number(price)) || !amount || !price ? (
 							<span className="text-red-500 text-center">
 								Amount And Price can only be a Number
 							</span>
@@ -99,7 +99,7 @@ const Form = ({
 								isSelling
 									? "Total Sale Value"
 									: "Total Investment"
-							}: ${formatCurrency(amount * price)}`
+							}: ${formatCurrency(Number(amount) * Number(price))}`
 						) : (
 							<span className="text-red-500 text-center">
 								{warning}
@@ -112,24 +112,10 @@ const Form = ({
 					onClick={() => {
 						if (isSelling) {
 							const coins = portfolio[coinData?.id]?.coins || 0;
-							const totalInvestment =
-								portfolio[coinData?.id]?.totalInvestment || 0;
 
-							if (amount > coins) {
+							if (Number(amount) > coins) {
 								setWarning(
-									`Amount exceeds your owned ${coinData.name}.`
-								);
-								return;
-							}
-
-							if (
-								amount * price >
-								coinData.current_price *
-									totalInvestment *
-									currency[1]
-							) {
-								setWarning(
-									`Sale Value exceeds your owned Balance.`
+									`Amount exceeds your owned ${coinData.name}. You have ${coins} coins.`
 								);
 								return;
 							}
@@ -137,8 +123,8 @@ const Form = ({
 
 						action(
 							coinData.id,
-							(amount * price) / currency[1],
-							amount
+							(Number(amount) * Number(price)) / currency[1],
+							Number(amount)
 						);
 					}}
 				>

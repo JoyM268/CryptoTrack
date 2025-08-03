@@ -157,6 +157,15 @@ app.put(
 		const { coin, coinData } = req.body;
 
 		try {
+			if (
+				!coin ||
+				!coinData ||
+				typeof coinData.totalInvestment !== "number" ||
+				typeof coinData.coins !== "number"
+			) {
+				return res.status(400).json({ error: "Invalid input data" });
+			}
+
 			const user = await User.findById(userId);
 			if (!user) {
 				return res.status(404).json({ error: "User not found" });
@@ -166,13 +175,35 @@ app.put(
 			const existingCoinData = portfolio.get(coin);
 
 			if (existingCoinData) {
-				const newTotalInvestment =
-					existingCoinData.totalInvestment + coinData.totalInvestment;
 				const newCoins = existingCoinData.coins + coinData.coins;
 
-				if (newTotalInvestment <= 0 || newCoins <= 0) {
+				if (coinData.coins < 0) {
+					const sellAmount = Math.abs(coinData.coins);
+					const ownedCoins = existingCoinData.coins;
+
+					if (sellAmount > ownedCoins) {
+						return res.status(400).json({
+							error: `Cannot sell ${sellAmount} coins. You only own ${ownedCoins} coins.`,
+						});
+					}
+				}
+
+				if (newCoins <= 0) {
 					portfolio.delete(coin);
 				} else {
+					let newTotalInvestment;
+
+					if (coinData.coins < 0) {
+						const remainingRatio =
+							newCoins / existingCoinData.coins;
+						newTotalInvestment =
+							existingCoinData.totalInvestment * remainingRatio;
+					} else {
+						newTotalInvestment =
+							existingCoinData.totalInvestment +
+							coinData.totalInvestment;
+					}
+
 					existingCoinData.totalInvestment = newTotalInvestment;
 					existingCoinData.coins = newCoins;
 					portfolio.set(coin, existingCoinData);
@@ -180,6 +211,10 @@ app.put(
 			} else {
 				if (coinData.totalInvestment > 0 && coinData.coins > 0) {
 					portfolio.set(coin, coinData);
+				} else if (coinData.coins < 0) {
+					return res.status(400).json({
+						error: "Cannot sell coins that are not in your portfolio",
+					});
 				}
 			}
 
