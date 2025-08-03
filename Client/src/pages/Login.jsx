@@ -4,7 +4,7 @@ import { useAuth } from "../context/AuthContext";
 import { authAPI } from "../services/api";
 import { toast } from "react-toastify";
 
-const Login = ({ toggleForm }) => {
+const Login = ({ toggleForm, form }) => {
 	const [username, setUsername] = useState("");
 	const [password, setPassword] = useState("");
 	const [error, setError] = useState("");
@@ -28,7 +28,7 @@ const Login = ({ toggleForm }) => {
 				pauseOnHover: false,
 				draggable: true,
 			});
-			toggleForm();
+			if (form) toggleForm();
 			navigate("/dashboard");
 		} catch (err) {
 			setError(err.response?.data?.error || "Login failed");

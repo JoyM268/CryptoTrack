@@ -241,7 +241,7 @@ const App = () => {
 						isAuthenticated ? (
 							<Navigate to="/dashboard" />
 						) : (
-							<Login toggleForm={toggleForm} />
+							<Login toggleForm={toggleForm} form={form} />
 						)
 					}
 				/>
