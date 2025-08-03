@@ -11,11 +11,14 @@ const PortfolioCoinRow = ({
 }) => {
 	const { currency, formatCurrency } = useCurrency();
 
+	if (!coinData) {
+		return <></>;
+	}
+
 	const profit =
 		((coin.current_price * coinData.coins - coinData.totalInvestment) /
 			coinData.totalInvestment) *
 		100;
-
 	const color = profit < 0 ? "text-red-600" : "text-green-600";
 
 	return (
@@ -50,7 +53,7 @@ const PortfolioCoinRow = ({
 				)}
 			</td>
 			<td className="px-6 py-4 font-medium text-gray-800">
-				{`${coinData.coins.toLocaleString()}`}
+				{coinData.coins.toLocaleString()}
 			</td>
 			<td className={`px-6 py-4 font-medium`}>
 				{formatCurrency(
