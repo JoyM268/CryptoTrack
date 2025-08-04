@@ -11,15 +11,15 @@ const Menu = ({ handleLogout }) => {
 			animate={{ y: 0, opacity: 1 }}
 			exit={{ y: "-100%", opacity: 0.5 }}
 			transition={{ duration: 0.3, ease: "easeInOut" }}
-			className="fixed bg-white w-screen shadow-md border-t sm:hidden flex-col text-center flex z-10"
+			className="fixed bg-white w-screen shadow-md border-t sm:hidden flex-col text-center flex z-10 dark:bg-gray-800"
 		>
 			<NavLink
 				to="/"
 				className={({ isActive }) =>
 					`p-2 w-full font-medium ${
 						isActive
-							? "bg-blue-200 text-blue-700"
-							: "hover:bg-blue-50 text-gray-700"
+							? "bg-blue-200 text-blue-700 dark:bg-blue-800/50 dark:text-white"
+							: "hover:bg-blue-50 text-gray-700 dark:hover:bg-blue-600/10 dark:text-white"
 					}`
 				}
 			>
@@ -32,8 +32,8 @@ const Menu = ({ handleLogout }) => {
 						className={({ isActive }) =>
 							`p-2 w-full font-medium ${
 								isActive
-									? "bg-blue-200 text-blue-700"
-									: "hover:bg-blue-50 text-gray-700"
+									? "bg-blue-200 text-blue-700 dark:bg-blue-800/50 dark:text-white"
+									: "hover:bg-blue-50 text-gray-700 dark:hover:bg-blue-600/10 dark:text-white"
 							}`
 						}
 					>
@@ -44,8 +44,8 @@ const Menu = ({ handleLogout }) => {
 						className={({ isActive }) =>
 							`p-2 w-full font-medium ${
 								isActive
-									? "bg-blue-200 text-blue-700"
-									: "hover:bg-blue-50 text-gray-700"
+									? "bg-blue-200 text-blue-700 dark:bg-blue-800/50 dark:text-white"
+									: "hover:bg-blue-50 text-gray-700 dark:hover:bg-blue-600/10 dark:text-white"
 							}`
 						}
 					>
@@ -65,8 +65,8 @@ const Menu = ({ handleLogout }) => {
 						className={({ isActive }) =>
 							`p-2 w-full font-medium ${
 								isActive
-									? "bg-blue-200 text-blue-700"
-									: "hover:bg-blue-50 text-gray-700"
+									? "bg-blue-200 text-blue-700 dark:bg-blue-800/50 dark:text-white"
+									: "hover:bg-blue-50 text-gray-700 dark:hover:bg-blue-600/10 dark:text-white"
 							}`
 						}
 					>

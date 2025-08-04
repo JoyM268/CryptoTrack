@@ -10,8 +10,8 @@ const CoinRow = ({ coin, isStarred, toggleWatchlist, toggleForm }) => {
 
 	const color = getColor(coin.price_change_percentage_24h);
 	return (
-		<tr className="border-b border-gray-200 hover:bg-gray-50 transition-all duration-150">
-			<td className="px-6 py-4 text-center font-medium text-gray-700">
+		<tr className="border-b border-gray-200 hover:bg-gray-50 transition-all duration-150 dark:hover:bg-gray-800 dark:border-b dark:border-gray-700">
+			<td className="px-6 py-4 text-center font-medium text-gray-700 dark:text-white">
 				{coin.market_cap_rank}
 			</td>
 			<td className="px-6 py-4">
@@ -22,10 +22,10 @@ const CoinRow = ({ coin, isStarred, toggleWatchlist, toggleForm }) => {
 						className="w-8 rounded-full"
 					/>
 					<div>
-						<p className="font-semibold text-gray-900">
+						<p className="font-semibold text-gray-900 dark:text-white">
 							{coin.name}
 						</p>
-						<p className="text-gray-500 text-sm uppercase">
+						<p className="text-gray-500 text-sm uppercase dark:text-gray-400">
 							{coin.symbol}
 						</p>
 					</div>
@@ -37,7 +37,7 @@ const CoinRow = ({ coin, isStarred, toggleWatchlist, toggleForm }) => {
 			<td className={`px-6 py-4 font-medium ${color}`}>
 				{coin.price_change_percentage_24h.toFixed(2)}%
 			</td>
-			<td className="px-6 py-4 font-medium text-gray-800">
+			<td className="px-6 py-4 font-medium text-gray-800 dark:text-white">
 				{formatCurrency((coin.market_cap * currency[1]).toFixed(2), 6)}
 			</td>
 			<td className="px-6 py-4">

@@ -26,29 +26,29 @@ const Home = ({
 	);
 
 	return (
-		<div className="p-4 pb-24 font-sans">
+		<div className="p-4 pb-24 font-sans ">
 			{!form ? (
 				<>
 					<div className="w-full max-w-3xl mx-auto text-center flex flex-col items-center mt-7 sm:mt-12 mb-12 gap-4">
-						<h1 className="text-3xl sm:text-4xl md:text-5xl font-bold text-gray-900">
+						<h1 className="text-3xl sm:text-4xl md:text-5xl font-bold text-gray-900 dark:text-white">
 							Track Cryptocurrency Prices
 						</h1>
-						<p className="text-md sm:text-lg text-gray-600">
+						<p className="text-md sm:text-lg text-gray-600 dark:text-gray-400">
 							Stay updated with real-time cryptocurrency prices
 							and track your portfolio.
 						</p>
 						<form className="flex w-full max-w-lg items-center mt-4">
-							<div className="relative flex w-full items-center rounded-full border border-gray-300 bg-white shadow-sm ">
+							<div className="relative flex w-full items-center rounded-full border border-gray-300 bg-white shadow-sm dark:bg-gray-800 dark:border-gray-600">
 								<input
 									type="text"
 									placeholder="Search crypto.."
-									className="w-full flex-grow bg-transparent p-3 pl-6 text-gray-800 placeholder-gray-400 focus:outline-none"
+									className="w-full flex-grow bg-transparent p-3 pl-6 text-gray-800 placeholder-gray-400 focus:outline-none dark:text-gray-400 dark:placeholder-gray-400"
 									value={search}
 									onChange={(e) => setSearch(e.target.value)}
 								/>
 								<button
-									type="submit"
 									className="rounded-full p-3 text-gray-500 transition-colors duration-200 hover:text-blue-600 focus:outline-none"
+									type="button"
 								>
 									<SearchIcon />
 								</button>

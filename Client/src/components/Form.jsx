@@ -19,11 +19,11 @@ const Form = ({
 
 	return (
 		<div className="flex w-screen justify-center items-center">
-			<div className="fixed top-1/5 w-fit shadow-2xl p-8 rounded-xl bg-white mx-6">
+			<div className="fixed top-1/5 w-fit shadow-2xl p-8 rounded-xl bg-white mx-6 dark:bg-gray-800">
 				<div className="flex justify-between gap-36 mb-4">
 					<h1 className="text-xl font-bold">{title}</h1>
 					<div
-						className="text-gray-600 hover:text-black cursor-pointer"
+						className="text-gray-600 hover:text-black cursor-pointer dark:text-gray-100"
 						onClick={toggleForm}
 					>
 						<CloseIcon />
@@ -48,7 +48,9 @@ const Form = ({
 				</div>
 				<form className="my-6">
 					<div className="flex flex-col mb-3">
-						<span>Amount *</span>
+						<span>
+							Amount <span className="text-red-500">*</span>
+						</span>
 						<input
 							type="text"
 							value={amount}
@@ -69,8 +71,9 @@ const Form = ({
 					<div className="flex flex-col mb-5">
 						<span>
 							{isSelling
-								? `Sell Price(${currency[0]}) *`
-								: `Buy Price(${currency[0]}) *`}
+								? `Sell Price(${currency[0]}) `
+								: `Buy Price(${currency[0]}) `}
+							<span className="text-red-500">*</span>
 						</span>
 						<input
 							type="text"

@@ -3,13 +3,40 @@ import MenuIcon from "@mui/icons-material/Menu";
 import CloseIcon from "@mui/icons-material/Close";
 import CurrencySelector from "./CurrencySelector";
 import { useAuth } from "../context/AuthContext";
+import BrightnessMediumIcon from "@mui/icons-material/BrightnessMedium";
+import DarkModeIcon from "@mui/icons-material/DarkMode";
+import { useEffect, useState } from "react";
 
 const Header = ({ menu, toggleMenu, handleLogout }) => {
 	const { isAuthenticated } = useAuth();
+	const [theme, setTheme] = useState(() => {
+		return localStorage.getItem("theme") || "light";
+	});
+
+	useEffect(() => {
+		localStorage.setItem("theme", theme);
+
+		document.documentElement.classList.remove("dark", "light");
+
+		if (theme === "dark") {
+			document.documentElement.classList.add("dark");
+		}
+	}, [theme]);
+
+	useEffect(() => {
+		const savedTheme = localStorage.getItem("theme") || "light";
+		document.documentElement.classList.remove("dark", "light");
+		if (savedTheme === "dark") {
+			document.documentElement.classList.add("dark");
+		}
+	}, []);
 
 	return (
-		<div className="bg-white shadow-md h-16 flex justify-between items-center px-4 select-none z-20 sticky top-0">
-			<NavLink to="/" className="text-2xl font-bold text-blue-700">
+		<div className="bg-white shadow-md h-16 flex justify-between items-center px-4 select-none z-20 sticky top-0 dark:bg-gray-800 dark:border-b dark:border-gray-800">
+			<NavLink
+				to="/"
+				className="text-2xl font-bold text-blue-700 dark:text-blue-500"
+			>
 				CryptoTrack
 			</NavLink>
 			<ul className="hidden sm:flex items-center gap-4">
@@ -18,8 +45,8 @@ const Header = ({ menu, toggleMenu, handleLogout }) => {
 					className={({ isActive }) =>
 						`rounded-sm px-3 py-2 text-sm font-medium ${
 							isActive
-								? "bg-blue-200 text-blue-700"
-								: "text-gray-700 hover:bg-blue-50 hover:text-blue-700 cursor-pointer"
+								? "bg-blue-200 text-blue-700 dark:bg-blue-700/20 dark:text-gray-100"
+								: "dark:text-gray-300 dark:hover:text-white dark:hover:bg-blue-500/1	0 text-gray-700 hover:bg-blue-50 hover:text-blue-700 cursor-pointer"
 						}`
 					}
 				>
@@ -32,8 +59,8 @@ const Header = ({ menu, toggleMenu, handleLogout }) => {
 							className={({ isActive }) =>
 								`rounded-sm px-3 py-2 text-sm font-medium ${
 									isActive
-										? "bg-blue-200 text-blue-700"
-										: "text-gray-700 hover:bg-blue-50 hover:text-blue-700 cursor-pointer"
+										? "bg-blue-200 text-blue-700 dark:bg-blue-700/20 dark:text-gray-100"
+										: "dark:text-gray-300 dark:hover:text-white dark:hover:bg-blue-500/10 text-gray-700 hover:bg-blue-50 hover:text-blue-700 cursor-pointer"
 								}`
 							}
 						>
@@ -44,8 +71,8 @@ const Header = ({ menu, toggleMenu, handleLogout }) => {
 							className={({ isActive }) =>
 								`rounded-sm px-3 py-2 text-sm font-medium ${
 									isActive
-										? "bg-blue-200 text-blue-700"
-										: "text-gray-700 hover:bg-blue-50 hover:text-blue-700 cursor-pointer"
+										? "bg-blue-200 text-blue-700 dark:bg-blue-700/20 dark:text-gray-100"
+										: "dark:text-gray-300 dark:hover:text-white dark:hover:bg-blue-500/10 text-gray-700 hover:bg-blue-50 hover:text-blue-700 cursor-pointer"
 								}`
 							}
 						>
@@ -68,8 +95,8 @@ const Header = ({ menu, toggleMenu, handleLogout }) => {
 							className={({ isActive }) =>
 								`rounded-sm px-3 py-2 text-sm font-medium cursor-pointer ${
 									isActive
-										? "bg-blue-200 text-blue-700"
-										: "text-gray-700 hover:bg-blue-50 hover:text-blue-700"
+										? "bg-blue-200 text-blue-700 dark:bg-blue-700/20 dark:text-gray-100"
+										: "dark:text-gray-300 dark:hover:text-white dark:hover:bg-blue-500/10 text-gray-700 hover:bg-blue-50 hover:text-blue-700 cursor-pointer"
 								}`
 							}
 						>
@@ -90,17 +117,45 @@ const Header = ({ menu, toggleMenu, handleLogout }) => {
 						</NavLink>
 					</>
 				)}
+				<div
+					className={`flex justify-center items-center rounded-full p-2 cursor-pointer hover:bg-gray-100 transition-all duration-200 dark:text-white dark:hover:bg-gray-900`}
+					onClick={() => {
+						theme === "light"
+							? setTheme("dark")
+							: setTheme("light");
+					}}
+				>
+					{theme === "light" ? (
+						<BrightnessMediumIcon />
+					) : (
+						<DarkModeIcon />
+					)}
+				</div>
 			</ul>
 			<div className="flex gap-3 sm:hidden items-center ml-4">
+				<div
+					className={`flex justify-center items-center rounded-full p-2 cursor-pointer hover:bg-gray-100 transition-all duration-200 dark:text-white dark:hover:bg-gray-900`}
+					onClick={() => {
+						theme === "light"
+							? setTheme("dark")
+							: setTheme("light");
+					}}
+				>
+					{theme === "light" ? (
+						<BrightnessMediumIcon />
+					) : (
+						<DarkModeIcon />
+					)}
+				</div>
 				<CurrencySelector />
 				<div
-					className="sm:hidden hover:bg-blue-100 p-3 flex justify-center items-center rounded-3xl cursor-pointer"
+					className="sm:hidden hover:bg-blue-100 p-3 flex justify-center items-center rounded-3xl cursor-pointer dark:text-white dark:hover:bg-blue-900/20"
 					onClick={toggleMenu}
 				>
 					{menu ? (
-						<CloseIcon sx={{ color: "black" }} fontSize="small" />
+						<CloseIcon fontSize="small" />
 					) : (
-						<MenuIcon sx={{ color: "black" }} fontSize="small" />
+						<MenuIcon fontSize="small" />
 					)}
 				</div>
 			</div>

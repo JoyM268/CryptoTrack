@@ -22,7 +22,7 @@ const SignUp = () => {
 					Or{" "}
 					<NavLink
 						to="/login"
-						className="no-underline text-blue-700 font-medium hover:text-blue-600 cursor-pointer"
+						className="no-underline text-blue-700 font-medium hover:text-blue-600 cursor-pointer dark:text-blue-400"
 					>
 						Login using existing account
 					</NavLink>
@@ -32,7 +32,7 @@ const SignUp = () => {
 					className="mt-10 flex flex-col sm:min-w-sm min-w-4/5"
 				>
 					<div className="flex flex-col mb-4">
-						<span className="text-s font-medium text-gray-800">
+						<span className="text-s font-medium text-gray-800 dark:text-gray-400">
 							Username
 						</span>
 						<input
@@ -44,7 +44,7 @@ const SignUp = () => {
 						/>
 					</div>
 					<div className="flex flex-col mb-4">
-						<span className="text-s font-medium text-gray-800">
+						<span className="text-s font-medium text-gray-800 dark:text-gray-400">
 							Password
 						</span>
 						<input
@@ -56,7 +56,7 @@ const SignUp = () => {
 						/>
 					</div>
 					<div className="flex flex-col mb-4">
-						<span className="text-s font-medium text-gray-800">
+						<span className="text-s font-medium text-gray-800 dark:text-gray-400">
 							Confirm Password
 						</span>
 						<input

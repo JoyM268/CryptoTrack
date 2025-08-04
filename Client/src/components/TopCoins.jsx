@@ -43,13 +43,13 @@ const TopCoins = ({ coins, loading, error, portfolio }) => {
 	}
 
 	return (
-		<div className="bg-white shadow-lg rounded-xl pt-4 px-8 mt-8">
-			<div className="flex border-b border-b-gray-200">
+		<div className="bg-white shadow-lg rounded-xl pt-4 px-8 mt-8 dark:bg-gray-800">
+			<div className="flex border-b border-b-gray-200 dark:border-b-gray-600">
 				<div
 					className={`p-4 cursor-pointer text-md font-semibold ${
 						option === "gainers"
-							? "border-b-2 border-b-blue-600 text-blue-600"
-							: "text-gray-500"
+							? "border-b-2 border-b-blue-600 text-blue-600 dark:text-blue-400"
+							: "text-gray-500 dark:text-white"
 					}`}
 					onClick={() => {
 						if (option === "losers") setOption("gainers");
@@ -60,8 +60,8 @@ const TopCoins = ({ coins, loading, error, portfolio }) => {
 				<div
 					className={`p-4 cursor-pointer text-md font-semibold ${
 						option === "losers"
-							? "border-b-2 border-b-blue-600 text-blue-600"
-							: "text-gray-500"
+							? "border-b-2 border-b-blue-600 text-blue-600 dark:text-blue-400"
+							: "text-gray-500 dark:text-white"
 					}`}
 					onClick={() => {
 						if (option === "gainers") setOption("losers");
@@ -71,7 +71,11 @@ const TopCoins = ({ coins, loading, error, portfolio }) => {
 				</div>
 			</div>
 			<div className="mt-3 pb-4 overflow-y-scroll h-72 [scrollbar-width:none]">
-				{loading && <div className="text-center p-4">Loading...</div>}
+				{loading && (
+					<div className="text-center p-4 dark:text-white">
+						Loading...
+					</div>
+				)}
 				{error && (
 					<div className="text-center p-4 text-red-500">
 						Error fetching data.
@@ -99,12 +103,12 @@ const TopCoins = ({ coins, loading, error, portfolio }) => {
 							))}
 
 						{gainers.length === 0 && option === "gainers" && (
-							<div className="text-center p-4 text-gray-500">
+							<div className="text-center p-4 text-gray-500 dark:text-white">
 								No coins to display.
 							</div>
 						)}
 						{losers.length === 0 && option === "losers" && (
-							<div className="text-center p-4 text-gray-500">
+							<div className="text-center p-4 text-gray-500 dark:text-white">
 								No coins to display.
 							</div>
 						)}

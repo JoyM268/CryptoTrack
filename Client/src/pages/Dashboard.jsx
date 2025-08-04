@@ -48,10 +48,10 @@ const Dashboard = ({
 		((currentValue - totalInvestment) / totalInvestment) * 100 || 0;
 
 	return !form ? (
-		<div className="bg-slate-100 min-h-screen w-full p-4 sm:p-6 lg:p-8">
+		<div className="bg-slate-100 min-h-screen w-full p-4 sm:p-6 lg:p-8 dark:bg-gray-900 dark:text-white">
 			<div className="max-w-9xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-6">
-				<div className="bg-white shadow-lg rounded-xl p-6 flex flex-col items-start gap-1 sm:gap-3">
-					<h2 className="text-md sm:text-xl font-semibold text-gray-500">
+				<div className="bg-white shadow-lg rounded-xl p-6 flex flex-col items-start gap-1 sm:gap-3 dark:bg-gray-800">
+					<h2 className="text-md sm:text-xl font-semibold text-gray-500 dark:text-white">
 						Current Value
 					</h2>
 					<p className="text-2xl sm:text-4xl font-bold wrap-anywhere">
@@ -66,8 +66,8 @@ const Dashboard = ({
 						<span>{profit.toFixed(2)}%</span>
 					</div>
 				</div>
-				<div className="bg-white shadow-lg rounded-xl p-6 flex flex-col items-start gap-3">
-					<h2 className="text-md sm:text-xl font-semibold text-gray-500">
+				<div className="bg-white shadow-lg rounded-xl p-6 flex flex-col items-start gap-3 dark:bg-gray-800">
+					<h2 className="text-md sm:text-xl font-semibold text-gray-500 dark:text-white">
 						Total Investment
 					</h2>
 					<p className="text-2xl sm:text-4xl font-bold wrap-anywhere">
@@ -76,8 +76,8 @@ const Dashboard = ({
 				</div>
 			</div>
 			<div className="max-w-9xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-6">
-				<div className="bg-white shadow-lg rounded-xl p-6 mt-8">
-					<h2 className="text-xl font-semibold text-gray-500 mb-4">
+				<div className="bg-white shadow-lg rounded-xl p-6 mt-8 dark:bg-gray-800">
+					<h2 className="text-xl font-semibold text-gray-500 mb-4 dark:text-white">
 						Portfolio Allocation
 					</h2>
 					<div className="w-full h-80">
@@ -105,11 +105,11 @@ const Dashboard = ({
 					portfolio={portfolio}
 				/>
 			</div>
-			<div className="bg-white shadow-lg rounded-xl p-6 mt-8">
-				<h2 className="text-xl font-semibold text-gray-500 mb-4">
+			<div className="bg-white shadow-lg rounded-xl p-6 mt-8 dark:bg-gray-800 ">
+				<h2 className="text-xl font-semibold text-gray-500 mb-4 dark:text-white">
 					Investment vs Current Value
 				</h2>
-				<div className="w-full h-96 overflow-x-auto">
+				<div className="w-full h-96 overflow-x-auto ">
 					{loading ? (
 						<div className="flex justify-center items-center h-full">
 							<p>Loading Chart...</p>
@@ -127,7 +127,7 @@ const Dashboard = ({
 					)}
 				</div>
 			</div>
-			<div className="mt-10 mx-auto overflow-x-auto [scrollbar-width:none]">
+			<div className="mt-10 mx-auto overflow-x-auto [scrollbar-width:none] ">
 				<PortfolioTable
 					loading={loading}
 					error={error}

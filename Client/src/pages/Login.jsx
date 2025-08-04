@@ -21,7 +21,7 @@ const Login = ({ toggleForm, form }) => {
 					Or{" "}
 					<NavLink
 						to="/signup"
-						className="no-underline text-blue-700 font-medium hover:text-blue-600 cursor-pointer"
+						className="no-underline text-blue-700 font-medium hover:text-blue-600 cursor-pointer dark:text-blue-400"
 					>
 						create a new account
 					</NavLink>
@@ -31,7 +31,7 @@ const Login = ({ toggleForm, form }) => {
 					className="mt-10 flex flex-col sm:min-w-sm min-w-4/5"
 				>
 					<div className="flex flex-col mb-4">
-						<span className="text-s font-medium text-gray-800">
+						<span className="text-s font-medium text-gray-800 dark:text-gray-400">
 							Username
 						</span>
 						<input
@@ -43,7 +43,7 @@ const Login = ({ toggleForm, form }) => {
 						/>
 					</div>
 					<div className="flex flex-col mb-4">
-						<span className="text-s font-medium text-gray-800">
+						<span className="text-s font-medium text-gray-800 dark:text-gray-400">
 							Password
 						</span>
 						<input
