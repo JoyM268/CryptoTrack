@@ -2,16 +2,13 @@ import StarOutlineIcon from "@mui/icons-material/StarOutline";
 import StarIcon from "@mui/icons-material/Star";
 import { useCurrency } from "../context/CurrencyContext";
 import { useAuth } from "../context/AuthContext";
+import getColor from "../utils/color";
 
 const CoinRow = ({ coin, isStarred, toggleWatchlist, toggleForm }) => {
 	const { isAuthenticated } = useAuth();
 	const { currency, formatCurrency } = useCurrency();
 
-	const color =
-		coin.price_change_percentage_24h < 0
-			? "text-red-600"
-			: "text-green-600";
-
+	const color = getColor(coin.price_change_percentage_24h);
 	return (
 		<tr className="border-b border-gray-200 hover:bg-gray-50 transition-all duration-150">
 			<td className="px-6 py-4 text-center font-medium text-gray-700">

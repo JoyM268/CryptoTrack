@@ -1,35 +1,9 @@
-import { useState, useEffect } from "react";
 import { useCurrency } from "../context/CurrencyContext";
+import useCurrencyData from "../hooks/useCurrencyData";
 
 const CurrencySelector = () => {
 	const { currency, setCurrency } = useCurrency();
-	const [currencyData, setCurrencyData] = useState([]);
-	const [loading, setLoading] = useState(false);
-	const [error, setError] = useState(null);
-
-	useEffect(() => {
-		async function getCurrency() {
-			try {
-				setLoading(true);
-				setError(null);
-				const res = await fetch(
-					"https://api.frankfurter.app/latest?from=USD"
-				);
-
-				const data = await res.json();
-				if (!res.ok) {
-					throw new Error("An Error Occured");
-				}
-				setCurrencyData(data);
-			} catch (err) {
-				setError(err);
-			} finally {
-				setLoading(false);
-			}
-		}
-
-		getCurrency();
-	}, []);
+	const { currencyData, loading, error } = useCurrencyData();
 
 	return (
 		<select

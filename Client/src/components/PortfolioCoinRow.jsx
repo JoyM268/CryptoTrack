@@ -1,6 +1,7 @@
 import StarOutlineIcon from "@mui/icons-material/StarOutline";
 import StarIcon from "@mui/icons-material/Star";
 import { useCurrency } from "../context/CurrencyContext";
+import getColor from "../utils/color";
 
 const PortfolioCoinRow = ({
 	coin,
@@ -19,7 +20,7 @@ const PortfolioCoinRow = ({
 		((coin.current_price * coinData.coins - coinData.totalInvestment) /
 			coinData.totalInvestment) *
 		100;
-	const color = profit < 0 ? "text-red-600" : "text-green-600";
+	const color = getColor(profit);
 
 	return (
 		<tr className="border-b border-gray-200 hover:bg-gray-50 transition-all duration-150">

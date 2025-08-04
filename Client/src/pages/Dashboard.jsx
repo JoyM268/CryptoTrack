@@ -1,39 +1,15 @@
 import TrendingDownIcon from "@mui/icons-material/TrendingDown";
 import TrendingUpIcon from "@mui/icons-material/TrendingUp";
-import { useState, useEffect } from "react";
-import {
-	PieChart,
-	Pie,
-	Cell,
-	Tooltip,
-	Legend,
-	ResponsiveContainer,
-	BarChart,
-	Bar,
-	XAxis,
-	YAxis,
-	CartesianGrid,
-} from "recharts";
+import { useState } from "react";
 import Form from "../components/Form";
 import PortfolioTable from "../components/PortfolioTable";
 import TopCoins from "../components/TopCoins";
 import CoinGeckoAttribution from "../components/CoinGeckoAttribution";
 import { useCurrency } from "../context/CurrencyContext";
-
-const COLORS = [
-	"#0088FE",
-	"#00C49F",
-	"#FFBB28",
-	"#FF8042",
-	"#AF19FF",
-	"#FF4560",
-	"#775DD0",
-	"#3F51B5",
-	"#0AB39C",
-	"#FABD22",
-	"#F06543",
-	"#D4526E",
-];
+import useCoins from "../hooks/useCoins";
+import useChart from "../hooks/useChart";
+import PieChartComponent from "../components/PieChartComponent";
+import BarChartComponent from "../components/BarChartComponent";
 
 const Dashboard = ({
 	watchlist,
@@ -45,67 +21,16 @@ const Dashboard = ({
 	removeCoin,
 	coinData,
 }) => {
-	const [coins, setCoins] = useState([]);
-	const [loading, setLoading] = useState(true);
-	const [error, setError] = useState(null);
-	const [action, setAction] = useState("");
-	const [chart, setChart] = useState([]);
 	const portfolioCoins = Object.keys(portfolio);
+	const [action, setAction] = useState("");
 	const { currency, formatCurrency } = useCurrency();
+	const { coins, loading, error } = useCoins(portfolio);
+	const chart = useChart(portfolio, coins);
 
 	const handleToggleForm = (coin, actionType) => {
 		setAction(actionType);
 		toggleForm(coin);
 	};
-
-	useEffect(() => {
-		const searchCoins = async () => {
-			setLoading(true);
-			setError(null);
-
-			if (portfolioCoins.length === 0) {
-				setCoins([]);
-				setChart([]);
-				setLoading(false);
-				return;
-			}
-
-			try {
-				const coinIds = portfolioCoins.join(",");
-				const res = await fetch(
-					`https://api.coingecko.com/api/v3/coins/markets?vs_currency=usd&ids=${coinIds}&order=market_cap_desc&sparkline=false`
-				);
-				if (!res.ok) throw new Error("An error occured");
-				const data = await res.json();
-				setCoins(data);
-			} catch (err) {
-				setError(err.message);
-			} finally {
-				setLoading(false);
-			}
-		};
-
-		searchCoins();
-	}, [portfolio]);
-
-	useEffect(() => {
-		if (coins.length > 0 && portfolioCoins.length > 0) {
-			const dataForChart = coins
-				.map((coin) => {
-					const portfolioCoin = portfolio[coin.id];
-					if (!portfolioCoin) return null;
-					return {
-						name: coin.name,
-						value: portfolioCoin.coins * coin.current_price,
-						total: portfolioCoin.totalInvestment,
-					};
-				})
-				.filter(Boolean);
-			setChart(dataForChart);
-		} else {
-			setChart([]);
-		}
-	}, [coins, portfolio]);
 
 	const totalInvestment = Object.keys(portfolio).reduce((acc, coinId) => {
 		return acc + portfolio[coinId].totalInvestment;
@@ -165,37 +90,7 @@ const Dashboard = ({
 								<p>{error}</p>
 							</div>
 						) : chart.length > 0 ? (
-							<ResponsiveContainer>
-								<PieChart>
-									<Pie
-										data={chart}
-										cx="50%"
-										cy="50%"
-										labelLine={false}
-										outerRadius={100}
-										fill="#8884d8"
-										dataKey="value"
-										nameKey="name"
-									>
-										{chart.map((entry, index) => (
-											<Cell
-												key={`cell-${index}`}
-												fill={
-													COLORS[
-														index % COLORS.length
-													]
-												}
-											/>
-										))}
-									</Pie>
-									<Tooltip
-										formatter={(value) =>
-											formatCurrency(value * currency[1])
-										}
-									/>
-									<Legend />
-								</PieChart>
-							</ResponsiveContainer>
+							<PieChartComponent chart={chart} />
 						) : (
 							<div className="flex justify-center items-center h-full">
 								<p>No coins in portfolio to display.</p>
@@ -224,60 +119,7 @@ const Dashboard = ({
 							<p>{error}</p>
 						</div>
 					) : chart.length > 0 ? (
-						<ResponsiveContainer
-							width="100%"
-							minWidth={500}
-							height="100%"
-						>
-							<BarChart
-								data={chart}
-								margin={{
-									top: 5,
-									right: 30,
-									left: 20,
-									bottom: 40,
-								}}
-							>
-								<CartesianGrid strokeDasharray="3 3" />
-								<XAxis
-									dataKey="name"
-									angle={-45}
-									textAnchor="end"
-									interval={0}
-									height={50}
-								/>
-								<YAxis
-									tickFormatter={(value) =>
-										new Intl.NumberFormat("en-US", {
-											notation: "compact",
-											compactDisplay: "short",
-										}).format(value * currency[1])
-									}
-								/>
-								<Tooltip
-									cursor={{
-										fill: "rgba(204, 204, 204, 0.2)",
-									}}
-									formatter={(value, name) => [
-										formatCurrency(value * currency[1]),
-										name,
-									]}
-								/>
-								<Legend />
-								<Bar
-									dataKey="total"
-									name="Total Investment"
-									fill="#AF19FF"
-									barSize={20}
-								/>
-								<Bar
-									dataKey="value"
-									name="Current Value"
-									fill="#00C49F"
-									barSize={20}
-								/>
-							</BarChart>
-						</ResponsiveContainer>
+						<BarChartComponent chart={chart} />
 					) : (
 						<div className="flex justify-center items-center h-full">
 							<p>No data to display in chart.</p>
