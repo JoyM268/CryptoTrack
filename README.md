@@ -34,6 +34,7 @@ The application is deployed and publicly accessible:
 -   Portfolio performance analytics (profit/loss, allocation chart, top gainers, top losers)
 -   Export your portfolio report in both PDF and CSV formats.
 -   View portfolio values in different fiat currencies (via Frankfurter API)
+-   Dark mode support with theme persistence
 
 ## Tech Stack
 
@@ -60,6 +61,7 @@ The project is built with the MERN stack and other modern technologies:
 | ![Sign Up Page](./images/signup.png) | **Sign Up Page:** Register a new account.                                           |
 | ![Dashboard](./images/dashboard.png) | **Dashboard:** View portfolio summary, allocation charts, and top gainers/losers.    |
 | ![Watchlist](./images/watchlist.png) | **Watchlist:** Manage your favorite coins.                                          |
+| ![Dark Mode](./images/dark.png)      | **Dark Mode:** Toggle between light and dark themes with persistent preference.     |
 | ![Exported PDF](./images/pdf.png)    | **Exported PDF:** Downloadable portfolio report in PDF format.                      |
 | ![Exported CSV](./images/csv.png)    | **Exported CSV:** Downloadable portfolio report in CSV format.                      |
 
