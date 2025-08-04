@@ -12,7 +12,7 @@ const Header = ({ menu, toggleMenu, handleLogout }) => {
 	const { theme, setTheme } = useTheme();
 
 	return (
-		<div className="bg-white shadow-md h-16 flex justify-between items-center px-4 select-none z-20 sticky top-0 dark:bg-gray-800 dark:border-b dark:border-gray-800">
+		<div className="bg-white shadow-md h-16 flex justify-between items-center px-4 select-none z-40 sticky top-0 dark:bg-gray-800 dark:border-b dark:border-gray-800">
 			<NavLink
 				to="/"
 				className="text-2xl font-bold text-blue-700 dark:text-blue-500"

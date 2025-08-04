@@ -26,9 +26,9 @@ const Home = ({
 	);
 
 	return (
-		<div className="p-4 pb-24 font-sans ">
+		<>
 			{!form ? (
-				<>
+				<div className="p-4 pb-24 font-sans ">
 					<div className="w-full max-w-3xl mx-auto text-center flex flex-col items-center mt-7 sm:mt-12 mb-12 gap-4">
 						<h1 className="text-3xl sm:text-4xl md:text-5xl font-bold text-gray-900 dark:text-white">
 							Track Cryptocurrency Prices
@@ -68,7 +68,7 @@ const Home = ({
 							toggleForm={toggleForm}
 						/>
 					</div>
-				</>
+				</div>
 			) : isAuthenticated ? (
 				<Form
 					title={"Add to Portfolio"}
@@ -80,7 +80,7 @@ const Home = ({
 			) : (
 				<LoginWarning toggleForm={toggleForm} />
 			)}
-		</div>
+		</>
 	);
 };
 

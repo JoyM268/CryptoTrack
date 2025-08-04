@@ -11,7 +11,7 @@ const Menu = ({ handleLogout }) => {
 			animate={{ y: 0, opacity: 1 }}
 			exit={{ y: "-100%", opacity: 0.5 }}
 			transition={{ duration: 0.3, ease: "easeInOut" }}
-			className="fixed bg-white w-screen shadow-md border-t sm:hidden flex-col text-center flex z-10 dark:bg-gray-800"
+			className="fixed bg-white w-screen shadow-md border-t sm:hidden flex-col text-center flex z-20 dark:bg-gray-800"
 		>
 			<NavLink
 				to="/"
