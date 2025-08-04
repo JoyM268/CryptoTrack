@@ -1,10 +1,11 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import SearchIcon from "@mui/icons-material/Search";
 import Table from "../components/Table";
 import Form from "../components/Form";
 import LoginWarning from "../components/LoginWarning";
 import CoinGeckoAttribution from "../components/CoinGeckoAttribution";
 import { useAuth } from "../context/AuthContext";
+import useTopCoins from "../hooks/useTopCoins";
 
 const Home = ({
 	watchlist,
@@ -15,33 +16,8 @@ const Home = ({
 	coinData,
 }) => {
 	const { isAuthenticated } = useAuth();
-	const [coins, setCoins] = useState([]);
-	const [loading, setLoading] = useState(true);
-	const [error, setError] = useState(null);
+	const { coins, loading, error } = useTopCoins();
 	const [search, setSearch] = useState("");
-
-	useEffect(() => {
-		const topCoins = async () => {
-			setLoading(true);
-			setError(null);
-			try {
-				const response = await fetch(
-					"https://api.coingecko.com/api/v3/coins/markets?vs_currency=usd&order=market_cap_desc&per_page=100&page=1&sparkline=false"
-				);
-				if (!response.ok) {
-					throw new Error("An Error Occured");
-				}
-				const data = await response.json();
-				setCoins(data);
-			} catch (err) {
-				setError(err.message);
-			} finally {
-				setLoading(false);
-			}
-		};
-
-		topCoins();
-	}, []);
 
 	const filteredCoins = coins.filter(
 		(coin) =>
