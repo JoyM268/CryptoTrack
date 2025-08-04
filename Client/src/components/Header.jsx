@@ -5,31 +5,11 @@ import CurrencySelector from "./CurrencySelector";
 import { useAuth } from "../context/AuthContext";
 import BrightnessMediumIcon from "@mui/icons-material/BrightnessMedium";
 import DarkModeIcon from "@mui/icons-material/DarkMode";
-import { useEffect, useState } from "react";
+import useTheme from "../hooks/useTheme";
 
 const Header = ({ menu, toggleMenu, handleLogout }) => {
 	const { isAuthenticated } = useAuth();
-	const [theme, setTheme] = useState(() => {
-		return localStorage.getItem("theme") || "light";
-	});
-
-	useEffect(() => {
-		localStorage.setItem("theme", theme);
-
-		document.documentElement.classList.remove("dark", "light");
-
-		if (theme === "dark") {
-			document.documentElement.classList.add("dark");
-		}
-	}, [theme]);
-
-	useEffect(() => {
-		const savedTheme = localStorage.getItem("theme") || "light";
-		document.documentElement.classList.remove("dark", "light");
-		if (savedTheme === "dark") {
-			document.documentElement.classList.add("dark");
-		}
-	}, []);
+	const { theme, setTheme } = useTheme();
 
 	return (
 		<div className="bg-white shadow-md h-16 flex justify-between items-center px-4 select-none z-20 sticky top-0 dark:bg-gray-800 dark:border-b dark:border-gray-800">
