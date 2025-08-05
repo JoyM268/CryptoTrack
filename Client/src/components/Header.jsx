@@ -106,7 +106,7 @@ const Header = ({ menu, toggleMenu, handleLogout }) => {
 					}}
 				>
 					{theme === "light" ? (
-						<BrightnessMediumIcon />
+						<BrightnessMediumIcon sx={{ color: "#fcba03" }} />
 					) : (
 						<DarkModeIcon />
 					)}
@@ -122,7 +122,7 @@ const Header = ({ menu, toggleMenu, handleLogout }) => {
 					}}
 				>
 					{theme === "light" ? (
-						<BrightnessMediumIcon />
+						<BrightnessMediumIcon sx={{ color: "#fcba03" }} />
 					) : (
 						<DarkModeIcon />
 					)}
