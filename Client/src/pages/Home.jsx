@@ -1,11 +1,11 @@
 import { useState } from "react";
-import SearchIcon from "@mui/icons-material/Search";
 import Table from "../components/Table";
 import Form from "../components/Form";
 import LoginWarning from "../components/LoginWarning";
 import CoinGeckoAttribution from "../components/CoinGeckoAttribution";
 import { useAuth } from "../context/AuthContext";
 import useTopCoins from "../hooks/useTopCoins";
+import Searchbar from "../components/Searchbar";
 
 const Home = ({
 	watchlist,
@@ -37,23 +37,11 @@ const Home = ({
 							Stay updated with real-time cryptocurrency prices
 							and track your portfolio.
 						</p>
-						<form className="flex w-full max-w-lg items-center mt-4">
-							<div className="relative flex w-full items-center rounded-full border border-gray-300 bg-white shadow-sm dark:bg-gray-800 dark:border-gray-600">
-								<input
-									type="text"
-									placeholder="Search crypto.."
-									className="w-full flex-grow bg-transparent p-3 pl-6 text-gray-800 placeholder-gray-400 focus:outline-none dark:text-gray-400 dark:placeholder-gray-400"
-									value={search}
-									onChange={(e) => setSearch(e.target.value)}
-								/>
-								<button
-									className="rounded-full p-3 text-gray-500 transition-colors duration-200 hover:text-blue-600 focus:outline-none"
-									type="button"
-								>
-									<SearchIcon />
-								</button>
-							</div>
-						</form>
+						<Searchbar
+							searchValue={search}
+							setSearchValue={setSearch}
+							placeholder="Search crypto.."
+						/>
 						<CoinGeckoAttribution />
 					</div>
 

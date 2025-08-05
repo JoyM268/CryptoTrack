@@ -127,7 +127,7 @@ const Dashboard = ({
 					)}
 				</div>
 			</div>
-			<div className="mt-10 mx-auto overflow-x-auto [scrollbar-width:none] ">
+			<div className="mt-10 mx-auto overflow-x-auto [scrollbar-width:none]">
 				<PortfolioTable
 					loading={loading}
 					error={error}
