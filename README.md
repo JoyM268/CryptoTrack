@@ -56,37 +56,37 @@ The project is built with the MERN stack and other modern technologies:
 ## Screenshots
 
 ### Home Page
-<img src="./images/home.png" alt="Home Page" width="80%">
+<img src="./images/home.png" alt="Home Page" width="800px">
 Search and view top cryptocurrencies, add to watchlist or portfolio.
 
 ### Login Page
-<img src="./images/login.png" alt="Login Page" width="80%">
+<img src="./images/login.png" alt="Login Page" width="800px">
 Login for registered users.
 
 ### Sign Up Page
-<img src="./images/signup.png" alt="Sign Up Page" width="80%">
+<img src="./images/signup.png" alt="Sign Up Page" width="800px">
 Register a new account.
 
 ### Dashboard
-<img src="./images/dashboard-top.png" alt="Dashboard - Top" width="80%">
+<img src="./images/dashboard-top.png" alt="Dashboard - Top" width="800px">
 <br>
-<img src="./images/dashboard-bottom.png" alt="Dashboard - Bottom" width="80%">
+<img src="./images/dashboard-bottom.png" alt="Dashboard - Bottom" width="800px">
 View portfolio summary, allocation charts, and top gainers/losers.
 
 ### Watchlist
-<img src="./images/watchlist.png" alt="Watchlist" width="80%">
+<img src="./images/watchlist.png" alt="Watchlist" width="800px">
 Manage your favorite coins.
 
 ### Dark Mode
-<img src="./images/dark.png" alt="Dark Mode" width="80%">
+<img src="./images/dark.png" alt="Dark Mode" width="800px">
 Toggle between light and dark themes with persistent preference.
 
 ### Exported PDF
-<img src="./images/pdf.png" alt="Exported PDF" width="80%">
+<img src="./images/pdf.png" alt="Exported PDF" width="800px">
 Downloadable portfolio report in PDF format.
 
 ### Exported CSV
-<img src="./images/csv.png" alt="Exported CSV" width="80%">
+<img src="./images/csv.png" alt="Exported CSV" width="800px">
 Downloadable portfolio report in CSV format.
 
 ## Getting Started
