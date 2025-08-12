@@ -56,47 +56,36 @@ The project is built with the MERN stack and other modern technologies:
 ## Screenshots
 
 ### Home Page
-
 <img src="./images/home.png" alt="Home Page" width="80%">
 Search and view top cryptocurrencies, add to watchlist or portfolio.
 
 ### Login Page
-
 <img src="./images/login.png" alt="Login Page" width="80%">
 Login for registered users.
 
 ### Sign Up Page
-
 <img src="./images/signup.png" alt="Sign Up Page" width="80%">
 Register a new account.
 
 ### Dashboard
-
-<div align="center">
-  <img src="./images/dashboard-top.png" alt="Dashboard - Top" width="80%">
-  <br>
-  <br>
-  <img src="./images/dashboard-bottom.png" alt="Dashboard - Bottom" width="80%">
-</div>
+<img src="./images/dashboard-top.png" alt="Dashboard - Top" width="80%">
+<br>
+<img src="./images/dashboard-bottom.png" alt="Dashboard - Bottom" width="80%">
 View portfolio summary, allocation charts, and top gainers/losers.
 
 ### Watchlist
-
 <img src="./images/watchlist.png" alt="Watchlist" width="80%">
 Manage your favorite coins.
 
 ### Dark Mode
-
 <img src="./images/dark.png" alt="Dark Mode" width="80%">
 Toggle between light and dark themes with persistent preference.
 
 ### Exported PDF
-
 <img src="./images/pdf.png" alt="Exported PDF" width="80%">
 Downloadable portfolio report in PDF format.
 
 ### Exported CSV
-
 <img src="./images/csv.png" alt="Exported CSV" width="80%">
 Downloadable portfolio report in CSV format.
 
