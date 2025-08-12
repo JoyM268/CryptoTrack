@@ -4,14 +4,14 @@ A web application to track real-time cryptocurrency prices, manage a personal po
 
 ## Table of Contents
 
--   [Description](#description)
--   [Live Demo](#live-demo)
--   [Features](#features)
--   [Tech Stack](#tech-stack)
--   [Screenshots](#screenshots)
--   [Getting Started](#getting-started)
--   [Attributions](#attributions)
--   [Contact](#contact)
+- [Description](#description)
+- [Live Demo](#live-demo)
+- [Features](#features)
+- [Tech Stack](#tech-stack)
+- [Screenshots](#screenshots)
+- [Getting Started](#getting-started)
+- [Attributions](#attributions)
+- [Contact](#contact)
 
 ## Description
 
@@ -20,70 +20,85 @@ CryptoTrack is a web application that allows users to track real-time cryptocurr
 ## Live Demo
 
 The application is deployed and publicly accessible:
--   **Frontend (Vercel):** [`https://cryptotrack-ultimez.vercel.app/`](https://cryptotrack-ultimez.vercel.app/)
--   **Backend (Render):** [`https://cryptotrack-rhun.onrender.com`](https://cryptotrack-rhun.onrender.com)
 
-*Note: The backend is hosted on a free Render instance, so the initial server response might be slow as the instance "wakes up" from a sleep state.*
+- **Frontend (Vercel):** [`https://cryptotrack-ultimez.vercel.app/`](https://cryptotrack-ultimez.vercel.app/)
+- **Backend (Render):** [`https://cryptotrack-rhun.onrender.com`](https://cryptotrack-rhun.onrender.com)
+
+_Note: The backend is hosted on a free Render instance, so the initial server response might be slow as the instance "wakes up" from a sleep state._
 
 ## Features
 
--   User authentication (register, login, logout)
--   Real-time cryptocurrency prices (via CoinGecko API)
--   Search cryptocurrency
--   Add/remove coins to portfolio and watchlist
--   Portfolio performance analytics (profit/loss, allocation chart, top gainers, top losers)
--   Export your portfolio report in both PDF and CSV formats.
--   View portfolio values in different fiat currencies (via Frankfurter API)
--   Dark mode support with theme persistence
+- User authentication (register, login, logout)
+- Real-time cryptocurrency prices (via CoinGecko API)
+- Search cryptocurrency
+- Add/remove coins to portfolio and watchlist
+- Portfolio performance analytics (profit/loss, allocation chart, top gainers, top losers)
+- Export your portfolio report in both PDF and CSV formats.
+- View portfolio values in different fiat currencies (via Frankfurter API)
+- Dark mode support with theme persistence
 
 ## Tech Stack
 
 The project is built with the MERN stack and other modern technologies:
 
--   **Frontend:** React, Tailwind CSS
--   **Backend:** Node.js, Express.js
--   **Database:** MongoDB (with Mongoose)
--   **Authentication:** JWT, Passport.js
--   **APIs:** CoinGecko (crypto data), Frankfurter (currency conversion)
--   **Key Libraries:**
-    -   `axios`: For making API requests.
-    -   `recharts`: For creating pie chart and bar chart.
-    -   `framer-motion`: For UI animations.
-    -   `jspdf` & `jspdf-autotable`: For generating PDF reports.
-    -   `React-toastify`: For alerts.
+- **Frontend:** React, Tailwind CSS
+- **Backend:** Node.js, Express.js
+- **Database:** MongoDB (with Mongoose)
+- **Authentication:** JWT, Passport.js
+- **APIs:** CoinGecko (crypto data), Frankfurter (currency conversion)
+- **Key Libraries:**
+    - `axios`: For making API requests.
+    - `recharts`: For creating pie chart and bar chart.
+    - `framer-motion`: For UI animations.
+    - `jspdf` & `jspdf-autotable`: For generating PDF reports.
+    - `React-toastify`: For alerts.
 
 ## Screenshots
 
 ### Home Page
-<img src="./images/home.png" width="600">
+
+<img src="./images/home.png" alt="Home Page" width="80%">
 Search and view top cryptocurrencies, add to watchlist or portfolio.
 
 ### Login Page
-<img src="./images/login.png" width="600">
+
+<img src="./images/login.png" alt="Login Page" width="80%">
+Login for registered users.
 
 ### Sign Up Page
-<img src="./images/signup.png" width="600">
+
+<img src="./images/signup.png" alt="Sign Up Page" width="80%">
+Register a new account.
 
 ### Dashboard
-<img src="./images/dashboard.png" width="600">
+
+<div align="center">
+  <img src="./images/dashboard-top.png" alt="Dashboard - Top" width="80%">
+  <br>
+  <br>
+  <img src="./images/dashboard-bottom.png" alt="Dashboard - Bottom" width="80%">
+</div>
 View portfolio summary, allocation charts, and top gainers/losers.
 
 ### Watchlist
-<img src="./images/watchlist.png" width="600">
+
+<img src="./images/watchlist.png" alt="Watchlist" width="80%">
 Manage your favorite coins.
 
 ### Dark Mode
-<img src="./images/dark.png" width="600">
+
+<img src="./images/dark.png" alt="Dark Mode" width="80%">
 Toggle between light and dark themes with persistent preference.
 
 ### Exported PDF
-<img src="./images/pdf.png" width="600">
+
+<img src="./images/pdf.png" alt="Exported PDF" width="80%">
 Downloadable portfolio report in PDF format.
 
 ### Exported CSV
-<img src="./images/csv.png" width="600">
-Downloadable portfolio report in CSV format.
 
+<img src="./images/csv.png" alt="Exported CSV" width="80%">
+Downloadable portfolio report in CSV format.
 
 ## Getting Started
 
@@ -91,9 +106,9 @@ Follow these instructions to set up and run the project locally on your machine.
 
 ### Prerequisites
 
--   Node.js (v18 or later recommended)
--   Git
--   MongoDB Community Server
+- Node.js (v18 or later recommended)
+- Git
+- MongoDB Community Server
 
 ### 1. Clone the Repository
 
@@ -160,11 +175,10 @@ npm run dev
 
 The application should now be running at **http://localhost:5173**.
 
-
 ## Attributions
 
--   Cryptocurrency data provided by [CoinGecko API](https://www.coingecko.com/en/api).
--   Currency conversion powered by [Frankfurter API](https://www.frankfurter.app/).
+- Cryptocurrency data provided by [CoinGecko API](https://www.coingecko.com/en/api).
+- Currency conversion powered by [Frankfurter API](https://www.frankfurter.app/).
 
 ## Contact
 
