@@ -54,16 +54,36 @@ The project is built with the MERN stack and other modern technologies:
 
 ## Screenshots
 
-| Screenshot                           | Description                                                                         |
-| ------------------------------------ | ----------------------------------------------------------------------------------- |
-| ![Home Page](./images/home.png)      | **Home Page:** Search and view top cryptocurrencies, add to watchlist or portfolio. |
-| ![Login Page](./images/login.png)    | **Login Page:** Login for registered users.                                         |
-| ![Sign Up Page](./images/signup.png) | **Sign Up Page:** Register a new account.                                           |
-| ![Dashboard](./images/dashboard.png) | **Dashboard:** View portfolio summary, allocation charts, and top gainers/losers.    |
-| ![Watchlist](./images/watchlist.png) | **Watchlist:** Manage your favorite coins.                                          |
-| ![Dark Mode](./images/dark.png)      | **Dark Mode:** Toggle between light and dark themes with persistent preference.     |
-| ![Exported PDF](./images/pdf.png)    | **Exported PDF:** Downloadable portfolio report in PDF format.                      |
-| ![Exported CSV](./images/csv.png)    | **Exported CSV:** Downloadable portfolio report in CSV format.                      |
+### Home Page
+<img src="./images/home.png" width="600">
+Search and view top cryptocurrencies, add to watchlist or portfolio.
+
+### Login Page
+<img src="./images/login.png" width="600">
+
+### Sign Up Page
+<img src="./images/signup.png" width="600">
+
+### Dashboard
+<img src="./images/dashboard.png" width="600">
+View portfolio summary, allocation charts, and top gainers/losers.
+
+### Watchlist
+<img src="./images/watchlist.png" width="600">
+Manage your favorite coins.
+
+### Dark Mode
+<img src="./images/dark.png" width="600">
+Toggle between light and dark themes with persistent preference.
+
+### Exported PDF
+<img src="./images/pdf.png" width="600">
+Downloadable portfolio report in PDF format.
+
+### Exported CSV
+<img src="./images/csv.png" width="600">
+Downloadable portfolio report in CSV format.
+
 
 ## Getting Started
 
